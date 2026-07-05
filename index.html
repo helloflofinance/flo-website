@@ -282,14 +282,6 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   .rv{opacity:1;transform:none;}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
-.calendly-wrap{
-  border-radius:16px;overflow:hidden;
-  box-shadow:0 8px 40px rgba(0,0,0,0.3);
-  border:1px solid rgba(255,255,255,0.07);
-}
-/* Override Calendly iframe bg to match */
-.calendly-inline-widget{border-radius:16px;overflow:hidden;}
-
 /* ARTICLES */
 .articles-outer{position:relative;margin-top:40px;}
 .articles-track{
@@ -360,9 +352,8 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <a href="#products">Products</a>
     <a href="#about">About</a>
     <a href="#insights">Insights</a>
-    <a href="#booking">Book a call</a>
   </div>
-  <a href="https://calendly.com/hello-flo-finance/30min" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
+  <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -372,8 +363,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <a href="#products" onclick="closeMenu()">Products</a>
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="#insights" onclick="closeMenu()">Insights</a>
-  <a href="#booking" onclick="closeMenu()">Book a call</a>
-  <a href="https://calendly.com/hello-flo-finance/30min" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
+  <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
 </div>
 
 <!-- HERO -->
@@ -389,7 +379,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <p class="hero-sub rv">flo builds smarter systems — for businesses done doing things the hard way. AI automation, financial ops, and web design built by someone who has lived inside real workflows.</p>
     <div class="actions rv">
       <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-p" target="_blank" rel="noopener">Get the Framework →</a>
-      <a href="https://calendly.com/hello-flo-finance/30min" class="btn-g" target="_blank" rel="noopener">Book a call</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-g" target="_blank" rel="noopener">Book a call</a>
     </div>
     <div class="hero-stats rv">
       <div><div class="sv">10+</div><div class="sl">Years in the field</div></div>
@@ -457,29 +447,11 @@ footer{background:var(--dark);border-top:1px solid var(--b);
         <h3>Start with a discovery call.</h3>
         <p>A focused conversation about where you are, what's costing you the most, and what the right move is. No pitch. No packages. Just honest direction.</p>
       </div>
-      <a href="https://calendly.com/hello-flo-finance/30min" class="btn-p" target="_blank" rel="noopener">Book a call →</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a call →</a>
     </div>
   </div>
 </section>
 
-
-<!-- BOOK A CALL -->
-<section id="booking" class="sec" style="background:var(--navy);">
-  <div class="wrap">
-    <p class="ey rv">Work with flo</p>
-    <h2 class="rv">Let's talk.</h2>
-    <p class="lead rv" style="margin-bottom:48px;">Pick a time that works for you. Free 30-minute consultation — no pitch, no packages. Just an honest conversation about what you're dealing with and whether flo can help.</p>
-    <div class="rv calendly-wrap">
-      <!-- Calendly inline widget begin -->
-      <div class="calendly-inline-widget"
-        data-url="https://calendly.com/hello-flo-finance/30min?text_color=0A1B3D&primary_color=144FCA"
-        style="min-width:320px;height:700px;border-radius:16px;overflow:hidden;">
-      </div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <!-- Calendly inline widget end -->
-    </div>
-  </div>
-</section>
 
 <!-- PRODUCTS -->
 <section id="products" class="sec" style="background:var(--light)">
@@ -629,7 +601,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       <a href="#products">Products</a>
       <a href="#about">About</a>
       <a href="#insights">Insights</a>
-      <a href="#booking">Book a call</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a call</a>
       <a href="mailto:hello.flo.finance@gmail.com">Contact</a>
     </div>
     <div class="socials">
@@ -873,5 +845,17 @@ function scrollArticles(dir){
 }
 
 </script>
+
+<!-- Cal floating-popup embed code begins -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", "flointelligence30", {origin:"https://app.cal.com"});
+Cal.config = Cal.config || {};
+Cal.config.forwardQueryParams = true;
+
+  Cal.ns.flointelligence30("floatingButton", {"calLink":"flo-intelligence-6v0495/flointelligence30","config":{"layout":"month_view","useSlotsViewOnSmallScreen":"true"},"buttonText":"Let's Talk","buttonColor":"#144FCA","buttonTextColor":"#FFFFFF"});
+  Cal.ns.flointelligence30("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#0A1B3D"},"dark":{"cal-brand":"#00CFFF"}},"hideEventTypeDetails":false,"layout":"month_view"});
+</script>
+<!-- Cal floating-popup embed code ends -->
 </body>
 </html>
