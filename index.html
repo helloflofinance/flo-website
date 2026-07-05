@@ -731,24 +731,13 @@ async function handleEmail(e){
   input.disabled = true;
 
   try {
-    const res = await fetch(
-      'https://api.beehiiv.com/v2/publications/e8599000-065f-465e-8e40-513c833e026a/subscriptions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 5Y066X8Dtk3U4sYZfSF47PQYiyUBDOhEU8eJJhF5GW8mAAlh5qmszU3kejdMAX9v'
-        },
-        body: JSON.stringify({
-          email: email,
-          reactivate_existing: false,
-          send_welcome_email: true,
-          utm_source: 'flo-website',
-          utm_medium: 'organic',
-          utm_campaign: 'email-cta'
-        })
-      }
-    );
+    // Subscription is proxied through a Netlify Function so the Beehiiv API
+    // key is never exposed in client-side code. See netlify/functions/subscribe.js
+    const res = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
     const data = await res.json();
     if(res.ok || data?.data?.status === 'active' || data?.data?.status === 'validating'){
       btn.textContent = "✓ You're in!";
