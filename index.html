@@ -642,78 +642,224 @@ window.addEventListener('scroll',()=>{
     window.scrollY>40?'rgba(6,13,31,0.98)':'rgba(6,13,31,0.88)';
 });
 
-// HERO BACKGROUND PARTICLES
+// HERO NEURAL NETWORK
+// A live "thinking system": drifting nodes, connections that form and dissolve
+// over time, signal pulses travelling the edges, and cursor/touch reactivity.
+// Pure 2D canvas — no libraries — so it stays light on mobile.
 (function(){
   const canvas=document.getElementById('hero-particles');
   if(!canvas)return;
   const ctx=canvas.getContext('2d');
-  let W,H;
-  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarse=window.matchMedia('(pointer: coarse)').matches;
 
-  class P{
-    constructor(scatter){
-      this.reset();
-      if(scatter)this.y=Math.random()*H;
+  const DPR=Math.min(window.devicePixelRatio||1,2);
+  let W,H,mobile;
+  function resize(){
+    W=canvas.offsetWidth||window.innerWidth;
+    H=canvas.offsetHeight||window.innerHeight;
+    mobile=W<768;
+    canvas.width=W*DPR;canvas.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+
+  // Node count scales with viewport area, capped hard on mobile for FPS.
+  function targetCount(){
+    return Math.max(30,Math.round(Math.min((W*H)/12500, mobile?54:112)));
+  }
+  const CONN = ()=> mobile?118:150;   // connection distance threshold
+  const nodes=[];
+  function seed(){
+    nodes.length=0;
+    const n=targetCount();
+    for(let i=0;i<n;i++){
+      nodes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*0.22, vy:(Math.random()-.5)*0.22,
+        base:0.30+Math.random()*0.55,           // baseline activity
+        phase:Math.random()*Math.PI*2,
+        pspeed:0.5+Math.random()*0.9,
+        hub:Math.random()<0.18,                 // some nodes read as "more active"
+        r:0, energy:0
+      });
     }
-    reset(){
-      this.x=Math.random()*W;this.y=H+10;
-      this.speed=0.3+Math.random()*0.65;
-      this.vx=(Math.random()-.5)*.22;this.vy=-this.speed;
-      this.isGlow=Math.random()<0.14;
-      this.r=this.isGlow?(1.8+Math.random()*2.5):(0.4+Math.random()*1.3);
-      this.life=0;
-      const r=Math.random();
-      if(this.isGlow){this.col='rgba(0,207,255,';}
-      else if(r<0.55){this.col='rgba(20,79,202,';}
-      else if(r<0.85){this.col='rgba(0,207,255,';}
-      else{this.col='rgba(122,139,168,';}
-    }
-    get opacity(){
-      const prog=1-(this.y/H);
-      const base=this.isGlow?.8:.5;
-      if(prog<0.08)return prog/.08*base;
-      if(prog>.88)return(1-prog)/.12*base;
-      return base;
-    }
-    update(){
-      this.x+=this.vx;this.y+=this.vy;this.life++;
-      this.vx+=(Math.random()-.5)*.006;this.vx*=.985;
-      if(this.y<-20||this.x<-20||this.x>W+20)this.reset();
-    }
-    draw(){
-      const o=this.opacity;
-      if(this.isGlow){
-        const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5);
-        g.addColorStop(0,this.col+o*0.9+')');
-        g.addColorStop(.4,this.col+o*0.22+')');
-        g.addColorStop(1,this.col+'0)');
-        ctx.beginPath();ctx.arc(this.x,this.y,this.r*5,0,Math.PI*2);
-        ctx.fillStyle=g;ctx.fill();
+    nodes.forEach(nd=>{ nd.r = nd.hub?(1.7+Math.random()*1.7):(0.9+Math.random()*1.1); });
+  }
+  seed();
+
+  // Signal pulses travel along a chosen edge from node a -> b.
+  const pulses=[];
+  function seedPulses(){
+    pulses.length=0;
+    const n=mobile?7:16;
+    for(let i=0;i<n;i++) pulses.push({a:0,b:0,t:1,speed:0,fresh:false});
+  }
+  seedPulses();
+  const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+
+  // Pointer influence (works for mouse move + touch drag). Canvas stays
+  // pointer-events:none so hero buttons remain clickable; we read window events.
+  let mx=-9999,my=-9999,mActive=false;
+  const bursts=[];
+  function toLocal(e){const r=canvas.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
+  if(!reduce){
+    window.addEventListener('pointermove',e=>{const[x,y]=toLocal(e);mx=x;my=y;mActive=(y>=0&&y<=H&&x>=0&&x<=W);},{passive:true});
+    window.addEventListener('pointerdown',e=>{
+      const[x,y]=toLocal(e);
+      if(y<0||y>H||x<0||x>W)return;           // only react inside the hero
+      bursts.push({x,y,t:0});
+      // energise nearby nodes + fire a few extra pulses from the tap point
+      let seeded=0;
+      for(let i=0;i<nodes.length;i++){
+        const dx=nodes[i].x-x,dy=nodes[i].y-y,d=Math.hypot(dx,dy);
+        if(d<170){ nodes[i].energy=Math.min(1.4,nodes[i].energy+(1-d/170)); }
       }
-      ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-      ctx.fillStyle=this.col+Math.min(o+(this.isGlow?.1:0),1)+')';ctx.fill();
-    }
+      for(let p=0;p<pulses.length&&seeded<4;p++){
+        if(pulses[p].t>=1){ assignPulse(pulses[p],x,y); seeded++; }
+      }
+    },{passive:true});
+    window.addEventListener('resize',()=>{resize();seed();});
   }
 
-  const pts=[];
-  for(let i=0;i<110;i++)pts.push(new P(true));
+  // Assign a pulse to an active edge, optionally biased to start near (ox,oy).
+  let edges=[];
+  function assignPulse(pl,ox,oy){
+    if(!edges.length){pl.t=1;return;}
+    let e;
+    if(ox!==undefined){
+      let best=null,bd=1e9;
+      for(let k=0;k<edges.length;k++){
+        const na=nodes[edges[k].i];
+        const d=Math.hypot(na.x-ox,na.y-oy);
+        if(d<bd){bd=d;best=edges[k];}
+      }
+      e=best||edges[(Math.random()*edges.length)|0];
+    } else e=edges[(Math.random()*edges.length)|0];
+    pl.a=e.i;pl.b=e.j;pl.t=0;pl.speed=0.004+Math.random()*0.010;pl.fresh=true;
+  }
 
-  function loop(){
+  const TAU=Math.PI*2;
+  function frame(t){
+    const time=t*0.001;
     ctx.clearRect(0,0,W,H);
-    // faint connections
-    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-      if(pts[i].isGlow||pts[j].isGlow)continue;
-      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<105){
-        ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-        ctx.strokeStyle=`rgba(20,79,202,${0.05*(1-d/105)})`;ctx.lineWidth=.4;ctx.stroke();
+    const thr=CONN();
+
+    // --- move nodes (gentle drift + subtle pull toward pointer) ---
+    for(let i=0;i<nodes.length;i++){
+      const nd=nodes[i];
+      if(mActive){
+        const dx=mx-nd.x,dy=my-nd.y,d2=dx*dx+dy*dy;
+        if(d2<170*170){const d=Math.sqrt(d2)||1;const f=(1-d/170)*0.010;nd.vx+=dx/d*f;nd.vy+=dy/d*f;}
+      }
+      nd.vx+=(Math.random()-.5)*0.006; nd.vy+=(Math.random()-.5)*0.006;
+      nd.vx*=0.97; nd.vy*=0.97;
+      const sp=Math.hypot(nd.vx,nd.vy),max=0.55;
+      if(sp>max){nd.vx=nd.vx/sp*max;nd.vy=nd.vy/sp*max;}
+      nd.x+=nd.vx; nd.y+=nd.vy;
+      if(nd.x<-30)nd.x=W+30; else if(nd.x>W+30)nd.x=-30;
+      if(nd.y<-30)nd.y=H+30; else if(nd.y>H+30)nd.y=-30;
+      nd.energy*=0.95;
+    }
+
+    // --- build edges + draw connections (distance + slow form/dissolve) ---
+    edges=[];
+    ctx.lineWidth=0.7;
+    for(let i=0;i<nodes.length;i++){
+      const a=nodes[i];
+      for(let j=i+1;j<nodes.length;j++){
+        const b=nodes[j];
+        const dx=a.x-b.x; if(dx>thr||dx<-thr)continue;
+        const dy=a.y-b.y; if(dy>thr||dy<-thr)continue;
+        const d=Math.hypot(dx,dy);
+        if(d>=thr)continue;
+        // per-pair oscillation → connections fade in and out over time
+        const form=0.55+0.45*Math.sin(time*0.5+(i*12.9898+j*4.1414));
+        const prox=1-d/thr;
+        let a2=prox*prox*form*0.62;
+        // highlight near the pointer
+        const near=mActive?Math.max(0,1-Math.min(Math.hypot((a.x+b.x)/2-mx,(a.y+b.y)/2-my)/170,1)):0;
+        edges.push({i,j,s:a2+near*0.4});
+        if(a2<0.012&&near<0.05)continue;
+        if(near>0.05){
+          ctx.strokeStyle='rgba(0,207,255,'+(a2*0.9+near*0.55).toFixed(3)+')';
+        }else{
+          ctx.strokeStyle='rgba(55,125,235,'+a2.toFixed(3)+')';
+        }
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
       }
     }
-    pts.forEach(p=>{p.update();p.draw();});
-    requestAnimationFrame(loop);
+
+    // --- nodes (glow scaled by activity; brighter = "more active") ---
+    ctx.globalCompositeOperation='lighter';
+    for(let i=0;i<nodes.length;i++){
+      const nd=nodes[i];
+      let cur=mActive?Math.max(0,1-Math.min(Math.hypot(nd.x-mx,nd.y-my)/170,1)):0;
+      const act=Math.min(1.4, nd.base*(0.6+0.4*Math.sin(time*nd.pspeed+nd.phase))+cur*0.7+nd.energy);
+      const R=nd.r*(1+act*0.5), o=Math.min(1,0.18+act*0.7);
+      const cyan=nd.hub||act>0.85||cur>0.3;
+      const col=cyan?'0,207,255':'70,130,230';
+      const g=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,R*4);
+      g.addColorStop(0,'rgba('+col+','+(o*0.5).toFixed(3)+')');
+      g.addColorStop(1,'rgba('+col+',0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(nd.x,nd.y,R*4,0,TAU);ctx.fill();
+      ctx.fillStyle='rgba('+(cyan?'150,225,255':'120,170,240')+','+o.toFixed(3)+')';
+      ctx.beginPath();ctx.arc(nd.x,nd.y,R,0,TAU);ctx.fill();
+    }
+
+    // --- signal pulses: the brightest thing in the scene ---
+    for(let p=0;p<pulses.length;p++){
+      const pl=pulses[p];
+      if(pl.t>=1){ assignPulse(pl); if(pl.t>=1)continue; if(pl.fresh){pl.t=Math.random()*0.25;pl.fresh=false;} }
+      pl.t+=pl.speed;
+      const a=nodes[pl.a],b=nodes[pl.b];
+      if(!a||!b){pl.t=1;continue;}
+      const e=easeInOut(Math.min(pl.t,1));
+      const x=a.x+(b.x-a.x)*e, y=a.y+(b.y-a.y)*e;
+      const fade=Math.sin(Math.min(pl.t,1)*Math.PI); // fade in/out along the trip
+      const g=ctx.createRadialGradient(x,y,0,x,y,7);
+      g.addColorStop(0,'rgba(210,245,255,'+(0.95*fade).toFixed(3)+')');
+      g.addColorStop(0.35,'rgba(0,207,255,'+(0.6*fade).toFixed(3)+')');
+      g.addColorStop(1,'rgba(0,207,255,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,7,0,TAU);ctx.fill();
+      ctx.fillStyle='rgba(230,250,255,'+(0.9*fade).toFixed(3)+')';
+      ctx.beginPath();ctx.arc(x,y,1.5,0,TAU);ctx.fill();
+    }
+
+    // --- tap ripples (touch/click feedback) ---
+    for(let bI=bursts.length-1;bI>=0;bI--){
+      const bu=bursts[bI]; bu.t+=0.03;
+      if(bu.t>=1){bursts.splice(bI,1);continue;}
+      const rad=bu.t*150, o=(1-bu.t)*0.5;
+      ctx.strokeStyle='rgba(0,207,255,'+o.toFixed(3)+')';ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.arc(bu.x,bu.y,rad,0,TAU);ctx.stroke();
+    }
+    ctx.globalCompositeOperation='source-over';
+    raf=requestAnimationFrame(frame);
   }
-  loop();
+
+  // Static single frame for reduced-motion users.
+  function staticFrame(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y),thr=CONN();
+      if(d<thr){ctx.strokeStyle='rgba(40,110,220,'+(0.28*(1-d/thr)).toFixed(3)+')';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+    }
+    for(let i=0;i<nodes.length;i++){const nd=nodes[i];ctx.fillStyle=nd.hub?'rgba(0,207,255,0.8)':'rgba(120,170,240,0.6)';ctx.beginPath();ctx.arc(nd.x,nd.y,nd.r,0,TAU);ctx.fill();}
+  }
+
+  // Only run while the hero is visible + tab is focused (battery/CPU friendly).
+  let raf=0,running=false;
+  function start(){ if(running||reduce)return; running=true; raf=requestAnimationFrame(frame); }
+  function stop(){ running=false; cancelAnimationFrame(raf); }
+  if(reduce){ staticFrame(); }
+  else{
+    document.addEventListener('visibilitychange',()=>{ document.hidden?stop():start(); });
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(es=>{ es[0].isIntersecting?start():stop(); },{threshold:0.01})
+        .observe(canvas);
+    } else start();
+  }
 })();
 
 
