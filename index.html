@@ -111,7 +111,22 @@ h2.dk{color:var(--navy);}
   opacity:0;transition:opacity .3s;}
 .svc:hover{border-color:rgba(0,207,255,0.18);transform:translateY(-3px);background:rgba(255,255,255,0.06);}
 .svc:hover::after{opacity:1}
-.svc-icon{font-size:22px;margin-bottom:14px;}
+.svc-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,207,255,0.06);border:1px solid rgba(0,207,255,0.14);margin-bottom:18px;}
+.svc:hover .svc-icon{background:rgba(0,207,255,0.1);border-color:rgba(0,207,255,0.28);}
+.svc-ic{width:30px;height:30px;display:block;overflow:visible;}
+.svc-ic .st{fill:none;stroke:#4E7BC4;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.svc-ic .ac{fill:none;stroke:var(--cyan);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.svc-ic .dot{fill:var(--cyan);}
+.svc-ic .dim{fill:#3A5680;}
+.svc-ic .bar{fill:#3A5680;}
+.svc-ic .barA{fill:var(--cyan);}
+@keyframes icPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+@keyframes icTravel{0%{transform:translate(0,0);opacity:0}18%{opacity:1}82%{opacity:1}100%{transform:translate(11px,7.5px);opacity:0}}
+@keyframes icGrow{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+.ic-pulse{animation:icPulse 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+.ic-travel{animation:icTravel 2.4s linear infinite;transform-box:fill-box;}
+.ic-grow{animation:icGrow 2.3s ease-in-out infinite;transform-box:fill-box;transform-origin:bottom;}
 .svc-title{font-size:16px;font-weight:600;color:var(--white);margin-bottom:8px;letter-spacing:-.3px;}
 .svc-desc{font-size:13.5px;font-weight:300;color:var(--slate);line-height:1.65;margin-bottom:18px;}
 .svc-list{list-style:none;}
@@ -170,8 +185,13 @@ h2.dk{color:var(--navy);}
 .step-num{width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;
   font-weight:700;font-size:16px;color:var(--cyan);background:rgba(0,207,255,0.07);
   border:1px solid rgba(0,207,255,0.22);margin-bottom:18px;position:relative;z-index:2;}
-.step:not(:last-child)::before{content:'';position:absolute;top:22px;left:54px;right:-24px;height:1px;
-  background:linear-gradient(90deg,rgba(0,207,255,0.35),rgba(0,207,255,0.04));z-index:1;}
+.step:not(:last-child)::before{content:'';position:absolute;top:22px;left:54px;right:-24px;height:2px;z-index:1;
+  background:linear-gradient(90deg,rgba(0,207,255,0.10) 0%,rgba(0,207,255,0.10) 42%,var(--cyan) 50%,rgba(0,207,255,0.10) 58%,rgba(0,207,255,0.10) 100%);
+  background-size:260% 100%;animation:stepFlow 3.6s linear infinite;}
+.steps .step:nth-child(1)::before{animation-delay:0s;}
+.steps .step:nth-child(2)::before{animation-delay:1.2s;}
+.steps .step:nth-child(3)::before{animation-delay:2.4s;}
+@keyframes stepFlow{0%{background-position:130% 0}100%{background-position:-30% 0}}
 .step h3{font-size:16px;font-weight:600;color:var(--white);margin-bottom:9px;letter-spacing:-.3px;}
 .step p{font-size:13.5px;font-weight:300;color:var(--slate);line-height:1.62;}
 
@@ -501,7 +521,14 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <p class="lead rv">Every flo build starts with one question: what's eating your time? Then we design the AI, automations, and systems that take it off your plate — so a small team runs like a much bigger one.</p>
     <div class="svc-grid">
       <div class="svc rv">
-        <div class="svc-icon">📅</div>
+        <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
+          <rect class="st" x="7" y="11" width="30" height="26" rx="4"/>
+          <line class="st" x1="7" y1="18" x2="37" y2="18"/>
+          <line class="st" x1="15" y1="8" x2="15" y2="13"/><line class="st" x1="29" y1="8" x2="29" y2="13"/>
+          <circle class="dim" cx="15" cy="25" r="1.6"/><circle class="dim" cx="22" cy="25" r="1.6"/>
+          <circle class="dot ic-pulse" cx="29" cy="25" r="2.1"/>
+          <circle class="dim" cx="15" cy="31" r="1.6"/><circle class="dot ic-pulse" cx="22" cy="31" r="2.1" style="animation-delay:1s"/>
+        </svg></div>
         <div class="svc-title">Automations that fill your calendar</div>
         <p class="svc-desc">Turn inbound interest into booked work — automatically. Intake, scheduling, and follow-up that run 24/7 so no lead ever goes cold.</p>
         <ul class="svc-list">
@@ -511,7 +538,13 @@ footer{background:var(--dark);border-top:1px solid var(--b);
         </ul>
       </div>
       <div class="svc rv">
-        <div class="svc-icon">🤖</div>
+        <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
+          <line class="st" x1="11" y1="13" x2="19" y2="19"/><line class="st" x1="11" y1="31" x2="19" y2="25"/><line class="st" x1="33" y1="13" x2="25" y2="19"/>
+          <circle class="ac" cx="22" cy="22" r="7"/>
+          <path class="dot" d="M22 17.8 l1.3 2.9 2.9 1.3 -2.9 1.3 -1.3 2.9 -1.3 -2.9 -2.9 -1.3 2.9 -1.3 z"/>
+          <circle class="dim" cx="10" cy="12" r="2.4"/><circle class="dim" cx="10" cy="32" r="2.4"/><circle class="dim" cx="34" cy="12" r="2.4"/>
+          <circle class="dot ic-travel" cx="11" cy="13" r="1.7"/>
+        </svg></div>
         <div class="svc-title">AI that replaces manual admin</div>
         <p class="svc-desc">Custom AI built on your real workflows — not ChatGPT tips. It drafts, sorts, summarizes, and replies, so the busywork stops landing on you.</p>
         <ul class="svc-list">
@@ -521,7 +554,14 @@ footer{background:var(--dark);border-top:1px solid var(--b);
         </ul>
       </div>
       <div class="svc rv">
-        <div class="svc-icon">🌐</div>
+        <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
+          <rect class="st" x="7" y="9" width="30" height="25" rx="3"/>
+          <line class="st" x1="7" y1="15" x2="37" y2="15"/>
+          <circle class="dim" cx="11" cy="12" r="1"/><circle class="dim" cx="14.5" cy="12" r="1"/>
+          <line class="st" x1="12" y1="22" x2="23" y2="22"/><line class="st" x1="12" y1="27" x2="19" y2="27"/>
+          <path class="dot" d="M26 23 l0 10 2.4 -2.6 1.7 3.6 1.7 -0.8 -1.7 -3.6 3.5 0 z"/>
+          <circle class="ac ic-pulse" cx="27" cy="24" r="4.2"/>
+        </svg></div>
         <div class="svc-title">Websites that convert visitors</div>
         <p class="svc-desc">Fast, custom sites designed to turn traffic into customers — built to book calls, capture leads, and signal you operate at a higher level.</p>
         <ul class="svc-list">
@@ -531,7 +571,14 @@ footer{background:var(--dark);border-top:1px solid var(--b);
         </ul>
       </div>
       <div class="svc rv">
-        <div class="svc-icon">📊</div>
+        <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
+          <path class="st" d="M9 9 v26 h26"/>
+          <rect class="bar" x="14" y="24" width="4.6" height="9" rx="1.4"/>
+          <rect class="barA ic-grow" x="21.7" y="18" width="4.6" height="15" rx="1.4"/>
+          <rect class="bar" x="29.4" y="21" width="4.6" height="12" rx="1.4"/>
+          <path class="ac" d="M14 25 L23 18.5 L31 14.5"/>
+          <circle class="dot ic-pulse" cx="31" cy="14.5" r="2.1"/>
+        </svg></div>
         <div class="svc-title">Dashboards that show what's working</div>
         <p class="svc-desc">Your numbers in one place, updated automatically. Stop guessing — see what's driving revenue and where time is leaking out of the business.</p>
         <ul class="svc-list">
