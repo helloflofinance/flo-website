@@ -242,15 +242,17 @@ h2.dk{color:var(--navy);}
 
 /* CONCIERGE CHAT */
 .fc-launch{position:fixed;left:22px;bottom:22px;z-index:9998;width:58px;height:58px;border-radius:16px;
-  border:1px solid rgba(0,207,255,0.25);cursor:pointer;background:var(--navy);overflow:hidden;padding:0;
-  box-shadow:0 8px 26px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;
-  transition:transform .2s,box-shadow .2s;}
-.fc-launch:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 12px 32px rgba(0,207,255,0.28);}
-.fc-launch .fc-chat{width:100%;height:100%;object-fit:cover;display:block;}
+  border:none;cursor:pointer;background:transparent;padding:0;
+  display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+.fc-launch:hover{transform:translateY(-2px) scale(1.04);}
+.fc-launch .fc-chat{width:58px;height:58px;object-fit:cover;display:block;border-radius:16px;
+  box-shadow:0 8px 26px rgba(0,0,0,0.5);transition:box-shadow .2s;}
+.fc-launch:hover .fc-chat{box-shadow:0 12px 32px rgba(0,207,255,0.32);}
 .fc-launch svg.fc-x{width:24px;height:24px;display:none;}
+.fc-launch.open{background:var(--navy);border:1px solid rgba(0,207,255,0.25);box-shadow:0 8px 26px rgba(0,0,0,0.45);}
 .fc-launch.open .fc-chat{display:none;}
 .fc-launch.open .fc-x{display:block;}
-.fc-badge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;
+.fc-badge{position:absolute;top:-3px;right:-3px;z-index:3;width:13px;height:13px;border-radius:50%;
   background:var(--cyan);border:2px solid var(--dark);box-shadow:0 0 8px var(--cyan);}
 .fc-launch.open .fc-badge{display:none;}
 .fc-panel{position:fixed;left:22px;bottom:90px;z-index:9998;width:372px;max-width:calc(100vw - 44px);
