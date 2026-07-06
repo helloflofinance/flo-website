@@ -127,7 +127,7 @@ h2.dk{color:var(--navy);}
 .cta-bar p{font-size:14px;color:var(--slate);max-width:440px;}
 
 /* CLIENT WORK */
-#clients{background:linear-gradient(180deg,var(--dark) 0%,var(--navy) 100%);}
+#clients{background:var(--navy);}
 .cw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px;}
 .cw{display:flex;flex-direction:column;background:rgba(255,255,255,0.03);
   border:1px solid var(--b);border-radius:16px;overflow:hidden;
@@ -249,6 +249,16 @@ h2.dk{color:var(--navy);}
   padding-top:28px;border-top:1px solid rgba(10,27,61,0.1);flex-wrap:wrap;}
 .psv{font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--navy);letter-spacing:-1.5px;line-height:1;}
 .psl{font-size:11px;color:var(--slate);letter-spacing:.8px;text-transform:uppercase;margin-top:4px;}
+/* slim (demoted) product card */
+.prod-slim{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,46px);align-items:center;
+  margin-top:40px;background:var(--white);border-radius:18px;
+  padding:clamp(26px,3.5vw,42px);box-shadow:0 24px 60px rgba(10,27,61,0.09);}
+.prod-slim .pbtn{margin-top:22px;}
+.ps-once{font-size:12px;font-weight:400;color:#8895aa;letter-spacing:0;}
+.ps-embed{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;
+  box-shadow:0 12px 34px rgba(10,27,61,0.16);}
+.ps-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+.ps-cap{font-size:12px;color:#6b7688;margin-top:12px;text-align:center;}
 
 /* ABOUT */
 #about{background:var(--dark);}
@@ -346,6 +356,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
 
   .svc-grid{grid-template-columns:1fr;}
   .prod-grid{grid-template-columns:1fr;}
+  .prod-slim{grid-template-columns:1fr;}
   .cw-grid{grid-template-columns:1fr;}
   .steps{grid-template-columns:1fr 1fr;}
   .step:not(:last-child)::before{display:none;}
@@ -439,9 +450,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <a href="#" class="logo"><img src="data:image/png;base64,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" alt="flo" style="height:38px;width:auto;object-fit:contain;display:block;"></a>
   <div class="nav-links">
     <a href="#work">Services</a>
-    <a href="#products">Products</a>
     <a href="#clients">Clients</a>
     <a href="#about">About</a>
+    <a href="#products">Products</a>
     <a href="#insights">Insights</a>
   </div>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
@@ -451,9 +462,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
 </nav>
 <div class="mob-menu" id="mob-menu">
   <a href="#work" onclick="closeMenu()">Services</a>
-  <a href="#products" onclick="closeMenu()">Products</a>
   <a href="#clients" onclick="closeMenu()">Clients</a>
   <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#products" onclick="closeMenu()">Products</a>
   <a href="#insights" onclick="closeMenu()">Insights</a>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
 </div>
@@ -540,6 +551,87 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   </div>
 </section>
 
+
+<!-- CLIENT WORK -->
+<section id="clients" class="sec">
+  <div class="wrap">
+    <p class="ey rv">Client work</p>
+    <h2 class="rv">Built for real businesses.</h2>
+    <p class="lead rv">A few of the systems and sites flo has shipped — across trades, local service, and personal brand. Different industries, same idea: build the thing that actually moves the needle.</p>
+    <div class="cw-grid">
+
+      <div class="cw rv">
+        <div class="cw-frame">
+          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">client-intake · automation</span></div>
+          <div class="cw-shot">
+            <svg class="cw-viz" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: inbound leads flowing through an automation into an organized pipeline">
+              <rect width="320" height="200" fill="#060D1F"/>
+              <!-- connectors -->
+              <line x1="86" y1="100" x2="136" y2="100" stroke="#144FCA" stroke-width="2" stroke-dasharray="3 4" opacity="0.7"/>
+              <line x1="184" y1="100" x2="234" y2="100" stroke="#144FCA" stroke-width="2" stroke-dasharray="3 4" opacity="0.7"/>
+              <circle class="cw-pulse" cx="86" cy="100" r="3" fill="#00CFFF"/>
+              <circle class="cw-pulse b" cx="184" cy="100" r="3" fill="#00CFFF"/>
+              <!-- stage 1: inbound leads (stacked cards) -->
+              <rect x="34" y="80" width="40" height="30" rx="5" fill="none" stroke="#3A5680" stroke-width="1.5" opacity="0.5" transform="translate(6 6)"/>
+              <rect x="34" y="80" width="40" height="30" rx="5" fill="#0F2C6C" stroke="#4E7BC4" stroke-width="1.5"/>
+              <path d="M40 86 L54 96 L68 86" fill="none" stroke="#8FB4E8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="54" y="132" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">INBOUND</text>
+              <!-- stage 2: automation hub -->
+              <circle cx="160" cy="100" r="30" fill="#00CFFF" opacity="0.10"/>
+              <circle cx="160" cy="100" r="21" fill="#0A1B3D" stroke="#00CFFF" stroke-width="1.6"/>
+              <path d="M160 89 L162.6 97.4 L171 100 L162.6 102.6 L160 111 L157.4 102.6 L149 100 L157.4 97.4 Z" fill="#00CFFF"/>
+              <text x="160" y="144" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">AUTOMATE</text>
+              <!-- stage 3: organized pipeline (checklist) -->
+              <g>
+                <rect x="238" y="80" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
+                <circle cx="244" cy="85.5" r="2.2" fill="#00CFFF"/>
+                <rect x="238" y="95" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
+                <circle cx="244" cy="100.5" r="2.2" fill="#00CFFF"/>
+                <rect x="238" y="110" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
+                <circle cx="244" cy="115.5" r="2.2" fill="#00CFFF"/>
+              </g>
+              <text x="262" y="140" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">ORGANIZED</text>
+            </svg>
+          </div>
+        </div>
+        <div class="cw-body">
+          <div class="cw-type">Workflow Automation</div>
+          <div class="cw-name">American Precision Woodwork</div>
+          <p class="cw-desc">A custom client-intake automation for a growing woodworking shop — turning scattered inbound leads into one organized, hands-off pipeline so nothing slips through the cracks.</p>
+          <div class="cw-meta">Owner · Anthony Izquierdo</div>
+          <span class="cw-private">Private internal build</span>
+        </div>
+      </div>
+
+      <div class="cw rv">
+        <a class="cw-frame" href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener" aria-label="Visit Icon Barbershop website">
+          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">iconbarbershop.netlify.app</span></div>
+          <div class="cw-shot"><img class="cw-img" src="assets/clients/icon-barbershop.webp" alt="Icon Barbershop website homepage — dark, editorial barbershop landing page" loading="lazy" width="1280" height="800"></div>
+        </a>
+        <div class="cw-body">
+          <div class="cw-type">Web Design</div>
+          <div class="cw-name">Icon Barbershop</div>
+          <p class="cw-desc">A custom, mobile-first website for a modern barbershop — designed to fill chairs, not just look sharp. Fast, clean, and built to turn visitors into booked appointments.</p>
+          <a class="cw-link" href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener">Visit site →</a>
+        </div>
+      </div>
+
+      <div class="cw rv">
+        <a class="cw-frame" href="https://camjohnson.netlify.app" target="_blank" rel="noopener" aria-label="Visit Cameron Johnson athlete profile">
+          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">camjohnson.netlify.app</span></div>
+          <div class="cw-shot"><img class="cw-img" src="assets/clients/cameron-johnson.webp" alt="Cameron Johnson athlete profile page — soccer player stats and highlights" loading="lazy" width="1280" height="800"></div>
+        </a>
+        <div class="cw-body">
+          <div class="cw-type">Athlete Profile</div>
+          <div class="cw-name">Cameron Johnson</div>
+          <p class="cw-desc">A custom digital profile for a competitive soccer player — highlights, stats, and story on one recruiter-ready page that works as hard as he does on the pitch.</p>
+          <a class="cw-link" href="https://camjohnson.netlify.app" target="_blank" rel="noopener">Visit site →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- HOW WE WORK -->
 <section id="process" class="sec">
@@ -647,53 +739,6 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section id="products" class="sec" style="background:var(--light)">
-  <div class="wrap">
-    <p class="ey ey-d rv">Digital products</p>
-    <h2 class="dk rv">Tools built in the field.</h2>
-    <p class="lead dk rv">Practitioner-built frameworks for operators and small teams closing the gap between where they work and where AI-era operators work.</p>
-    <div class="prod-grid">
-      <div class="pc feat rv">
-        <div class="pt">Smarter by Design</div>
-        <div class="pn">The Full AI Framework for Finance &amp; Operations</div>
-        <div class="pp"><sup>$</sup>69<span class="cts">.99</span></div>
-        <p class="pd">The complete CSBA framework — Context, Strategy, Build, Audit — for integrating AI into real finance and operations workflows. Built from practitioner experience, not productivity theory.</p>
-        <ul class="pf">
-          <li>CSBA Framework — full methodology and field guide</li>
-          <li>9 workflow applications with prompts and examples</li>
-          <li>25+ ready-to-use finance and operations prompts</li>
-          <li>5 premium flo Skills for any GPT assistant</li>
-          <li>PDF, interactive HTML, and PPTX formats</li>
-        </ul>
-        <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="pbtn" target="_blank" rel="noopener">Get Smarter by Design — $69.99 →</a>
-      </div>
-      <div class="pc rv" style="display:flex;flex-direction:column;">
-        <div class="pt" style="color:var(--accent);">Watch the Overview</div>
-        <div class="pn" style="color:var(--navy);">Smarter by Design — The Full AI Framework</div>
-        <div style="margin:20px 0;border-radius:12px;overflow:hidden;position:relative;padding-bottom:56.25%;height:0;">
-          <iframe
-            src="https://www.youtube.com/embed/6hJEUFlB-jM?rel=0&modestbranding=1&color=white"
-            title="Smarter by Design — The Full AI Framework by flo Intelligence in Motion"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;">
-          </iframe>
-        </div>
-        <p class="pd" style="margin-top:12px;">A walkthrough of the CSBA framework — how flo approaches AI integration in real finance and operations workflows. Watch before you buy, or share with your team.</p>
-        <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="pbtn" target="_blank" rel="noopener" style="margin-top:auto;">Get Smarter by Design — $69.99 →</a>
-      </div>
-      </div>
-    </div>
-    <div class="pstats rv">
-      <div><div class="psv">10+</div><div class="psl">Years in the field</div></div>
-      <div><div class="psv">3+</div><div class="psl">Client builds shipped</div></div>
-      <div><div class="psv">∞</div><div class="psl">Manual processes eliminated</div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ABOUT -->
 <section id="about" class="sec" style="background:var(--dark)">
   <div class="wrap">
@@ -739,83 +784,36 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   </div>
 </section>
 
-<!-- CLIENT WORK -->
-<section id="clients" class="sec">
+<!-- PRODUCTS -->
+<section id="products" class="sec" style="background:var(--light)">
   <div class="wrap">
-    <p class="ey rv">Client work</p>
-    <h2 class="rv">Built for real businesses.</h2>
-    <p class="lead rv">A few of the systems and sites flo has shipped — across trades, local service, and personal brand. Different industries, same idea: build the thing that actually moves the needle.</p>
-    <div class="cw-grid">
-
-      <div class="cw rv">
-        <div class="cw-frame">
-          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">client-intake · automation</span></div>
-          <div class="cw-shot">
-            <svg class="cw-viz" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: inbound leads flowing through an automation into an organized pipeline">
-              <rect width="320" height="200" fill="#060D1F"/>
-              <!-- connectors -->
-              <line x1="86" y1="100" x2="136" y2="100" stroke="#144FCA" stroke-width="2" stroke-dasharray="3 4" opacity="0.7"/>
-              <line x1="184" y1="100" x2="234" y2="100" stroke="#144FCA" stroke-width="2" stroke-dasharray="3 4" opacity="0.7"/>
-              <circle class="cw-pulse" cx="86" cy="100" r="3" fill="#00CFFF"/>
-              <circle class="cw-pulse b" cx="184" cy="100" r="3" fill="#00CFFF"/>
-              <!-- stage 1: inbound leads (stacked cards) -->
-              <rect x="34" y="80" width="40" height="30" rx="5" fill="none" stroke="#3A5680" stroke-width="1.5" opacity="0.5" transform="translate(6 6)"/>
-              <rect x="34" y="80" width="40" height="30" rx="5" fill="#0F2C6C" stroke="#4E7BC4" stroke-width="1.5"/>
-              <path d="M40 86 L54 96 L68 86" fill="none" stroke="#8FB4E8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <text x="54" y="132" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">INBOUND</text>
-              <!-- stage 2: automation hub -->
-              <circle cx="160" cy="100" r="30" fill="#00CFFF" opacity="0.10"/>
-              <circle cx="160" cy="100" r="21" fill="#0A1B3D" stroke="#00CFFF" stroke-width="1.6"/>
-              <path d="M160 89 L162.6 97.4 L171 100 L162.6 102.6 L160 111 L157.4 102.6 L149 100 L157.4 97.4 Z" fill="#00CFFF"/>
-              <text x="160" y="144" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">AUTOMATE</text>
-              <!-- stage 3: organized pipeline (checklist) -->
-              <g>
-                <rect x="238" y="80" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
-                <circle cx="244" cy="85.5" r="2.2" fill="#00CFFF"/>
-                <rect x="238" y="95" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
-                <circle cx="244" cy="100.5" r="2.2" fill="#00CFFF"/>
-                <rect x="238" y="110" width="48" height="11" rx="3" fill="#0F2C6C" stroke="#3A5680" stroke-width="1"/>
-                <circle cx="244" cy="115.5" r="2.2" fill="#00CFFF"/>
-              </g>
-              <text x="262" y="140" text-anchor="middle" fill="#7A8BA8" font-family="Poppins,sans-serif" font-size="9" font-weight="600" letter-spacing="1">ORGANIZED</text>
-            </svg>
-          </div>
-        </div>
-        <div class="cw-body">
-          <div class="cw-type">Workflow Automation</div>
-          <div class="cw-name">American Precision Woodwork</div>
-          <p class="cw-desc">A custom client-intake automation for a growing woodworking shop — turning scattered inbound leads into one organized, hands-off pipeline so nothing slips through the cracks.</p>
-          <div class="cw-meta">Owner · Anthony Izquierdo</div>
-          <span class="cw-private">Private internal build</span>
-        </div>
+    <p class="ey ey-d rv">Digital product · Self-serve</p>
+    <h2 class="dk rv">Not ready for a build? Start here.</h2>
+    <p class="lead dk rv">The same method flo builds with, packaged to run yourself — for operators and small teams who want to put AI to work without a full engagement.</p>
+    <div class="prod-slim rv">
+      <div class="ps-info">
+        <div class="pt">Smarter by Design</div>
+        <div class="pn">The full AI framework for operators</div>
+        <div class="pp"><sup>$</sup>69<span class="cts">.99</span> <span class="ps-once">· one-time</span></div>
+        <p class="pd">The complete CSBA method — Context, Strategy, Build, Audit — for putting AI into real workflows. Practitioner-built, not productivity theory.</p>
+        <ul class="pf">
+          <li>Full methodology + 9 workflow applications</li>
+          <li>25+ ready-to-use prompts &amp; 5 flo Skills for any GPT</li>
+          <li>PDF, interactive HTML, and PPTX formats</li>
+        </ul>
+        <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="pbtn" target="_blank" rel="noopener">Get Smarter by Design — $69.99 →</a>
       </div>
-
-      <div class="cw rv">
-        <a class="cw-frame" href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener" aria-label="Visit Icon Barbershop website">
-          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">iconbarbershop.netlify.app</span></div>
-          <div class="cw-shot"><img class="cw-img" src="assets/clients/icon-barbershop.webp" alt="Icon Barbershop website homepage — dark, editorial barbershop landing page" loading="lazy" width="1280" height="800"></div>
-        </a>
-        <div class="cw-body">
-          <div class="cw-type">Web Design</div>
-          <div class="cw-name">Icon Barbershop</div>
-          <p class="cw-desc">A custom, mobile-first website for a modern barbershop — designed to fill chairs, not just look sharp. Fast, clean, and built to turn visitors into booked appointments.</p>
-          <a class="cw-link" href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener">Visit site →</a>
+      <div class="ps-video">
+        <div class="ps-embed">
+          <iframe
+            src="https://www.youtube.com/embed/6hJEUFlB-jM?rel=0&modestbranding=1&color=white"
+            title="Smarter by Design — The Full AI Framework by flo Intelligence in Motion"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
+        <p class="ps-cap">A short walkthrough of the framework — watch before you buy.</p>
       </div>
-
-      <div class="cw rv">
-        <a class="cw-frame" href="https://camjohnson.netlify.app" target="_blank" rel="noopener" aria-label="Visit Cameron Johnson athlete profile">
-          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">camjohnson.netlify.app</span></div>
-          <div class="cw-shot"><img class="cw-img" src="assets/clients/cameron-johnson.webp" alt="Cameron Johnson athlete profile page — soccer player stats and highlights" loading="lazy" width="1280" height="800"></div>
-        </a>
-        <div class="cw-body">
-          <div class="cw-type">Athlete Profile</div>
-          <div class="cw-name">Cameron Johnson</div>
-          <p class="cw-desc">A custom digital profile for a competitive soccer player — highlights, stats, and story on one recruiter-ready page that works as hard as he does on the pitch.</p>
-          <a class="cw-link" href="https://camjohnson.netlify.app" target="_blank" rel="noopener">Visit site →</a>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -873,9 +871,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     </div>
     <div class="flinks">
       <a href="#work">Services</a>
-      <a href="#products">Products</a>
       <a href="#clients">Clients</a>
       <a href="#about">About</a>
+      <a href="#products">Products</a>
       <a href="#insights">Insights</a>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a call</a>
       <a href="mailto:hello.flo.finance@gmail.com">Contact</a>
