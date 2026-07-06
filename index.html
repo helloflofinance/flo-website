@@ -88,6 +88,12 @@ h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
   padding-top:32px;border-top:1px solid var(--b);flex-wrap:wrap;}
 .sv{font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--white);letter-spacing:-1px;line-height:1;}
 .sl{font-size:11px;font-weight:400;color:var(--slate);letter-spacing:.8px;text-transform:uppercase;margin-top:5px;}
+.hero-cred{display:flex;align-items:center;gap:13px;margin-top:30px;max-width:430px;}
+.hero-cred-av{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:center top;
+  border:1.5px solid rgba(0,207,255,0.45);box-shadow:0 0 0 3px rgba(0,207,255,0.08);flex-shrink:0;}
+.hero-cred-txt{display:flex;flex-direction:column;line-height:1.4;}
+.hero-cred-txt strong{font-size:13px;font-weight:600;color:var(--white);letter-spacing:-.2px;}
+.hero-cred-txt span{font-size:12px;font-weight:300;color:var(--slate);}
 
 
 /* SECTION BASE */
@@ -503,6 +509,13 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <div class="actions rv">
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
       <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-g" target="_blank" rel="noopener">Get the Framework</a>
+    </div>
+    <div class="hero-cred rv">
+      <img src="assets/avatar.jpg" alt="Phillip Bowers, founder of flo" class="hero-cred-av" width="46" height="46" loading="lazy">
+      <div class="hero-cred-txt">
+        <strong>Phillip Bowers · Founder</strong>
+        <span>A decade inside real operations — now building AI for small business.</span>
+      </div>
     </div>
     <div class="hero-stats rv">
       <div><div class="sv">10+</div><div class="sl">Years in the field</div></div>
