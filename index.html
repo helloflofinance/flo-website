@@ -996,6 +996,12 @@ window.addEventListener('scroll',()=>{
       }
     },{passive:true});
     window.addEventListener('resize',()=>{resize();seed();});
+    // subtle scroll parallax — the network recedes as the hero scrolls away
+    window.addEventListener('scroll',()=>{
+      const s=window.scrollY;
+      canvas.style.transform='translate3d(0,'+(s*0.28).toFixed(1)+'px,0)';
+      canvas.style.opacity=Math.max(0.35,1-s/(H*1.15)).toFixed(3);
+    },{passive:true});
   }
 
   // Assign a pulse to an active edge, optionally biased to start near (ox,oy).
@@ -1066,8 +1072,15 @@ window.addEventListener('scroll',()=>{
       }
     }
 
-    // --- nodes (glow scaled by activity; brighter = "more active") ---
     ctx.globalCompositeOperation='lighter';
+    // --- soft cursor halo: the system glows toward the viewer ---
+    if(mActive){
+      const hg=ctx.createRadialGradient(mx,my,0,mx,my,160);
+      hg.addColorStop(0,'rgba(0,207,255,0.055)');
+      hg.addColorStop(1,'rgba(0,207,255,0)');
+      ctx.fillStyle=hg;ctx.beginPath();ctx.arc(mx,my,160,0,TAU);ctx.fill();
+    }
+    // --- nodes (glow scaled by activity; brighter = "more active") ---
     for(let i=0;i<nodes.length;i++){
       const nd=nodes[i];
       let cur=mActive?Math.max(0,1-Math.min(Math.hypot(nd.x-mx,nd.y-my)/170,1)):0;
