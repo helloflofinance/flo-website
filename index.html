@@ -246,8 +246,10 @@ h2.dk{color:var(--navy);}
   display:flex;align-items:center;justify-content:center;transition:transform .2s;}
 .fc-launch:hover{transform:translateY(-2px) scale(1.04);}
 .fc-launch .fc-chat{width:58px;height:58px;object-fit:cover;display:block;border-radius:16px;
-  box-shadow:0 8px 26px rgba(0,0,0,0.5);transition:box-shadow .2s;}
-.fc-launch:hover .fc-chat{box-shadow:0 12px 32px rgba(0,207,255,0.32);}
+  box-shadow:0 8px 26px rgba(0,0,0,0.5);animation:fcGlow 3.4s ease-in-out infinite;}
+.fc-launch:hover .fc-chat{animation:none;box-shadow:0 12px 32px rgba(0,207,255,0.42);}
+@keyframes fcGlow{0%,100%{box-shadow:0 8px 26px rgba(0,0,0,0.5),0 0 0 0 rgba(0,207,255,0);}
+  50%{box-shadow:0 8px 26px rgba(0,0,0,0.5),0 0 18px 2px rgba(0,207,255,0.32);}}
 .fc-launch svg.fc-x{width:24px;height:24px;display:none;}
 .fc-launch.open{background:var(--navy);border:1px solid rgba(0,207,255,0.25);box-shadow:0 8px 26px rgba(0,0,0,0.45);}
 .fc-launch.open .fc-chat{display:none;}
@@ -1426,7 +1428,7 @@ function scrollArticles(dir){
 <div class="fc-panel" id="fcPanel" role="dialog" aria-label="flo assistant">
   <div class="fc-head">
     <img class="fc-avatar" src="assets/flo-icon.png" alt="flo">
-    <div class="fc-htext"><strong>flo assistant</strong><span class="fc-status">Quick answers · instant</span></div>
+    <div class="fc-htext"><strong>flo</strong><span class="fc-status">Practical, fast, allergic to busywork</span></div>
     <button class="fc-close" onclick="fcToggle()" aria-label="Close chat"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="fc-body" id="fcBody"></div>
@@ -1464,6 +1466,14 @@ function scrollArticles(dir){
       chips:[{t:'See it',a:'scroll:products'},{t:'Book a call instead',a:'cal'}]},
     news:{a:"flo sends a short newsletter with practical AI & ops tips — a couple emails a month, worth the open. You can subscribe from the sign-up section on the page.",
       chips:[{t:'Book a call',a:'cal'},{t:'What does flo do?',a:'q:services'}]},
+    timeline:{a:"Depends on scope. A one-page site can be ready in a week or two; bigger builds — multi-page sites, automations, AI systems — get a clear timeline on the discovery call once we know what's involved. No open-ended projects.",
+      chips:[{t:'Pricing',a:'q:pricing'},{t:'Book a call',a:'cal'}]},
+    fit:{a:"Small businesses and solo operators — trades, local service, coaches, personal brands, startups. If you're doing too much by hand and want systems that run without you, you're the fit. Not sure? A quick call sorts it fast.",
+      chips:[{t:'See our work',a:'q:clients'},{t:'Book a call',a:'cal'}]},
+    why:{a:"Two things. It's built by someone who's actually run operations — not an agency reading a playbook. And you own what gets built: no black box, no forever-retainer. You end up with a system your team can actually run.",
+      chips:[{t:'How it works',a:'q:process'},{t:'Book a call',a:'cal'}]},
+    support:{a:"Yep. Step four of every build is enablement, so you and your team can run it yourselves. If you'd rather flo keep the lights on, there's an optional maintenance plan (from $50/mo).",
+      chips:[{t:'Pricing',a:'q:pricing'},{t:'Book a call',a:'cal'}]},
     fallback:{a:"I'm a simple helper, so I stick to the basics — but a discovery call covers anything specific. Try one of these, or book a call:",
       chips:[{t:'What does flo do?',a:'q:services'},{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'Book a call',a:'cal'}]}
   };
@@ -1473,12 +1483,16 @@ function scrollArticles(dir){
     ['pricing',['price','pricing','cost','how much','quote',' rate ','budget','expensive','packages','package','$']],
     ['web',['website','web design','web site',' site ',' web ','landing',' launch ',' elevate ',' signature ']],
     ['ai',[' ai ','automation','automate','automating',' gpt ','chatbot','workflow',' admin ','dashboard',' data ','reporting','integration']],
-    ['process',['how does it work','how do you work','how it works','process','steps','get started','getting started','onboard','what to expect','timeline','how long']],
+    ['process',['how does it work','how do you work','how it works','process',' steps','the steps','get started','getting started','onboard','what to expect']],
     ['clients',['client','clients',' work ','portfolio','example','examples',' case ','projects','results','who have you','done for']],
     ['about',['who are you','who is','phillip',' phil ','founder','background','behind flo','your experience','about you','about flo']],
     ['book',[' book ','call','talk','contact','meeting','consult','discovery','schedule','appointment','get in touch','reach you','speak']],
     ['product',['smarter by design','framework','course','guide','template','diy','do it myself','self serve','self-serve','product','ebook']],
-    ['news',['newsletter','subscribe','mailing','email list','updates',' tips']],
+    ['news',['newsletter','subscribe','mailing','email list','sign me up']],
+    ['timeline',['how long','timeline','turnaround','how fast','how quick','when can','when will',' ready ','deadline','delivery','lead time']],
+    ['fit',['for me','right for','my business','for my business','my industry','right fit','do you work with','work with me','suitable','is this for','good fit','small business','businesses like','someone like me','my company','my shop']],
+    ['why',['why flo','why should','what makes','different','difference','better than','vs ','versus','compare','stand out','why you','why work']],
+    ['support',['support','maintenance','maintain','ongoing','after launch','after the build','retainer','keep it running','host','hosting','break']],
     ['services',['what do you do','what does flo do','services','service','what can you','help me with','offer','do you do']]
   ];
   function route(text){
@@ -1532,8 +1546,8 @@ function scrollArticles(dir){
     $('fcLaunch').classList.toggle('open',state.open);
     if(state.open){
       if(!state.greeted){ state.greeted=true;
-        addBot("Hey — I'm the flo assistant. Tap a question below, or type your own.",
-          [{t:'What does flo do?',a:'q:services'},{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'See our work',a:'q:clients'}]);
+        addBot("Hey — I'm flo. Tell me what you're after and I'll point you to it, or just tap a question below.",
+          [{t:'What does flo do?',a:'q:services'},{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'How long does it take?',a:'q:timeline'},{t:'See our work',a:'q:clients'},{t:'Why flo?',a:'q:why'}]);
       }
       setTimeout(function(){$('fcInput').focus();},260);
     }
