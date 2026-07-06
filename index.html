@@ -163,6 +163,54 @@ h2.dk{color:var(--navy);}
 .cw-pulse{animation:cwFlow 2.6s linear infinite;}
 .cw-pulse.b{animation-delay:1.3s;}
 
+/* HOW WE WORK */
+#process{background:var(--dark);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px;}
+.step{position:relative;}
+.step-num{width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:16px;color:var(--cyan);background:rgba(0,207,255,0.07);
+  border:1px solid rgba(0,207,255,0.22);margin-bottom:18px;position:relative;z-index:2;}
+.step:not(:last-child)::before{content:'';position:absolute;top:22px;left:54px;right:-24px;height:1px;
+  background:linear-gradient(90deg,rgba(0,207,255,0.35),rgba(0,207,255,0.04));z-index:1;}
+.step h3{font-size:16px;font-weight:600;color:var(--white);margin-bottom:9px;letter-spacing:-.3px;}
+.step p{font-size:13.5px;font-weight:300;color:var(--slate);line-height:1.62;}
+
+/* WEB DESIGN PRICING */
+#pricing{background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;align-items:start;}
+.tier{background:rgba(255,255,255,0.03);border:1px solid var(--b);border-radius:16px;
+  padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:transform .2s,border-color .2s;}
+.tier:hover{transform:translateY(-3px);border-color:rgba(0,207,255,0.2);}
+.tier.pop{border-color:rgba(0,207,255,0.4);background:rgba(0,207,255,0.035);box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+.tier-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--accent),var(--cyan));color:#fff;font-size:9.5px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap;}
+.tier-name{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;}
+.tier-price{font-size:34px;font-weight:700;color:var(--white);letter-spacing:-1px;line-height:1;}
+.tier-price sup{font-size:18px;font-weight:500;vertical-align:top;color:var(--silver);}
+.tier-start{font-size:10.5px;color:var(--slate);letter-spacing:.6px;text-transform:uppercase;display:block;margin:7px 0 14px;}
+.tier-desc{font-size:13px;font-weight:300;color:var(--slate);line-height:1.6;margin-bottom:18px;}
+.tier-plus{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;}
+.tier-list{list-style:none;margin-bottom:20px;}
+.tier-list li{font-size:12.8px;color:var(--silver);padding:7px 0;border-bottom:1px solid var(--b);display:flex;gap:9px;align-items:flex-start;line-height:1.4;}
+.tier-list li:last-child{border:none;}
+.tier-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--cyan);margin-top:6px;flex-shrink:0;}
+.tier-for{font-size:11.5px;color:var(--slate);line-height:1.5;margin-bottom:20px;}
+.tier-for strong{color:var(--silver);font-weight:500;}
+.tier-btn{margin-top:auto;text-align:center;font-size:13px;font-weight:600;padding:12px;border-radius:10px;
+  text-decoration:none;transition:opacity .15s,transform .15s,border-color .15s;
+  color:var(--white);border:1px solid rgba(255,255,255,0.16);}
+.tier-btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.32);}
+.tier.pop .tier-btn{background:var(--accent);border-color:transparent;box-shadow:0 4px 18px rgba(20,79,202,0.4);}
+.std-strip{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:40px;padding-top:30px;border-top:1px solid var(--b);justify-content:center;}
+.std-item{font-size:12.5px;color:var(--silver);display:inline-flex;gap:8px;align-items:center;}
+.std-item::before{content:'✓';color:var(--cyan);font-weight:700;font-size:11px;}
+.addons-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--slate);margin:44px 0 0;text-align:center;}
+.addons{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 30px;margin-top:22px;max-width:900px;margin-left:auto;margin-right:auto;}
+.addon h4{font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.addon-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--slate);padding:5px 0;}
+.addon-row span:last-child{color:var(--silver);font-weight:500;white-space:nowrap;}
+
 /* PRODUCTS */
 #products{background:var(--light);}
 #products h2{color:var(--navy);}
@@ -299,6 +347,10 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   .svc-grid{grid-template-columns:1fr;}
   .prod-grid{grid-template-columns:1fr;}
   .cw-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .step:not(:last-child)::before{display:none;}
+  .price-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto;}
+  .addons{grid-template-columns:1fr 1fr;}
   .about-grid{grid-template-columns:1fr;}
   .about-photo-col{position:static;max-width:280px;}
   .cta-bar{flex-direction:column;text-align:center;}
@@ -388,7 +440,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <div class="nav-links">
     <a href="#work">Services</a>
     <a href="#products">Products</a>
-    <a href="#clients">Work</a>
+    <a href="#clients">Clients</a>
     <a href="#about">About</a>
     <a href="#insights">Insights</a>
   </div>
@@ -400,7 +452,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
 <div class="mob-menu" id="mob-menu">
   <a href="#work" onclick="closeMenu()">Services</a>
   <a href="#products" onclick="closeMenu()">Products</a>
-  <a href="#clients" onclick="closeMenu()">Work</a>
+  <a href="#clients" onclick="closeMenu()">Clients</a>
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="#insights" onclick="closeMenu()">Insights</a>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
@@ -413,13 +465,13 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <div class="hero-tagline rv">flo &mdash; Intelligence in Motion</div>
     <div class="pill rv">
       <div class="pill-dot"></div>
-      <span>Now available — Smarter by Design · $69.99</span>
+      <span>AI &amp; Automation Consulting</span>
     </div>
-    <h1 class="rv">The intelligence<br>layer for how<br>you operate.</h1>
-    <p class="hero-sub rv">flo builds smarter systems — for businesses done doing things the hard way. AI automation, financial ops, and web design built by someone who has lived inside real workflows.</p>
+    <h1 class="rv">AI and automation,<br>built for how small<br>businesses actually run.</h1>
+    <p class="hero-sub rv">flo designs the AI systems, automations, and websites that quietly run the busywork behind your business — intake, scheduling, admin, reporting — so solo operators and small teams stop doing it all by hand. Practitioner-built, not theory.</p>
     <div class="actions rv">
-      <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-p" target="_blank" rel="noopener">Get the Framework →</a>
-      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-g" target="_blank" rel="noopener">Book a call</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
+      <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-g" target="_blank" rel="noopener">Get the Framework</a>
     </div>
     <div class="hero-stats rv">
       <div><div class="sv">10+</div><div class="sl">Years in the field</div></div>
@@ -434,71 +486,173 @@ footer{background:var(--dark);border-top:1px solid var(--b);
 <section id="work" class="sec">
   <div class="wrap">
     <p class="ey rv">What flo does</p>
-    <h2 class="rv">Built for operators<br>who are done guessing.</h2>
-    <p class="lead rv">Every engagement starts with a real problem — a process that costs too much time, a report nobody trusts, a workflow that breaks on a bad day. flo fixes the root, not the symptom.</p>
+    <h2 class="rv">Systems that do the work,<br>so you don't have to.</h2>
+    <p class="lead rv">Every flo build starts with one question: what's eating your time? Then we design the AI, automations, and systems that take it off your plate — so a small team runs like a much bigger one.</p>
     <div class="svc-grid">
       <div class="svc rv">
+        <div class="svc-icon">📅</div>
+        <div class="svc-title">Automations that fill your calendar</div>
+        <p class="svc-desc">Turn inbound interest into booked work — automatically. Intake, scheduling, and follow-up that run 24/7 so no lead ever goes cold.</p>
+        <ul class="svc-list">
+          <li>Automated lead intake &amp; capture</li>
+          <li>Scheduling &amp; booking flows</li>
+          <li>Follow-ups &amp; reminders that never miss</li>
+        </ul>
+      </div>
+      <div class="svc rv">
         <div class="svc-icon">🤖</div>
-        <div class="svc-title">AI &amp; Automation</div>
-        <p class="svc-desc">Engineered AI systems built on your actual workflows — not ChatGPT tips. Custom GPTs, intelligent automations, and AI-assisted reporting that works without babysitting.</p>
+        <div class="svc-title">AI that replaces manual admin</div>
+        <p class="svc-desc">Custom AI built on your real workflows — not ChatGPT tips. It drafts, sorts, summarizes, and replies, so the busywork stops landing on you.</p>
         <ul class="svc-list">
-          <li>Custom GPT and prompt engineering</li>
-          <li>AI workflow integration strategy</li>
-          <li>AI-assisted reporting pipelines</li>
-          <li>Implementation and team enablement</li>
-        </ul>
-      </div>
-      <div class="svc rv">
-        <div class="svc-icon">⚡</div>
-        <div class="svc-title">Operational Workflows</div>
-        <p class="svc-desc">End-to-end workflow design for businesses that have outgrown ad hoc solutions. Intake, scheduling, client comms, approvals — systems that run even when you're not in the room.</p>
-        <ul class="svc-list">
-          <li>Intake and client comm automation</li>
-          <li>Scheduling and follow-up workflows</li>
-          <li>Approval and handoff design</li>
-          <li>Cross-system integration builds</li>
-        </ul>
-      </div>
-      <div class="svc rv">
-        <div class="svc-icon">💰</div>
-        <div class="svc-title">Financial Systems</div>
-        <p class="svc-desc">Cash positioning, bank reporting, reconciliation, and Power BI dashboards built by someone who has lived inside these workflows for over a decade.</p>
-        <ul class="svc-list">
-          <li>Cash visibility and positioning</li>
-          <li>Bank fee analysis and benchmarking</li>
-          <li>Executive Power BI dashboards</li>
-          <li>Variance workflows and automation</li>
+          <li>Custom GPTs &amp; assistants</li>
+          <li>Document &amp; email automation</li>
+          <li>AI-assisted reporting</li>
         </ul>
       </div>
       <div class="svc rv">
         <div class="svc-icon">🌐</div>
-        <div class="svc-title">Custom Web Design</div>
-        <p class="svc-desc">Premium websites built to perform — purpose-built for consultants, operators, and small businesses who need a digital presence that signals they operate at a different level.</p>
+        <div class="svc-title">Websites that convert visitors</div>
+        <p class="svc-desc">Fast, custom sites designed to turn traffic into customers — built to book calls, capture leads, and signal you operate at a higher level.</p>
         <ul class="svc-list">
-          <li>Custom single-page and multi-page sites</li>
-          <li>Mobile-first, performance-optimized</li>
-          <li>Netlify deployment included</li>
-          <li>Brand-coherent design systems</li>
+          <li>Custom, mobile-first design</li>
+          <li>Conversion-focused layout</li>
+          <li>Booking &amp; lead capture built in</li>
+        </ul>
+      </div>
+      <div class="svc rv">
+        <div class="svc-icon">📊</div>
+        <div class="svc-title">Dashboards that show what's working</div>
+        <p class="svc-desc">Your numbers in one place, updated automatically. Stop guessing — see what's driving revenue and where time is leaking out of the business.</p>
+        <ul class="svc-list">
+          <li>Automated data &amp; reporting</li>
+          <li>Live KPI dashboards</li>
+          <li>Clear, decision-ready views</li>
         </ul>
       </div>
     </div>
     <div class="cta-bar rv">
       <div>
-        <h3>Start with a discovery call.</h3>
-        <p>A focused conversation about where you are, what's costing you the most, and what the right move is. No pitch. No packages. Just honest direction.</p>
+        <h3>Not sure which you need?</h3>
+        <p>That's exactly what the discovery call is for — a focused conversation about where your time and money are leaking, and the right first move. No pitch, no pressure.</p>
       </div>
-      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a call →</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
     </div>
   </div>
 </section>
 
+
+<!-- HOW WE WORK -->
+<section id="process" class="sec">
+  <div class="wrap">
+    <p class="ey rv">How we work</p>
+    <h2 class="rv">A clear path, start to finish.</h2>
+    <p class="lead rv">No mystery, no lock-in. Four steps from the first call to a system your team actually uses — and owns.</p>
+    <div class="steps">
+      <div class="step rv"><div class="step-num">1</div><h3>Discovery call</h3><p>We dig into where your time and money are leaking. No pitch — you leave with a plan whether we work together or not.</p></div>
+      <div class="step rv"><div class="step-num">2</div><h3>Custom build</h3><p>flo designs and builds the system around your actual workflow — not a template you have to bend yourself around.</p></div>
+      <div class="step rv"><div class="step-num">3</div><h3>Implementation</h3><p>We roll it out and wire it into your day-to-day. Tested, working, and integrated with the tools you already use.</p></div>
+      <div class="step rv"><div class="step-num">4</div><h3>Enablement</h3><p>You and your team learn to run it. It's yours to operate — a system you own, not a black box you rent.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEB DESIGN PRICING -->
+<section id="pricing" class="sec">
+  <div class="wrap">
+    <p class="ey rv">Web design — productized</p>
+    <h2 class="rv">One service, priced up front.</h2>
+    <p class="lead rv">Web design is the one thing flo prices openly. Everything else — AI, automation, dashboards — is scoped from a discovery call, because it's built around you.</p>
+    <div class="price-grid">
+      <div class="tier rv">
+        <div class="tier-name">Launch</div>
+        <div class="tier-price"><sup>$</sup>350</div>
+        <span class="tier-start">Starting at</span>
+        <p class="tier-desc">Everything you need to establish a professional online presence.</p>
+        <ul class="tier-list">
+          <li>Custom one-page website</li>
+          <li>Responsive across all devices</li>
+          <li>Contact form</li>
+          <li>Basic SEO</li>
+          <li>Performance optimization</li>
+          <li>Deployment</li>
+          <li>1 revision</li>
+        </ul>
+        <p class="tier-for"><strong>Perfect for:</strong> local businesses, barbers, restaurants, coaches, and personal brands.</p>
+        <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="tier-btn" target="_blank" rel="noopener">Start with a call →</a>
+      </div>
+      <div class="tier pop rv">
+        <div class="tier-badge">Most popular</div>
+        <div class="tier-name">Elevate</div>
+        <div class="tier-price"><sup>$</sup>700</div>
+        <span class="tier-start">Starting at</span>
+        <p class="tier-desc">Designed for businesses ready to convert more visitors into customers.</p>
+        <div class="tier-plus">Everything in Launch, plus</div>
+        <ul class="tier-list">
+          <li>Additional pages &amp; sections</li>
+          <li>Premium animations</li>
+          <li>Conversion-focused layout</li>
+          <li>Analytics</li>
+          <li>Social integrations</li>
+          <li>2 revisions</li>
+        </ul>
+        <p class="tier-for"><strong>Perfect for:</strong> growing businesses, startups, and professional services.</p>
+        <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="tier-btn" target="_blank" rel="noopener">Start with a call →</a>
+      </div>
+      <div class="tier rv">
+        <div class="tier-name">Signature</div>
+        <div class="tier-price"><sup>$</sup>1,500</div>
+        <span class="tier-start">Starting at</span>
+        <p class="tier-desc">A completely custom digital experience tailored to your business.</p>
+        <ul class="tier-list">
+          <li>Custom UI/UX</li>
+          <li>Advanced interactions</li>
+          <li>Custom functionality</li>
+          <li>API integrations</li>
+          <li>Strategy session</li>
+          <li>Priority support</li>
+        </ul>
+        <p class="tier-for"><strong>Perfect for:</strong> premium brands, athletes, agencies, and product launches.</p>
+        <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="tier-btn" target="_blank" rel="noopener">Start with a call →</a>
+      </div>
+    </div>
+    <div class="std-strip rv">
+      <span class="std-item">Fully custom design</span>
+      <span class="std-item">Mobile responsive</span>
+      <span class="std-item">Fast performance</span>
+      <span class="std-item">SEO ready</span>
+      <span class="std-item">Secure deployment</span>
+      <span class="std-item">Source code ownership</span>
+    </div>
+    <p class="addons-label rv">Popular add-ons</p>
+    <div class="addons rv">
+      <div class="addon"><h4>Growth</h4>
+        <div class="addon-row"><span>Additional pages</span><span>$125+</span></div>
+        <div class="addon-row"><span>Blog / CMS</span><span>$250+</span></div>
+        <div class="addon-row"><span>Copywriting</span><span>$200+</span></div>
+      </div>
+      <div class="addon"><h4>Integrations</h4>
+        <div class="addon-row"><span>Booking systems</span><span>$100+</span></div>
+        <div class="addon-row"><span>Business integrations</span><span>$150+</span></div>
+        <div class="addon-row"><span>AI business assistant</span><span>$350+</span></div>
+      </div>
+      <div class="addon"><h4>Branding</h4>
+        <div class="addon-row"><span>Logo refinement</span><span>$100+</span></div>
+        <div class="addon-row"><span>Brand style guide</span><span>$300+</span></div>
+      </div>
+      <div class="addon"><h4>Ongoing support</h4>
+        <div class="addon-row"><span>Website maintenance</span><span>$50/mo</span></div>
+        <div class="addon-row"><span>Additional revisions</span><span>$75</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- PRODUCTS -->
 <section id="products" class="sec" style="background:var(--light)">
   <div class="wrap">
     <p class="ey ey-d rv">Digital products</p>
     <h2 class="dk rv">Tools built in the field.</h2>
-    <p class="lead dk rv">Practitioner-built frameworks for finance professionals and operators closing the gap between where they work and where AI-era operators work.</p>
+    <p class="lead dk rv">Practitioner-built frameworks for operators and small teams closing the gap between where they work and where AI-era operators work.</p>
     <div class="prod-grid">
       <div class="pc feat rv">
         <div class="pt">Smarter by Design</div>
@@ -533,8 +687,8 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       </div>
     </div>
     <div class="pstats rv">
-      <div><div class="psv">10+</div><div class="psl">Years designing financial systems</div></div>
-      <div><div class="psv">Corp.</div><div class="psl">Treasury background</div></div>
+      <div><div class="psv">10+</div><div class="psl">Years in the field</div></div>
+      <div><div class="psv">3+</div><div class="psl">Client builds shipped</div></div>
       <div><div class="psv">∞</div><div class="psl">Manual processes eliminated</div></div>
     </div>
   </div>
@@ -720,7 +874,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <div class="flinks">
       <a href="#work">Services</a>
       <a href="#products">Products</a>
-      <a href="#clients">Work</a>
+      <a href="#clients">Clients</a>
       <a href="#about">About</a>
       <a href="#insights">Insights</a>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a call</a>
