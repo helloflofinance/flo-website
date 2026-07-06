@@ -240,6 +240,68 @@ h2.dk{color:var(--navy);}
 .addon-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--slate);padding:5px 0;}
 .addon-row span:last-child{color:var(--silver);font-weight:500;white-space:nowrap;}
 
+/* CONCIERGE CHAT */
+.fc-launch{position:fixed;left:22px;bottom:22px;z-index:9998;width:58px;height:58px;border-radius:16px;
+  border:1px solid rgba(0,207,255,0.25);cursor:pointer;background:var(--navy);overflow:hidden;padding:0;
+  box-shadow:0 8px 26px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,box-shadow .2s;}
+.fc-launch:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 12px 32px rgba(0,207,255,0.28);}
+.fc-launch .fc-chat{width:100%;height:100%;object-fit:cover;display:block;}
+.fc-launch svg.fc-x{width:24px;height:24px;display:none;}
+.fc-launch.open .fc-chat{display:none;}
+.fc-launch.open .fc-x{display:block;}
+.fc-badge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;
+  background:var(--cyan);border:2px solid var(--dark);box-shadow:0 0 8px var(--cyan);}
+.fc-launch.open .fc-badge{display:none;}
+.fc-panel{position:fixed;left:22px;bottom:90px;z-index:9998;width:372px;max-width:calc(100vw - 44px);
+  height:540px;max-height:calc(100vh - 130px);background:var(--navy);
+  border:1px solid rgba(0,207,255,0.18);border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.55);
+  opacity:0;transform:translateY(12px) scale(.98);pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease;}
+.fc-panel.open{opacity:1;transform:none;pointer-events:auto;}
+.fc-head{display:flex;align-items:center;gap:11px;padding:15px 16px;
+  background:rgba(0,0,0,0.22);border-bottom:1px solid var(--b);}
+.fc-avatar{width:36px;height:36px;border-radius:10px;flex-shrink:0;object-fit:cover;
+  border:1px solid rgba(0,207,255,0.2);}
+.fc-htext{flex:1;line-height:1.3;}
+.fc-htext strong{display:block;font-size:14px;color:var(--white);font-weight:600;}
+.fc-status{font-size:11px;color:var(--slate);display:flex;align-items:center;gap:6px;}
+.fc-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#39d98a;box-shadow:0 0 6px #39d98a;}
+.fc-close{background:none;border:none;color:var(--slate);cursor:pointer;padding:4px;line-height:0;transition:color .15s;}
+.fc-close:hover{color:var(--white);}
+.fc-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;}
+.fc-msg{max-width:86%;font-size:13.5px;line-height:1.55;padding:10px 13px;border-radius:13px;white-space:pre-wrap;word-wrap:break-word;}
+.fc-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.06);color:var(--silver);border-bottom-left-radius:4px;}
+.fc-msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px;}
+.fc-msg a{color:var(--cyan);text-decoration:underline;}
+.fc-typing{align-self:flex-start;display:flex;gap:4px;padding:13px 14px;background:rgba(255,255,255,0.06);border-radius:13px;border-bottom-left-radius:4px;}
+.fc-typing span{width:6px;height:6px;border-radius:50%;background:var(--slate);animation:fcBlink 1.2s infinite;}
+.fc-typing span:nth-child(2){animation-delay:.2s;}
+.fc-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes fcBlink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.fc-chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 12px;}
+.fc-chip{font-size:12px;color:var(--cyan);background:rgba(0,207,255,0.07);border:1px solid rgba(0,207,255,0.2);
+  border-radius:100px;padding:7px 13px;cursor:pointer;font-family:var(--f);transition:background .15s,border-color .15s;}
+.fc-chip:hover{background:rgba(0,207,255,0.14);border-color:rgba(0,207,255,0.4);}
+.fc-sugg{display:flex;flex-wrap:wrap;gap:7px;align-self:flex-start;max-width:94%;margin-top:-2px;}
+.fc-chip.act{color:var(--white);background:var(--accent);border-color:transparent;font-weight:600;}
+.fc-chip.act:hover{background:#1a5be0;}
+.fc-foot{display:flex;gap:8px;padding:12px;border-top:1px solid var(--b);background:rgba(0,0,0,0.18);}
+.fc-input{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--b);border-radius:10px;
+  padding:10px 13px;color:var(--white);font-family:var(--f);font-size:13.5px;line-height:1.4;resize:none;outline:none;max-height:90px;}
+.fc-input:focus{border-color:rgba(0,207,255,0.4);}
+.fc-input::placeholder{color:var(--slate);}
+.fc-send{flex-shrink:0;width:40px;border:none;border-radius:10px;background:var(--accent);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:opacity .15s,transform .15s;}
+.fc-send:hover{transform:translateY(-1px);}
+.fc-send:disabled{opacity:.4;cursor:default;transform:none;}
+.fc-send svg{width:18px;height:18px;}
+@media(max-width:480px){
+  .fc-panel{left:12px;right:12px;width:auto;max-width:none;bottom:82px;height:calc(100vh - 150px);}
+  .fc-launch{left:16px;bottom:16px;}
+}
+
 /* PRODUCTS */
 #products{background:var(--light);}
 #products h2{color:var(--navy);}
@@ -1351,6 +1413,138 @@ function scrollArticles(dir){
   if(track) track.scrollBy({left: dir * 340, behavior:'smooth'});
 }
 
+</script>
+
+<!-- flo concierge chat -->
+<button class="fc-launch" id="fcLaunch" aria-label="Open the flo assistant" onclick="fcToggle()">
+  <span class="fc-badge"></span>
+  <img class="fc-chat" src="assets/flo-icon.png" alt="flo assistant" width="58" height="58">
+  <svg class="fc-x" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+<div class="fc-panel" id="fcPanel" role="dialog" aria-label="flo assistant">
+  <div class="fc-head">
+    <img class="fc-avatar" src="assets/flo-icon.png" alt="flo">
+    <div class="fc-htext"><strong>flo assistant</strong><span class="fc-status">Quick answers · instant</span></div>
+    <button class="fc-close" onclick="fcToggle()" aria-label="Close chat"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="fc-body" id="fcBody"></div>
+  <div class="fc-foot">
+    <textarea class="fc-input" id="fcInput" rows="1" placeholder="Ask about flo…" onkeydown="fcKey(event)" oninput="fcGrow(this)"></textarea>
+    <button class="fc-send" id="fcSend" onclick="fcSend()" aria-label="Send message"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+<script>
+(function(){
+  const CAL='https://cal.com/flo-intelligence-6v0495/flointelligence30';
+  const MAIL='mailto:hello.flo.finance@gmail.com';
+  const $=function(id){return document.getElementById(id);};
+  const state={open:false,greeted:false,busy:false};
+
+  // Canned answers by topic. chips = follow-up buttons (action codes below).
+  const FAQ={
+    services:{a:"flo builds the systems that run the busywork behind a small business:\n\n• Automations that fill your calendar (intake, scheduling, follow-up)\n• AI that replaces manual admin\n• Websites that convert visitors\n• Dashboards that show what's working\n\nWant pricing, or how it works?",
+      chips:[{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'Book a call',a:'cal'}]},
+    pricing:{a:"Websites are the one service with set packages:\n\n• Launch — from $350\n• Elevate — from $700 (most popular)\n• Signature — from $1,500\n\nEverything else (AI, automation, dashboards) is scoped on a quick discovery call, since it's built around your business.",
+      chips:[{t:'See the packages',a:'scroll:pricing'},{t:'Book a discovery call',a:'cal'},{t:'How it works',a:'q:process'}]},
+    process:{a:"Four steps, and you own what we build:\n\n1. Discovery call — we find where your time & money leak\n2. Custom build — designed around your real workflow\n3. Implementation — rolled out and wired into your day-to-day\n4. Enablement — you and your team run it\n\nNo lock-in, no black box.",
+      chips:[{t:'Book a discovery call',a:'cal'},{t:'See our work',a:'q:clients'}]},
+    ai:{a:"Custom AI and automation built on your real workflows — not ChatGPT tips. Think custom GPTs, document & email automation, lead intake, and AI-assisted reporting that runs without babysitting. It's scoped to your business on a discovery call.",
+      chips:[{t:'Book a call',a:'cal'},{t:'See our work',a:'q:clients'}]},
+    web:{a:"Fast, custom websites built to convert — book calls, capture leads, and make you look as sharp as you are. Packages start at $350 (Launch), $700 (Elevate) and $1,500 (Signature).",
+      chips:[{t:'See the packages',a:'scroll:pricing'},{t:'Book a call',a:'cal'}]},
+    clients:{a:"A few recent builds:\n\n• American Precision Woodwork — custom client-intake automation\n• Icon Barbershop — custom website\n• Cameron Johnson — custom athlete profile page\n\nDifferent industries, same goal: build the thing that earns its keep.",
+      chips:[{t:'See the work',a:'scroll:clients'},{t:'Book a call',a:'cal'}]},
+    about:{a:"flo is Phillip Bowers — a decade inside real business operations, now building AI and automation for solo operators and small teams. Practitioner-built, not theory.",
+      chips:[{t:'What does flo do?',a:'q:services'},{t:'Book a call',a:'cal'}]},
+    book:{a:"Easiest next step is a free 30-minute discovery call — no pitch, just a plan. Grab a time below, or email hello.flo.finance@gmail.com.",
+      chips:[{t:'Book a discovery call',a:'cal'},{t:'Email flo',a:'mail'}]},
+    product:{a:"\"Smarter by Design\" is a $69.99 self-serve framework (the CSBA method) if you'd rather run AI into your own workflows without a full engagement.",
+      chips:[{t:'See it',a:'scroll:products'},{t:'Book a call instead',a:'cal'}]},
+    news:{a:"flo sends a short newsletter with practical AI & ops tips — a couple emails a month, worth the open. You can subscribe from the sign-up section on the page.",
+      chips:[{t:'Book a call',a:'cal'},{t:'What does flo do?',a:'q:services'}]},
+    fallback:{a:"I'm a simple helper, so I stick to the basics — but a discovery call covers anything specific. Try one of these, or book a call:",
+      chips:[{t:'What does flo do?',a:'q:services'},{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'Book a call',a:'cal'}]}
+  };
+
+  // Free-text keyword routing. Short tokens are space-padded to match whole words.
+  const MATCH=[
+    ['pricing',['price','pricing','cost','how much','quote',' rate ','budget','expensive','packages','package','$']],
+    ['web',['website','web design','web site',' site ',' web ','landing',' launch ',' elevate ',' signature ']],
+    ['ai',[' ai ','automation','automate','automating',' gpt ','chatbot','workflow',' admin ','dashboard',' data ','reporting','integration']],
+    ['process',['how does it work','how do you work','how it works','process','steps','get started','getting started','onboard','what to expect','timeline','how long']],
+    ['clients',['client','clients',' work ','portfolio','example','examples',' case ','projects','results','who have you','done for']],
+    ['about',['who are you','who is','phillip',' phil ','founder','background','behind flo','your experience','about you','about flo']],
+    ['book',[' book ','call','talk','contact','meeting','consult','discovery','schedule','appointment','get in touch','reach you','speak']],
+    ['product',['smarter by design','framework','course','guide','template','diy','do it myself','self serve','self-serve','product','ebook']],
+    ['news',['newsletter','subscribe','mailing','email list','updates',' tips']],
+    ['services',['what do you do','what does flo do','services','service','what can you','help me with','offer','do you do']]
+  ];
+  function route(text){
+    var t=' '+text.toLowerCase().replace(/[^a-z0-9$ ]/g,' ').replace(/\s+/g,' ')+' ';
+    var best=null,bestScore=0;
+    for(var i=0;i<MATCH.length;i++){ var s=0,kws=MATCH[i][1];
+      for(var j=0;j<kws.length;j++){ if(t.indexOf(kws[j])>-1) s+=kws[j].length; }
+      if(s>bestScore){ bestScore=s; best=MATCH[i][0]; } }
+    return bestScore>0?best:'fallback';
+  }
+
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function fmt(s){ return esc(s).replace(/\n/g,'<br>'); }
+  function scrollDown(){var b=$('fcBody');b.scrollTop=b.scrollHeight;}
+  function addUser(text){ var d=document.createElement('div');d.className='fc-msg user';d.textContent=text;$('fcBody').appendChild(d);scrollDown(); }
+  function addChips(chips){
+    var wrap=document.createElement('div');wrap.className='fc-sugg';
+    chips.forEach(function(c){ var b=document.createElement('button');
+      b.className='fc-chip'+(c.a==='cal'?' act':''); b.textContent=c.t;
+      b.onclick=function(){ doAction(c.a,c.t); }; wrap.appendChild(b); });
+    $('fcBody').appendChild(wrap);scrollDown();
+  }
+  function addBot(text,chips){
+    var d=document.createElement('div');d.className='fc-msg bot';
+    $('fcBody').appendChild(d);
+    var words=text.split(' '),i=0;
+    (function step(){ d.innerHTML=fmt(words.slice(0,++i).join(' ')); scrollDown();
+      if(i<words.length){ setTimeout(step,15); } else if(chips&&chips.length){ addChips(chips); } })();
+  }
+  function typing(cb){
+    var t=document.createElement('div');t.className='fc-typing';
+    t.innerHTML='<span></span><span></span><span></span>';
+    $('fcBody').appendChild(t);scrollDown();
+    setTimeout(function(){ t.remove(); cb(); },360);
+  }
+  function answer(id){
+    var e=FAQ[id]||FAQ.fallback; state.busy=true;$('fcSend').disabled=true;
+    typing(function(){ addBot(e.a,e.chips); state.busy=false;$('fcSend').disabled=false; });
+  }
+  function doAction(a,label){
+    if(a==='cal'){ window.open(CAL,'_blank','noopener'); return; }
+    if(a==='mail'){ window.location.href=MAIL; return; }
+    if(a.indexOf('scroll:')===0){ var sec=a.slice(7); fcToggle();
+      var el=document.getElementById(sec); if(el) setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},260); return; }
+    if(a.indexOf('q:')===0){ if(label) addUser(label); answer(a.slice(2)); }
+  }
+
+  window.fcToggle=function(){
+    state.open=!state.open;
+    $('fcPanel').classList.toggle('open',state.open);
+    $('fcLaunch').classList.toggle('open',state.open);
+    if(state.open){
+      if(!state.greeted){ state.greeted=true;
+        addBot("Hey — I'm the flo assistant. Tap a question below, or type your own.",
+          [{t:'What does flo do?',a:'q:services'},{t:'Pricing',a:'q:pricing'},{t:'How it works',a:'q:process'},{t:'See our work',a:'q:clients'}]);
+      }
+      setTimeout(function(){$('fcInput').focus();},260);
+    }
+  };
+  window.fcGrow=function(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';};
+  window.fcKey=function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();fcSend();} };
+  window.fcSend=function(){
+    var input=$('fcInput');var text=input.value.trim();
+    if(!text||state.busy)return;
+    addUser(text); input.value='';input.style.height='auto';
+    answer(route(text));
+  };
+})();
 </script>
 
 <!-- Cal floating-popup embed code begins -->
