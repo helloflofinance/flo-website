@@ -207,7 +207,10 @@ h2.dk{color:var(--navy);}
 .tier{background:rgba(255,255,255,0.03);border:1px solid var(--b);border-radius:16px;
   padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:transform .2s,border-color .2s;}
 .tier:hover{transform:translateY(-3px);border-color:rgba(0,207,255,0.2);}
-.tier.pop{border-color:rgba(0,207,255,0.4);background:rgba(0,207,255,0.035);box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+.tier.pop{border-color:rgba(0,207,255,0.4);background:rgba(0,207,255,0.035);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:tierGlow 4s ease-in-out infinite;}
+@keyframes tierGlow{0%,100%{box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 0 0 rgba(0,207,255,0);}
+  50%{box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 22px 1px rgba(0,207,255,0.22);}}
 .tier-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);
   background:linear-gradient(90deg,var(--accent),var(--cyan));color:#fff;font-size:9.5px;font-weight:600;
   letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap;}
@@ -505,7 +508,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       <span>AI &amp; Automation Consulting</span>
     </div>
     <h1 class="rv">AI and automation,<br>built for how small<br>businesses actually run.</h1>
-    <p class="hero-sub rv">flo designs the AI systems, automations, and websites that quietly run the busywork behind your business — intake, scheduling, admin, reporting — so solo operators and small teams stop doing it all by hand. Practitioner-built, not theory.</p>
+    <p class="hero-sub rv">flo builds the AI systems, automations, and websites that handle the busywork behind your business — intake, scheduling, admin, reporting — so solo operators and small teams aren't stuck doing all of it by hand.</p>
     <div class="actions rv">
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
       <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-g" target="_blank" rel="noopener">Get the Framework</a>
@@ -518,9 +521,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       </div>
     </div>
     <div class="hero-stats rv">
-      <div><div class="sv">10+</div><div class="sl">Years in the field</div></div>
-      <div><div class="sv">3+</div><div class="sl">Client builds shipped</div></div>
-      <div><div class="sv">∞</div><div class="sl">Manual processes eliminated</div></div>
+      <div><div class="sv" data-count="10" data-suffix="+">10+</div><div class="sl">Years in the trenches</div></div>
+      <div><div class="sv" data-count="3" data-suffix="+">3+</div><div class="sl">Client systems shipped</div></div>
+      <div><div class="sv">∞</div><div class="sl">Hours of busywork automated</div></div>
     </div>
   </div>
 
@@ -576,7 +579,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
           <circle class="ac ic-pulse" cx="27" cy="24" r="4.2"/>
         </svg></div>
         <div class="svc-title">Websites that convert visitors</div>
-        <p class="svc-desc">Fast, custom sites designed to turn traffic into customers — built to book calls, capture leads, and signal you operate at a higher level.</p>
+        <p class="svc-desc">Fast, custom sites designed to turn traffic into customers — built to book calls, capture leads, and make you look every bit as sharp as you are.</p>
         <ul class="svc-list">
           <li>Custom, mobile-first design</li>
           <li>Conversion-focused layout</li>
@@ -604,7 +607,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <div class="cta-bar rv">
       <div>
         <h3>Not sure which you need?</h3>
-        <p>That's exactly what the discovery call is for — a focused conversation about where your time and money are leaking, and the right first move. No pitch, no pressure.</p>
+        <p>That's what the discovery call is for. We'll talk through where your time and money are going, and figure out the right first move together.</p>
       </div>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
     </div>
@@ -617,7 +620,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <div class="wrap">
     <p class="ey rv">Client work</p>
     <h2 class="rv">Built for real businesses.</h2>
-    <p class="lead rv">A few of the systems and sites flo has shipped — across trades, local service, and personal brand. Different industries, same idea: build the thing that actually moves the needle.</p>
+    <p class="lead rv">A few of the systems and sites flo has shipped — across trades, local service, and personal brands. Different industries, one job each time: build the thing that actually earns its keep.</p>
     <div class="cw-grid">
 
       <div class="cw rv">
@@ -698,9 +701,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <div class="wrap">
     <p class="ey rv">How we work</p>
     <h2 class="rv">A clear path, start to finish.</h2>
-    <p class="lead rv">No mystery, no lock-in. Four steps from the first call to a system your team actually uses — and owns.</p>
+    <p class="lead rv">Here's exactly how it goes — four steps, from the first call to a system your team actually runs and owns.</p>
     <div class="steps">
-      <div class="step rv"><div class="step-num">1</div><h3>Discovery call</h3><p>We dig into where your time and money are leaking. No pitch — you leave with a plan whether we work together or not.</p></div>
+      <div class="step rv"><div class="step-num">1</div><h3>Discovery call</h3><p>We dig into where your time and money are actually going. You'll walk away with a clear plan, whether or not we end up working together.</p></div>
       <div class="step rv"><div class="step-num">2</div><h3>Custom build</h3><p>flo designs and builds the system around your actual workflow — not a template you have to bend yourself around.</p></div>
       <div class="step rv"><div class="step-num">3</div><h3>Implementation</h3><p>We roll it out and wire it into your day-to-day. Tested, working, and integrated with the tools you already use.</p></div>
       <div class="step rv"><div class="step-num">4</div><h3>Enablement</h3><p>You and your team learn to run it. It's yours to operate — a system you own, not a black box you rent.</p></div>
@@ -711,9 +714,9 @@ footer{background:var(--dark);border-top:1px solid var(--b);
 <!-- WEB DESIGN PRICING -->
 <section id="pricing" class="sec">
   <div class="wrap">
-    <p class="ey rv">Web design — productized</p>
-    <h2 class="rv">One service, priced up front.</h2>
-    <p class="lead rv">Web design is the one thing flo prices openly. Everything else — AI, automation, dashboards — is scoped from a discovery call, because it's built around you.</p>
+    <p class="ey rv">Web design packages</p>
+    <h2 class="rv">Websites, priced simply.</h2>
+    <p class="lead rv">Websites are the one service with set packages. Everything else — AI, automation, dashboards — gets scoped on a discovery call, since it's built around your business. Every price below is a starting point; the exact number depends on scope.</p>
     <div class="price-grid">
       <div class="tier rv">
         <div class="tier-name">Launch</div>
@@ -855,7 +858,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
         <div class="pt">Smarter by Design</div>
         <div class="pn">The full AI framework for operators</div>
         <div class="pp"><sup>$</sup>69<span class="cts">.99</span> <span class="ps-once">· one-time</span></div>
-        <p class="pd">The complete CSBA method — Context, Strategy, Build, Audit — for putting AI into real workflows. Practitioner-built, not productivity theory.</p>
+        <p class="pd">The complete CSBA method — Context, Strategy, Build, Audit — for putting AI into your real workflows. The same approach flo uses on client builds, packaged so you can run it yourself.</p>
         <ul class="pf">
           <li>Full methodology + 9 workflow applications</li>
           <li>25+ ready-to-use prompts &amp; 5 flo Skills for any GPT</li>
@@ -912,7 +915,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <div class="email-c">
       <p class="ey rv" style="text-align:center">Stay sharp</p>
       <h2 class="rv">Don't fall behind.<br>Stay ahead.</h2>
-      <p class="lead rv" style="max-width:100%;text-align:center;margin:0 auto 32px">Tools, frameworks, and intelligence for operators moving differently. No noise. Just useful.</p>
+      <p class="lead rv" style="max-width:100%;text-align:center;margin:0 auto 32px">Tools, frameworks, and real-world intelligence for operators doing things differently. A couple of emails a month, worth the open.</p>
       <form class="eform rv" onsubmit="handleEmail(event)">
         <input type="email" class="einput" placeholder="your@email.com" required id="einput">
         <button type="submit" class="esubmit">Join →</button>
@@ -969,6 +972,28 @@ const obs=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}
 }),{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// STAT COUNT-UP
+(function(){
+  const els=document.querySelectorAll('.sv[data-count]');
+  if(!els.length)return;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const run=el=>{
+    const target=+el.getAttribute('data-count'), suffix=el.getAttribute('data-suffix')||'';
+    if(reduce){el.textContent=target+suffix;return;}
+    const dur=1100, t0=performance.now();
+    const ease=t=>1-Math.pow(1-t,3);
+    (function step(now){
+      const p=Math.min(1,(now-t0)/dur);
+      el.textContent=Math.round(ease(p)*target)+suffix;
+      if(p<1)requestAnimationFrame(step);
+    })(t0);
+  };
+  const co=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){run(e.target);co.unobserve(e.target);}
+  }),{threshold:0.6});
+  els.forEach(el=>co.observe(el));
+})();
 
 // NAV
 window.addEventListener('scroll',()=>{
@@ -1134,7 +1159,7 @@ window.addEventListener('scroll',()=>{
     // --- soft cursor halo: the system glows toward the viewer ---
     if(mActive){
       const hg=ctx.createRadialGradient(mx,my,0,mx,my,160);
-      hg.addColorStop(0,'rgba(0,207,255,0.055)');
+      hg.addColorStop(0,'rgba(0,207,255,0.036)');
       hg.addColorStop(1,'rgba(0,207,255,0)');
       ctx.fillStyle=hg;ctx.beginPath();ctx.arc(mx,my,160,0,TAU);ctx.fill();
     }
@@ -1143,11 +1168,11 @@ window.addEventListener('scroll',()=>{
       const nd=nodes[i];
       let cur=mActive?Math.max(0,1-Math.min(Math.hypot(nd.x-mx,nd.y-my)/170,1)):0;
       const act=Math.min(1.4, nd.base*(0.6+0.4*Math.sin(time*nd.pspeed+nd.phase))+cur*0.7+nd.energy);
-      const R=nd.r*(1+act*0.5), o=Math.min(1,0.18+act*0.7);
+      const R=nd.r*(1+act*0.5), o=Math.min(1,0.13+act*0.5);
       const cyan=nd.hub||act>0.85||cur>0.3;
       const col=cyan?'0,207,255':'70,130,230';
       const g=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,R*4);
-      g.addColorStop(0,'rgba('+col+','+(o*0.5).toFixed(3)+')');
+      g.addColorStop(0,'rgba('+col+','+(o*0.32).toFixed(3)+')');
       g.addColorStop(1,'rgba('+col+',0)');
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(nd.x,nd.y,R*4,0,TAU);ctx.fill();
       ctx.fillStyle='rgba('+(cyan?'150,225,255':'120,170,240')+','+o.toFixed(3)+')';
@@ -1165,11 +1190,11 @@ window.addEventListener('scroll',()=>{
       const x=a.x+(b.x-a.x)*e, y=a.y+(b.y-a.y)*e;
       const fade=Math.sin(Math.min(pl.t,1)*Math.PI); // fade in/out along the trip
       const g=ctx.createRadialGradient(x,y,0,x,y,7);
-      g.addColorStop(0,'rgba(210,245,255,'+(0.95*fade).toFixed(3)+')');
-      g.addColorStop(0.35,'rgba(0,207,255,'+(0.6*fade).toFixed(3)+')');
+      g.addColorStop(0,'rgba(200,240,255,'+(0.66*fade).toFixed(3)+')');
+      g.addColorStop(0.35,'rgba(0,207,255,'+(0.4*fade).toFixed(3)+')');
       g.addColorStop(1,'rgba(0,207,255,0)');
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,7,0,TAU);ctx.fill();
-      ctx.fillStyle='rgba(230,250,255,'+(0.9*fade).toFixed(3)+')';
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,6.5,0,TAU);ctx.fill();
+      ctx.fillStyle='rgba(225,247,255,'+(0.62*fade).toFixed(3)+')';
       ctx.beginPath();ctx.arc(x,y,1.5,0,TAU);ctx.fill();
     }
 
