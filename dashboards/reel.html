@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>flo Intelligence — Reel</title>
+<link rel="icon" href="../assets/flo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css?v=3">
+<style>
+  html,body{height:100%;background:#04070e;overflow:hidden}
+  .reel-fit{position:fixed;inset:0;background:#04070e;overflow:hidden}
+  /* native 9:16 canvas, scaled to fit the window by JS */
+  .reel-stage{
+    width:1080px;height:1920px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.4);transform-origin:center center;
+    background:var(--bg);background-image:var(--bg-grad);overflow:hidden;
+    font-family:var(--f);color:var(--text);
+    padding:96px 84px;
+  }
+  .reel-topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .reel-brand{display:flex;align-items:center;gap:16px}
+  .reel-brand img{height:52px}
+  .reel-brand .rb-tag{font-size:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .reel-live{display:flex;align-items:center;gap:12px;font-size:22px;color:var(--muted);font-weight:500}
+  .reel-live .dot{width:14px;height:14px;border-radius:50%;background:var(--good);box-shadow:0 0 18px var(--good)}
+  .reel-h{font-size:44px;font-weight:600;letter-spacing:-.02em;margin:38px 0 6px}
+  .reel-sub{font-size:26px;color:var(--muted);margin-bottom:40px}
+
+  .beat{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+  .beat.on{opacity:1;transform:none}
+
+  /* hero */
+  .reel-hero{padding:52px 56px;border-radius:30px}
+  .reel-hero .hs-label{font-size:26px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .reel-hero .hs-val{font-size:200px;font-weight:700;letter-spacing:-.04em;line-height:.95;margin:24px 0 18px;color:var(--text);font-variant-numeric:tabular-nums}
+  .reel-hero .hs-val .cur{color:var(--accent)}
+  .reel-hero .hs-meta{display:flex;align-items:center;gap:20px;font-size:30px;color:var(--muted)}
+  .reel-hero .delta{font-size:30px;padding:8px 20px;border-radius:14px}
+  .reel-hero .delta svg{width:26px;height:26px}
+  .reel-hero::after{width:10px}
+
+  /* kpi row */
+  .reel-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;margin-top:40px}
+  .reel-kpis .kpi{min-height:210px;padding:40px;border-radius:26px}
+  .reel-kpis .kpi-label{font-size:26px}
+  .reel-kpis .kpi-ic{width:64px;height:64px;border-radius:18px}
+  .reel-kpis .kpi-ic svg{width:34px;height:34px}
+  .reel-kpis .kpi-val{font-size:78px}
+  .reel-kpis .kpi-foot{font-size:24px}
+  .reel-kpis .delta{font-size:24px;padding:6px 14px}
+  .reel-kpis .delta svg{width:20px;height:20px}
+
+  /* chart */
+  .reel-chart{margin-top:40px;padding:48px;border-radius:28px}
+  .reel-chart .card-title{font-size:38px}
+  .reel-chart .card-sub{font-size:24px;margin-top:8px}
+  .reel-chart .card-legend .lg{font-size:26px}
+  .reel-chart .card-legend i{width:18px;height:18px}
+  .reel-chart svg .rl{fill:none;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:2000;stroke-dashoffset:2000;transition:stroke-dashoffset 2.2s var(--ease-out)}
+  .reel-chart.draw svg .rl{stroke-dashoffset:0}
+  .reel-chart svg .rl-area{opacity:0;transition:opacity 1.4s ease .6s}
+  .reel-chart.draw svg .rl-area{opacity:1}
+  .reel-chart svg .rl-cap{opacity:0;transform:translateY(8px);transition:opacity .7s ease 1.6s,transform .7s var(--ease-out) 1.6s}
+  .reel-chart.draw svg .rl-cap{opacity:1;transform:none}
+
+  /* health */
+  .reel-health{margin-top:40px;padding:48px;border-radius:28px;gap:22px}
+  .reel-health .h-ic{width:104px;height:104px;border-radius:28px}
+  .reel-health .h-ic svg{width:52px;height:52px}
+  .reel-health .h-label{font-size:28px}
+  .reel-health .h-state{font-size:52px;margin-top:6px}
+  .reel-health .h-desc{font-size:30px;line-height:1.5}
+  .reel-health.pulse{animation:reelpulse 1.1s var(--ease)}
+  @keyframes reelpulse{0%{transform:scale(1)}40%{transform:scale(1.035)}100%{transform:scale(1)}}
+
+  /* outro */
+  .reel-outro{position:absolute;inset:0;background:var(--bg);background-image:var(--bg-grad);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;text-align:center;
+    opacity:0;visibility:hidden;transition:opacity .8s var(--ease-out);padding:80px}
+  .reel-outro.on{opacity:1;visibility:visible}
+  .reel-outro img{height:120px;margin-bottom:10px}
+  .reel-outro .ro-h{font-size:104px;font-weight:700;letter-spacing:-.03em;line-height:1.02}
+  .reel-outro .ro-h .g{background:linear-gradient(110deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .reel-outro .ro-sub{font-size:38px;color:var(--muted);max-width:760px;line-height:1.4}
+  .reel-outro .ro-cta{margin-top:20px;font-size:34px;font-weight:600;color:#fff;
+    background:linear-gradient(100deg,#144FCA,var(--accent));padding:26px 54px;border-radius:20px;
+    box-shadow:0 20px 60px -18px var(--accent)}
+  .reel-progress{position:absolute;left:0;bottom:0;height:8px;background:var(--accent);width:0;box-shadow:0 0 20px var(--accent)}
+</style>
+</head>
+<body>
+<div class="reel-fit">
+  <div class="reel-stage" data-theme="treasury" id="stage">
+
+    <div class="reel-topline beat" data-beat="0">
+      <div class="reel-brand"><img src="../assets/flo-logo.png" alt="flo"><span class="rb-tag">Intelligence</span></div>
+      <div class="reel-live"><span class="dot"></span> Live</div>
+    </div>
+    <div class="reel-h beat" data-beat="0">Cash Command</div>
+    <div class="reel-sub beat" data-beat="0">Meridian Global Holdings · treasury, in motion</div>
+
+    <!-- HERO -->
+    <div class="card hero-stat reel-hero beat" data-beat="1">
+      <div class="hs-label">Total cash position</div>
+      <div class="hs-val"><span class="cur">$</span><span id="heroNum">0.0</span>M</div>
+      <div class="hs-meta"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>6.4%</span> vs prior quarter</div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="reel-kpis">
+      <div class="card kpi beat" data-beat="2"><div class="kpi-top"><span class="kpi-label">Net cash flow</span><span class="kpi-ic"><svg><use href="#ic-flow"/></svg></span></div><div class="kpi-val"><span class="cur" style="color:var(--accent)">$</span><span class="kc" data-to="4.8" data-dec="1">0</span>M</div><div class="kpi-foot"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>12%</span> MoM</div></div>
+      <div class="card kpi beat" data-beat="2"><div class="kpi-top"><span class="kpi-label">Available liquidity</span><span class="kpi-ic"><svg><use href="#ic-droplet"/></svg></span></div><div class="kpi-val"><span class="cur" style="color:var(--accent)">$</span><span class="kc" data-to="61.5" data-dec="1">0</span>M</div><div class="kpi-foot">incl. facilities</div></div>
+      <div class="card kpi beat" data-beat="2"><div class="kpi-top"><span class="kpi-label">Days cash on hand</span><span class="kpi-ic"><svg><use href="#ic-clock"/></svg></span></div><div class="kpi-val"><span class="kc" data-to="94" data-dec="0">0</span></div><div class="kpi-foot">target 90+</div></div>
+      <div class="card kpi beat" data-beat="2"><div class="kpi-top"><span class="kpi-label">Liquidity coverage</span><span class="kpi-ic"><svg><use href="#ic-shield"/></svg></span></div><div class="kpi-val"><span class="kc" data-to="1.9" data-dec="1">0</span>×</div><div class="kpi-foot">target 1.5×</div></div>
+    </div>
+
+    <!-- CHART -->
+    <div class="card reel-chart beat" data-beat="3" id="reelChart">
+      <div class="card-head"><div><div class="card-title">Cash position — actual vs forecast</div><div class="card-sub">Monthly · USD millions</div></div>
+        <div class="card-legend"><span class="lg"><i style="background:var(--accent)"></i>Actual</span><span class="lg"><i style="background:var(--c3)"></i>Forecast</span></div></div>
+      <svg viewBox="0 0 900 300" preserveAspectRatio="none" style="width:100%;height:300px">
+        <line class="gridline" x1="20" y1="40" x2="880" y2="40"/><line class="gridline" x1="20" y1="130" x2="880" y2="130"/><line class="gridline" x1="20" y1="220" x2="880" y2="220"/>
+        <polyline class="rl" stroke="var(--c3)" stroke-width="4" points="20,240 143,196 266,168 389,150 512,120 635,104 758,96 880,86"/>
+        <polygon class="rl-area" fill="url(#rg)" points="20,224 143,182 266,210 389,132 512,100 635,150 758,84 880,64 880,260 20,260"/>
+        <polyline class="rl" stroke="var(--accent)" stroke-width="6" points="20,224 143,182 266,210 389,132 512,100 635,150 758,84 880,64"/>
+        <circle class="rl-cap" cx="880" cy="64" r="9" fill="var(--accent)" stroke="var(--panel)" stroke-width="4"/>
+        <g class="rl-cap" transform="translate(792,20)"><rect width="96" height="36" rx="10" fill="var(--panel-hi)" stroke="var(--border)"/><text x="48" y="25" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="600">$48.2M</text></g>
+        <defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity="0.3"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+      </svg>
+    </div>
+
+    <!-- HEALTH (hero beat) -->
+    <div class="card health good reel-health beat" data-beat="4" id="reelHealth">
+      <div class="h-top"><span class="h-ic"><svg><use href="#ic-shield"/></svg></span><div><div class="h-label">Liquidity health</div><div class="h-state">Strong</div></div></div>
+      <div class="h-desc">Coverage at <b>1.9×</b> near-term obligations. All facilities undrawn — <b>no action needed.</b></div>
+    </div>
+
+    <!-- OUTRO -->
+    <div class="reel-outro" id="outro">
+      <img src="../assets/flo-logo.png" alt="flo">
+      <div class="ro-h">Watch the work <span class="g">flow.</span></div>
+      <div class="ro-sub">Real dashboards. Real decisions. Built by flo — not rented from a black box.</div>
+      <div class="ro-cta">Book a discovery call →</div>
+    </div>
+
+    <div class="reel-progress" id="prog"></div>
+  </div>
+</div>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="ic-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V7"/><path d="M20 7v10"/><path d="M8 9l4-4 4 4"/><path d="M16 15l-4 4-4-4"/></symbol>
+  <symbol id="ic-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 5.5 6 10a6 6 0 0 1-12 0c0-4.5 6-10 6-10Z"/></symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs></svg>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  function fit(){
+    var s=Math.min(window.innerWidth/1080, window.innerHeight/1920);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  window.addEventListener('resize',fit); fit();
+
+  function ease(t){return 1-Math.pow(1-t,3);}
+  function countTo(el,dur){
+    var to=parseFloat(el.getAttribute('data-to')),dec=parseInt(el.getAttribute('data-dec')||'0'),t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=(to*ease(p)).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});if(p<1)requestAnimationFrame(step);else el.textContent=to.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+    requestAnimationFrame(step);
+  }
+  function heroCount(){
+    var el=document.getElementById('heroNum'),t0=null,to=48.2,dur=1600;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=(to*ease(p)).toFixed(1);if(p<1)requestAnimationFrame(step);else el.textContent='48.2';}
+    requestAnimationFrame(step);
+  }
+
+  var TOTAL=15000;
+  function on(sel){document.querySelectorAll(sel).forEach(function(e){e.classList.add('on');});}
+  function off(sel){document.querySelectorAll(sel).forEach(function(e){e.classList.remove('on');});}
+
+  function run(){
+    // reset
+    document.querySelectorAll('.beat').forEach(function(e){e.classList.remove('on');});
+    document.getElementById('reelChart').classList.remove('draw');
+    document.getElementById('outro').classList.remove('on');
+    document.getElementById('heroNum').textContent='0.0';
+    document.querySelectorAll('.kc').forEach(function(e){e.textContent='0';});
+    var prog=document.getElementById('prog'); prog.style.transition='none'; prog.style.width='0';
+    void prog.offsetWidth; prog.style.transition='width '+TOTAL+'ms linear'; prog.style.width='100%';
+
+    on('[data-beat="0"]');
+    setTimeout(function(){ on('[data-beat="1"]'); heroCount(); },500);
+    setTimeout(function(){
+      var d=0; document.querySelectorAll('[data-beat="2"]').forEach(function(e){ setTimeout(function(){e.classList.add('on');},d); d+=180; });
+      setTimeout(function(){ document.querySelectorAll('.kc').forEach(function(el){countTo(el,1100);}); },200);
+    },3200);
+    setTimeout(function(){ on('[data-beat="3"]'); document.getElementById('reelChart').classList.add('draw'); },6000);
+    setTimeout(function(){ on('[data-beat="4"]'); },9000);
+    setTimeout(function(){ document.getElementById('reelHealth').classList.add('pulse'); },9600);
+    setTimeout(function(){ document.getElementById('reelHealth').classList.remove('pulse'); },10800);
+    setTimeout(function(){ document.getElementById('outro').classList.add('on'); },12400);
+    setTimeout(run, TOTAL);
+  }
+  run();
+})();
+</script>
+</body>
+</html>
