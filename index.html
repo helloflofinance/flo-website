@@ -549,6 +549,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <a href="#about">About</a>
     <a href="#products">Products</a>
     <a href="#insights">Insights</a>
+    <a href="flow/index.html" class="flx-nav-link" onclick="if(window.flxOpen){flxOpen();return false;}">The flo way</a>
   </div>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -561,6 +562,7 @@ footer{background:var(--dark);border-top:1px solid var(--b);
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="#products" onclick="closeMenu()">Products</a>
   <a href="#insights" onclick="closeMenu()">Insights</a>
+  <a href="flow/index.html" onclick="if(window.flxOpen){closeMenu();flxOpen();return false;}">The flo way ✦</a>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
 </div>
 
@@ -773,6 +775,39 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       <div class="step rv"><div class="step-num">2</div><h3>Custom build</h3><p>flo designs and builds the system around your actual workflow — not a template you have to bend yourself around.</p></div>
       <div class="step rv"><div class="step-num">3</div><h3>Implementation</h3><p>We roll it out and wire it into your day-to-day. Tested, working, and integrated with the tools you already use.</p></div>
       <div class="step rv"><div class="step-num">4</div><h3>Enablement</h3><p>You and your team learn to run it. It's yours to operate — a system you own, not a black box you rent.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== "The flo way" motion-experience teaser ===== -->
+<section id="flx-teaser" class="sec">
+  <div class="wrap">
+    <div class="flx-card rv">
+      <div class="flx-card-copy">
+        <p class="ey">The flo way — in motion</p>
+        <h2>See exactly how it flows.</h2>
+        <p class="lead">Those four steps, brought to life. An interactive, scroll-driven walk through what working with flo actually feels like — from the first call to a custom build that's yours to own.</p>
+        <button type="button" class="flx-open-btn" onclick="flxOpen()">
+          Watch the work flow
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+      <button type="button" class="flx-card-viz" onclick="flxOpen()" aria-label="Open the flo way experience">
+        <svg viewBox="0 0 440 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="flxLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#144FCA"/><stop offset="1" stop-color="#00CFFF"/>
+            </linearGradient>
+          </defs>
+          <path class="flx-path" d="M30,150 C110,150 120,70 200,70 S330,150 410,90" fill="none" stroke="url(#flxLine)" stroke-width="2.5"/>
+          <path class="flx-path flx-flow" d="M30,150 C110,150 120,70 200,70 S330,150 410,90" fill="none" stroke="#b9f2ff" stroke-width="2.5" stroke-linecap="round"/>
+          <g class="flx-nodes">
+            <circle cx="30" cy="150" r="9"/><circle cx="200" cy="70" r="11"/>
+            <circle cx="300" cy="112" r="9"/><circle cx="410" cy="90" r="10"/>
+          </g>
+        </svg>
+        <span class="flx-viz-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+      </button>
     </div>
   </div>
 </section>
@@ -1574,5 +1609,100 @@ Cal.config.forwardQueryParams = true;
   Cal.ns.flointelligence30("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#0A1B3D"},"dark":{"cal-brand":"#00CFFF"}},"hideEventTypeDetails":false,"layout":"month_view"});
 </script>
 <!-- Cal floating-popup embed code ends -->
+
+<!-- ===== "The flo way" experience — styles, overlay, logic (all namespaced flx-, fully additive) ===== -->
+<style>
+  /* nav link — subtly special */
+  .flx-nav-link{position:relative}
+  .flx-nav-link::after{content:"";position:absolute;top:50%;right:-11px;width:5px;height:5px;border-radius:50%;
+    background:#00CFFF;box-shadow:0 0 10px #00CFFF;transform:translateY(-50%);animation:flxDot 2.2s ease-in-out infinite}
+  @keyframes flxDot{0%,100%{opacity:.35}50%{opacity:1}}
+
+  /* teaser section */
+  #flx-teaser{background:linear-gradient(180deg,#060D1F 0%,#0A1B3D 100%)}
+  .flx-card{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,56px);align-items:center;
+    background:radial-gradient(120% 140% at 100% 0%,rgba(0,207,255,.10),transparent 55%),
+               linear-gradient(135deg,rgba(20,79,202,.16),rgba(4,8,26,.2));
+    border:1px solid rgba(0,207,255,.18);border-radius:26px;padding:clamp(28px,4.5vw,60px);
+    position:relative;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+  .flx-card-copy .ey{color:#00CFFF}
+  .flx-card-copy h2{color:#fff;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-.02em;margin:6px 0 16px}
+  .flx-card-copy .lead{color:#7A8BA8;max-width:460px}
+  .flx-open-btn{margin-top:28px;display:inline-flex;align-items:center;gap:11px;font-family:'Poppins',sans-serif;
+    font-weight:500;font-size:16px;color:#04081a;background:#00CFFF;border:0;border-radius:100px;
+    padding:15px 28px;cursor:pointer;transition:transform .35s ease,box-shadow .35s ease}
+  .flx-open-btn svg{width:15px;height:15px}
+  .flx-open-btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,207,255,.38)}
+  /* teaser mini-viz */
+  .flx-card-viz{position:relative;border:0;background:transparent;padding:0;cursor:pointer;width:100%;display:block}
+  .flx-card-viz svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 30px rgba(0,207,255,.18))}
+  .flx-card-viz .flx-nodes circle{fill:#0a1430;stroke:#00CFFF;stroke-width:2;filter:drop-shadow(0 0 6px rgba(0,207,255,.7))}
+  .flx-card-viz .flx-path{opacity:.5}
+  .flx-card-viz .flx-flow{opacity:.95;stroke-dasharray:60 380;animation:flxDash 3.4s linear infinite}
+  @keyframes flxDash{to{stroke-dashoffset:-440}}
+  .flx-viz-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;
+    background:rgba(4,8,26,.55);border:1px solid rgba(0,207,255,.5);display:grid;place-items:center;
+    backdrop-filter:blur(4px);transition:.35s;pointer-events:none}
+  .flx-viz-play svg{width:20px;height:20px;color:#fff;margin-left:3px}
+  .flx-card-viz:hover .flx-viz-play{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 0 28px rgba(0,207,255,.4);background:rgba(0,207,255,.15)}
+  @media (max-width:820px){
+    .flx-card{grid-template-columns:1fr;text-align:center}
+    .flx-card-copy .lead{margin-left:auto;margin-right:auto}
+    .flx-card-viz{order:-1;max-width:420px;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .flx-nav-link::after,.flx-card-viz .flx-flow{animation:none}
+  }
+
+  /* full-screen overlay — above all floating widgets (Cal button, FAQ launcher) */
+  #flx-overlay{position:fixed;inset:0;z-index:2147483000;background:#04081a;opacity:0;visibility:hidden;
+    transition:opacity .45s ease,visibility .45s ease}
+  #flx-overlay.flx-on{opacity:1;visibility:visible}
+  #flx-overlay .flx-frame-wrap{position:absolute;inset:0;transform:scale(.985);transition:transform .5s ease}
+  #flx-overlay.flx-on .flx-frame-wrap{transform:none}
+  #flx-overlay iframe{width:100%;height:100%;border:0;display:block}
+  .flx-close{position:fixed;top:16px;right:16px;z-index:2147483001;display:inline-flex;align-items:center;gap:8px;
+    font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;letter-spacing:.02em;color:#fff;
+    background:rgba(10,27,61,.6);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:9px 16px;
+    cursor:pointer;backdrop-filter:blur(8px);transition:.3s;opacity:0;visibility:hidden}
+  #flx-overlay.flx-on ~ .flx-close,.flx-close.flx-on{opacity:1;visibility:visible}
+  .flx-close:hover{border-color:#00CFFF;box-shadow:0 0 22px rgba(0,207,255,.3)}
+  /* while the experience is open, suppress the main-site floating widgets */
+  body.flx-lock cal-floating-button,
+  body.flx-lock .fc-launch,
+  body.flx-lock #fcPanel{display:none !important}
+</style>
+
+<div id="flx-overlay" role="dialog" aria-modal="true" aria-label="flo — Watch the work flow">
+  <div class="flx-frame-wrap"></div>
+</div>
+<button class="flx-close" type="button" onclick="flxClose()" aria-label="Close experience">Close ✕</button>
+
+<script>
+(function(){
+  var ov=document.getElementById('flx-overlay'),
+      wrap=ov.querySelector('.flx-frame-wrap'),
+      closeBtn=document.querySelector('.flx-close'),
+      loaded=false;
+  window.flxOpen=function(){
+    if(!loaded){
+      var f=document.createElement('iframe');
+      f.src='flow/index.html';                       // lazy — only loads when opened
+      f.title='flo — Watch the work flow';
+      f.setAttribute('allow','fullscreen');
+      wrap.appendChild(f); loaded=true;
+    }
+    ov.classList.add('flx-on'); closeBtn.classList.add('flx-on');
+    document.body.classList.add('flx-lock'); document.body.style.overflow='hidden';
+  };
+  window.flxClose=function(){
+    ov.classList.remove('flx-on'); closeBtn.classList.remove('flx-on');
+    document.body.classList.remove('flx-lock'); document.body.style.overflow='';
+  };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && ov.classList.contains('flx-on')) flxClose();
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>flo — Watch the work flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --dark:#060D1F; --deep:#04081a; --navy:#0A1B3D; --mid:#0F2C6C;
+    --accent:#144FCA; --cyan:#00CFFF; --slate:#7A8BA8; --silver:#C8D8F0;
+    --light:#F8F9FB; --white:#fff;
+    --f:'Poppins',system-ui,sans-serif;
+    --m:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  body{
+    font-family:var(--f); background:var(--deep); color:var(--silver);
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  /* ---- fixed canvas stage ---- */
+  #stage{position:fixed; inset:0; z-index:0; display:block}
+  #vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(4,8,26,.55) 78%, rgba(4,8,26,.95) 100%);}
+  #grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.035; mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ---- top bar ---- */
+  .bar{position:fixed; top:0; left:0; right:0; z-index:20; display:flex; align-items:center;
+    justify-content:space-between; padding:22px clamp(20px,4vw,56px); pointer-events:none;}
+  /* when embedded in the main-site overlay, the overlay supplies the chrome — hide our own bar */
+  .flx-embed .bar{display:none}
+  .brand{display:flex; align-items:center; gap:10px; pointer-events:auto; text-decoration:none}
+  .brand img{height:30px; width:auto; display:block; filter:drop-shadow(0 0 16px rgba(0,207,255,.28))}
+  .bar .cta{pointer-events:auto; font-family:var(--m); font-size:12px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--silver); text-decoration:none; padding:9px 16px;
+    border:1px solid rgba(200,216,240,.18); border-radius:100px; transition:.3s;
+    background:rgba(10,27,61,.35); backdrop-filter:blur(6px)}
+  .bar .cta:hover{border-color:var(--cyan); color:var(--white); box-shadow:0 0 22px rgba(0,207,255,.25)}
+
+  /* ---- scroll content ---- */
+  #scroll{position:relative; z-index:10}
+  .panel{min-height:100vh; display:flex; align-items:center;
+    padding:0 clamp(20px,7vw,120px); pointer-events:none;}
+  .panel .inner{max-width:520px; pointer-events:auto}
+  .panel.right{justify-content:flex-end}
+  .panel.right .inner{text-align:right}
+  .panel.center{justify-content:center; text-align:center}
+  .panel.center .inner{max-width:760px}
+
+  .kicker{font-family:var(--m); font-size:12px; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:20px; opacity:.9}
+  .step .inner h2{font-weight:600; font-size:clamp(30px,4.4vw,54px); line-height:1.06;
+    color:var(--white); letter-spacing:-.01em; margin-bottom:18px}
+  .step .inner p{font-size:clamp(15px,1.3vw,18px); line-height:1.65; color:var(--slate); font-weight:300}
+  .step .inner p b{color:var(--silver); font-weight:500}
+  .tag{display:inline-block; margin-top:22px; font-family:var(--m); font-size:12px; letter-spacing:.06em;
+    color:var(--silver); padding:7px 13px; border:1px solid rgba(20,79,202,.4); border-radius:8px;
+    background:rgba(20,79,202,.12)}
+
+  /* ---- caption legibility scrim — text always reads cleanly; the graph is untouched ---- */
+  .panel:not(.center) .inner{position:relative; z-index:1}
+  .panel:not(.center) .inner::before{content:''; position:absolute; z-index:-1; inset:-30px -56px;
+    background:radial-gradient(closest-side, rgba(4,8,26,.9), rgba(4,8,26,.62) 60%, rgba(4,8,26,0) 100%);
+    filter:blur(12px); pointer-events:none}
+  .panel:not(.center) .inner h2{text-shadow:0 2px 28px rgba(4,8,26,.8)}
+  .panel:not(.center) .inner p,
+  .panel:not(.center) .kicker{text-shadow:0 1px 18px rgba(4,8,26,.9)}
+  #hero .sub, #payoff .inner p{text-shadow:0 1px 18px rgba(4,8,26,.85)}
+
+  /* ---- hero ---- */
+  #hero .inner{max-width:900px}
+  #hero h1{font-size:clamp(46px,8.4vw,124px); line-height:.92; letter-spacing:-.035em}
+  #hero h1 .lead{display:block; font-weight:300; color:#e6eefb; opacity:.92}
+  #hero h1 .flow{display:block; font-weight:700; font-style:italic; letter-spacing:-.045em;
+    background:linear-gradient(100deg,#0F2C6C 0%,#144FCA 22%,#00CFFF 42%,#b9f2ff 50%,#00CFFF 58%,#144FCA 78%,#0F2C6C 100%);
+    background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:flowsheen 4.5s linear infinite;
+    filter:drop-shadow(0 6px 40px rgba(0,207,255,.28))}
+  @keyframes flowsheen{to{background-position:-220% 0}}
+  #hero .sub{margin-top:26px; font-size:clamp(16px,1.6vw,21px); line-height:1.6; color:var(--slate);
+    font-weight:300; max-width:560px; margin-left:auto; margin-right:auto}
+  .scrollcue{margin-top:52px; font-family:var(--m); font-size:11px; letter-spacing:.28em;
+    text-transform:uppercase; color:var(--slate); display:flex; gap:12px; align-items:center;
+    justify-content:center; animation:pulse 2.4s ease-in-out infinite}
+  .scrollcue .line{width:1px;height:38px;background:linear-gradient(var(--cyan),transparent)}
+  @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+  /* ---- payoff ---- */
+  #payoff .inner h2{font-size:clamp(34px,6vw,72px); font-weight:300; color:#e6eefb;
+    line-height:1.04; letter-spacing:-.025em; margin-bottom:22px}
+  #payoff .inner h2 .flow-inline{font-weight:700; font-style:italic;
+    background:linear-gradient(100deg,#0F2C6C 0%,#144FCA 22%,#00CFFF 42%,#b9f2ff 50%,#00CFFF 58%,#144FCA 78%,#0F2C6C 100%);
+    background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:flowsheen 4.5s linear infinite}
+  #payoff .inner p{font-size:clamp(16px,1.5vw,20px); color:var(--slate); font-weight:300; max-width:560px;
+    margin:0 auto 38px}
+  .book{display:inline-flex; align-items:center; gap:12px; font-family:var(--f); font-weight:500;
+    font-size:17px; color:var(--deep); background:var(--cyan); padding:17px 30px; border-radius:100px;
+    text-decoration:none; box-shadow:0 0 0 rgba(0,207,255,.5); transition:.35s}
+  .book:hover{box-shadow:0 14px 44px rgba(0,207,255,.4); transform:translateY(-2px)}
+  .book svg{width:18px;height:18px}
+
+  .progress{position:fixed; left:0; top:0; height:2px; width:0; z-index:30;
+    background:linear-gradient(90deg,var(--accent),var(--cyan)); box-shadow:0 0 12px var(--cyan)}
+
+  @media (max-width:640px){
+    .panel,.panel.right{justify-content:center; text-align:center; padding:0 24px}
+    .panel.right .inner{text-align:center}
+    .panel .inner{max-width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scrollcue{animation:none}
+    #hero h1 .flow,#payoff .inner h2 .flow-inline{animation:none; background-position:50% 0}
+    .step .inner{opacity:1 !important; visibility:visible !important; transform:none !important}
+  }
+</style>
+</head>
+<body>
+  <script>if(window.self!==window.top)document.documentElement.classList.add('flx-embed');</script>
+  <canvas id="stage"></canvas>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div class="progress" id="prog"></div>
+
+  <div class="bar">
+    <a class="brand" href="../" aria-label="flo home"><img src="../assets/flo-logo.png" alt="flo" /></a>
+    <a class="cta" data-cal-namespace="flointelligence30" data-cal-link="flo-intelligence-6v0495/flointelligence30" data-cal-config='{"layout":"month_view"}' href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a call →</a>
+  </div>
+
+  <main id="scroll">
+    <section class="panel center step" id="hero" data-node="-1">
+      <div class="inner">
+        <h1><span class="lead">Watch the work</span><span class="flow">flow.</span></h1>
+        <p class="sub">This is what working with flo looks like — from the first call to a custom build that's yours to run. Scroll through it.</p>
+        <div class="scrollcue"><span class="line"></span>Scroll to begin</div>
+      </div>
+    </section>
+
+    <section class="panel step" id="s0" data-node="0">
+      <div class="inner">
+        <div class="kicker">01 · Discovery</div>
+        <h2>It starts with a conversation.</h2>
+        <p>We dig into where your time and money <b>actually go</b>. You walk away with a clear plan — whether or not we end up working together.</p>
+        <span class="tag">the first call</span>
+      </div>
+    </section>
+
+    <section class="panel right step" id="s1" data-node="1">
+      <div class="inner">
+        <div class="kicker">02 · Context</div>
+        <h2>We learn how you really work.</h2>
+        <p>Not a template you bend yourself around. flo maps your <b>actual workflow</b> — the tools, the handoffs, the busywork quietly eating your day.</p>
+        <span class="tag">your workflow, mapped</span>
+      </div>
+    </section>
+
+    <section class="panel step" id="s2" data-node="2">
+      <div class="inner">
+        <div class="kicker">03 · Strategy</div>
+        <h2>Then we design the plan.</h2>
+        <p>What to automate, where AI <b>genuinely earns its place</b>, and what to leave alone. The smart way — not AI for the sake of it.</p>
+        <span class="tag">the blueprint</span>
+      </div>
+    </section>
+
+    <section class="panel right step" id="s3" data-node="3">
+      <div class="inner">
+        <div class="kicker">04 · Build</div>
+        <h2>flo builds it around you.</h2>
+        <p>Automations, dashboards, a custom agent, a site — <b>whatever the job needs</b>. Built on your workflow, tested, and wired into your day.</p>
+        <span class="tag">your custom build</span>
+      </div>
+    </section>
+
+    <section class="panel step" id="s4" data-node="4">
+      <div class="inner">
+        <div class="kicker">05 · Audit</div>
+        <h2>We pressure-test it against reality.</h2>
+        <p>Then tighten it until it <b>just works</b> — quietly, in the background, the way it should have from day one.</p>
+        <span class="tag">refined until it's right</span>
+      </div>
+    </section>
+
+    <section class="panel right step" id="s5" data-node="5">
+      <div class="inner">
+        <div class="kicker">06 · Own it</div>
+        <h2>You walk away owning it.</h2>
+        <p>A system that's <b>yours to run</b> — not a black box you rent. flo hands you the keys and shows your team the ropes.</p>
+        <span class="tag">yours to keep</span>
+      </div>
+    </section>
+
+    <section class="panel center step" id="payoff" data-node="6">
+      <div class="inner">
+        <div class="kicker">This is the flo way</div>
+        <h2>AI &amp; automation,<br><span class="flow-inline">done the smart way.</span></h2>
+        <p>The whole thing starts with one conversation — where your time's going, and the right first move. No pitch, no pressure.</p>
+        <a class="book" id="book" data-cal-namespace="flointelligence30" data-cal-link="flo-intelligence-6v0495/flointelligence30" data-cal-config='{"layout":"month_view"}' href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a discovery call
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+<!-- Cal.com booking — lazy-loaded on first CTA interaction (keeps initial paint fast) -->
+<script type="text/javascript">
+(function(){
+  var CAL_LINK="flo-intelligence-6v0495/flointelligence30", NS="flointelligence30", inited=false;
+  function initCal(){
+    if(inited) return; inited=true;
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", NS, {origin:"https://app.cal.com"});
+    Cal.ns[NS]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#0A1B3D"},"dark":{"cal-brand":"#00CFFF"}},"hideEventTypeDetails":false,"layout":"month_view"});
+  }
+  function openCal(e){ if(e) e.preventDefault(); initCal(); Cal.ns[NS]("modal", {calLink:CAL_LINK, config:{layout:"month_view"}}); }
+  window.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('[data-cal-link]').forEach(function(el){
+      el.addEventListener('pointerenter', initCal, {once:true, passive:true}); // warm up on hover
+      el.addEventListener('click', openCal);
+    });
+  });
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('stage');
+  const ctx = cv.getContext('2d');
+  let W=0,H=0,DPR=Math.min(devicePixelRatio||1,2);
+
+  // ---------- world graph ----------
+  // node positions in an abstract "world" space; camera flies between them
+  const nodes = [
+    {id:0, x:  0,  y:  0,  r:32, label:'DISCOVERY',  glyph:'chat'},
+    {id:1, x:340,  y:-120, r:30, label:'CONTEXT',    glyph:'context'},
+    {id:2, x:700,  y:  40, r:30, label:'STRATEGY',   glyph:'strategy'},
+    {id:3, x:1040, y:-90, r:34, label:'BUILD',       glyph:'build'},
+    {id:4, x:1380, y:70,  r:30, label:'AUDIT',       glyph:'audit'},
+    {id:5, x:1720, y:-60, r:32, label:'OWN IT',      glyph:'own'},
+    {id:6, x:2040, y:20,  r:28, label:'YOURS',       glyph:'check'},
+  ];
+  const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]];
+  // messy inbound feeder lines (chaos -> node 0)
+  const feeders = [];
+  for(let i=0;i<7;i++){
+    feeders.push({ x:-260 - Math.random()*160, y:(Math.random()-.5)*360, t:Math.random(), sp:.15+Math.random()*.25 });
+  }
+  // ambient particles for depth
+  const dust = [];
+  for(let i=0;i<80;i++) dust.push({x:Math.random(),y:Math.random(),z:.3+Math.random(),s:Math.random()*Math.PI*2});
+
+  // pulses travelling each edge
+  const pulses = [];
+  edges.forEach((e,i)=>{ for(let k=0;k<2;k++) pulses.push({e:i, t:Math.random(), sp:.10+Math.random()*.10}); });
+
+  // ---------- camera ----------
+  // focus targets: overview for hero(-1) then each node
+  function focusFor(idx){
+    if(idx<0) return {x:560, y:-10, zoom:.42};         // hero: wide overview of the whole flow
+    if(idx>=6) return {x:1780, y:-10, zoom:.52};       // payoff: pull back on the outflow
+    const n = nodes[idx];
+    // stay zoomed enough to keep ~4 nodes in frame — never a void, always reads as the flow
+    return {x:n.x, y:n.y*0.55, zoom:.8};
+  }
+  let cam = Object.assign({}, focusFor(-1));
+  let target = Object.assign({}, focusFor(-1));
+
+  function resize(){
+    W=innerWidth; H=innerHeight; DPR=Math.min(devicePixelRatio||1,2);
+    cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  addEventListener('resize', resize); resize();
+
+  // world -> screen
+  function toScreen(wx,wy){
+    return { x:(wx-cam.x)*cam.zoom + W/2, y:(wy-cam.y)*cam.zoom + H*0.52 };
+  }
+  function bez(a,b){
+    const A=toScreen(a.x,a.y), B=toScreen(b.x,b.y);
+    const mx=(A.x+B.x)/2, my=(A.y+B.y)/2 - Math.abs(B.x-A.x)*0.18;
+    return {A,B,cx:mx,cy:my};
+  }
+  function ptOnBez(A,cx,cy,B,t){
+    const u=1-t;
+    return { x:u*u*A.x+2*u*t*cx+t*t*B.x, y:u*u*A.y+2*u*t*cy+t*t*B.y };
+  }
+
+  function glyph(g, s){ // returns simple vector for a node
+    ctx.lineWidth=1.6; ctx.strokeStyle='rgba(200,216,240,.9)'; ctx.fillStyle='rgba(200,216,240,.9)';
+    ctx.beginPath();
+    switch(g){
+      case 'chat': // discovery — speech bubble
+        ctx.rect(-s*.5,-s*.42,s,s*.62); ctx.moveTo(-s*.22,s*.2); ctx.lineTo(-s*.32,s*.5); ctx.lineTo(-s*.02,s*.2);
+        ctx.moveTo(-s*.28,-s*.14); ctx.lineTo(s*.28,-s*.14); ctx.moveTo(-s*.28,s*.02); ctx.lineTo(s*.12,s*.02); break;
+      case 'context': // magnifier — understand
+        ctx.arc(-s*.08,-s*.08,s*.34,0,7); ctx.moveTo(s*.17,s*.17); ctx.lineTo(s*.5,s*.5); break;
+      case 'strategy': // branch — the plan
+        ctx.moveTo(-s*.5,0); ctx.lineTo(-s*.08,0); ctx.moveTo(-s*.08,0); ctx.lineTo(s*.4,-s*.34);
+        ctx.moveTo(-s*.08,0); ctx.lineTo(s*.4,s*.34); ctx.stroke();
+        ctx.beginPath(); ctx.arc(s*.44,-s*.34,s*.1,0,7); ctx.arc(s*.44,s*.34,s*.1,0,7); break;
+      case 'build': // stacked blocks — the build
+        ctx.rect(-s*.42,-s*.42,s*.5,s*.5); ctx.rect(-s*.02,-s*.02,s*.5,s*.5); break;
+      case 'audit': // shield — pressure-test
+        ctx.moveTo(0,-s*.52); ctx.lineTo(s*.42,-s*.3); ctx.lineTo(s*.42,s*.08);
+        ctx.quadraticCurveTo(s*.42,s*.44,0,s*.56); ctx.quadraticCurveTo(-s*.42,s*.44,-s*.42,s*.08);
+        ctx.lineTo(-s*.42,-s*.3); ctx.closePath(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-s*.2,0); ctx.lineTo(-s*.02,s*.2); ctx.lineTo(s*.25,-s*.18); break;
+      case 'own': // key — you own it
+        ctx.arc(-s*.22,-s*.22,s*.24,0,7); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-s*.06,-s*.06); ctx.lineTo(s*.48,s*.48);
+        ctx.moveTo(s*.3,s*.3); ctx.lineTo(s*.46,s*.14); ctx.moveTo(s*.48,s*.48); ctx.lineTo(s*.6,s*.36); break;
+      case 'check': ctx.moveTo(-s*.4,0); ctx.lineTo(-s*.08,s*.35); ctx.lineTo(s*.45,-s*.4); break;
+      default: for(let i=-1;i<2;i++){ctx.moveTo(-s*.5,i*s*.28);ctx.lineTo(s*.5,i*s*.28);}
+    }
+    ctx.stroke();
+  }
+
+  let t0=performance.now();
+  function draw(now){
+    const dt=Math.min((now-t0)/1000,.05); t0=now;
+    // ease camera toward target
+    cam.x += (target.x-cam.x)*.08;
+    cam.y += (target.y-cam.y)*.08;
+    cam.zoom += (target.zoom-cam.zoom)*.08;
+
+    ctx.clearRect(0,0,W,H);
+    // background depth gradient
+    const bg=ctx.createRadialGradient(W/2,H*.42,0,W/2,H*.42,Math.max(W,H)*.8);
+    bg.addColorStop(0,'#0a1430'); bg.addColorStop(1,'#04081a');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+    // faint world grid
+    ctx.strokeStyle='rgba(122,139,168,.06)'; ctx.lineWidth=1;
+    const gs=90*cam.zoom, ox=(-cam.x*cam.zoom+W/2)%gs, oy=(-cam.y*cam.zoom+H*.52)%gs;
+    for(let x=ox;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=oy;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+    // ambient dust
+    dust.forEach(d=>{ if(!reduce) d.s+=dt*.6;
+      const sx=(d.x*W), sy=(d.y*H)+Math.sin(d.s)*6;
+      ctx.fillStyle=`rgba(0,207,255,${.05*d.z})`;
+      ctx.beginPath(); ctx.arc(sx,sy,d.z*1.4,0,7); ctx.fill();
+    });
+
+    // feeder chaos lines into node 0
+    const n0=toScreen(nodes[0].x,nodes[0].y);
+    feeders.forEach(f=>{ if(!reduce){ f.t+=dt*f.sp; if(f.t>1)f.t=0; }
+      const S=toScreen(f.x,f.y);
+      ctx.strokeStyle='rgba(122,139,168,.18)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(S.x,S.y);
+      ctx.quadraticCurveTo((S.x+n0.x)/2,(S.y+n0.y)/2-30,n0.x,n0.y); ctx.stroke();
+      const p={x:S.x+(n0.x-S.x)*f.t, y:S.y+(n0.y-S.y)*f.t - Math.sin(f.t*Math.PI)*30};
+      ctx.fillStyle='rgba(122,139,168,.6)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.8,0,7); ctx.fill();
+    });
+
+    // edges
+    const geo = edges.map(e=>bez(nodes[e[0]],nodes[e[1]]));
+    geo.forEach(g=>{
+      const grad=ctx.createLinearGradient(g.A.x,g.A.y,g.B.x,g.B.y);
+      grad.addColorStop(0,'rgba(20,79,202,.55)'); grad.addColorStop(1,'rgba(0,207,255,.55)');
+      ctx.strokeStyle=grad; ctx.lineWidth=2.4*cam.zoom+1;
+      ctx.shadowColor='rgba(0,207,255,.45)'; ctx.shadowBlur=14;
+      ctx.beginPath(); ctx.moveTo(g.A.x,g.A.y); ctx.quadraticCurveTo(g.cx,g.cy,g.B.x,g.B.y); ctx.stroke();
+      ctx.shadowBlur=0;
+    });
+
+    // pulses
+    pulses.forEach(p=>{ if(!reduce){ p.t+=dt*p.sp; if(p.t>1)p.t-=1; }
+      const g=geo[p.e]; const pt=ptOnBez(g.A,g.cx,g.cy,g.B,p.t);
+      const rad=3.2*cam.zoom+1.2;
+      const gg=ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,rad*4);
+      gg.addColorStop(0,'rgba(0,207,255,.95)'); gg.addColorStop(1,'rgba(0,207,255,0)');
+      ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(pt.x,pt.y,rad*4,0,7); ctx.fill();
+      ctx.fillStyle='#dffaff'; ctx.beginPath(); ctx.arc(pt.x,pt.y,rad*.7,0,7); ctx.fill();
+    });
+
+    // nodes
+    nodes.forEach((n,i)=>{
+      const S=toScreen(n.x,n.y); const r=n.r*cam.zoom;
+      const active = Math.abs((focusIdx)-i) < .6;
+      // halo
+      const halo=ctx.createRadialGradient(S.x,S.y,0,S.x,S.y,r*3);
+      halo.addColorStop(0,`rgba(0,207,255,${active?.28:.12})`); halo.addColorStop(1,'rgba(0,207,255,0)');
+      ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(S.x,S.y,r*3,0,7); ctx.fill();
+      // disc
+      ctx.fillStyle='rgba(10,20,48,.92)'; ctx.beginPath(); ctx.arc(S.x,S.y,r,0,7); ctx.fill();
+      ctx.lineWidth=active?2.2:1.3; ctx.strokeStyle=active?'rgba(0,207,255,.95)':'rgba(122,139,168,.5)';
+      ctx.shadowColor='rgba(0,207,255,.5)'; ctx.shadowBlur=active?22:6;
+      ctx.stroke(); ctx.shadowBlur=0;
+      // glyph
+      ctx.save(); ctx.translate(S.x,S.y); ctx.globalAlpha=Math.min(1,cam.zoom*1.1); glyph(n.glyph, r*.7); ctx.restore();
+      // label (only when zoomed in enough AND the node is clear of the screen edge — no clipped labels)
+      const labelMargin=72;
+      if(cam.zoom>.7 && S.x>labelMargin && S.x<W-labelMargin){
+        ctx.globalAlpha=Math.min(1,(cam.zoom-.7)*3);
+        ctx.font='500 '+(11)+'px JetBrains Mono, monospace';
+        ctx.fillStyle=active?'#dffaff':'rgba(200,216,240,.6)'; ctx.textAlign='center';
+        ctx.fillText(n.label, S.x, S.y+r+18);
+        ctx.globalAlpha=1;
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // ---------- scroll wiring ----------
+  let focusIdx = -1; // smooth index the nodes read for "active"
+  const steps = [...document.querySelectorAll('.step')];
+
+  function setTargetByProgress(p){
+    // p: 0..1 across whole page. map to node index -1..6
+    const idx = -1 + p*(7);   // hero(-1) -> payoff(6)
+    focusIdx = idx;
+    const lo=Math.floor(idx), hi=lo+1, f=idx-lo;
+    const a=focusFor(lo), b=focusFor(hi);
+    target.x = a.x+(b.x-a.x)*f;
+    target.y = a.y+(b.y-a.y)*f;
+    target.zoom = a.zoom+(b.zoom-a.zoom)*f;
+    document.getElementById('prog').style.width=(p*100)+'%';
+  }
+
+  if(window.Lenis && !reduce){
+    const lenis=new Lenis({lerp:.09, wheelMultiplier:.9});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    trigger:'#scroll', start:'top top', end:'bottom bottom', scrub:true,
+    onUpdate:self=>setTargetByProgress(self.progress)
+  });
+  // step copy fade
+  steps.forEach(s=>{
+    gsap.fromTo(s.querySelector('.inner'), {autoAlpha:0, y:40},
+      {autoAlpha:1, y:0, duration:.6, ease:'power2.out',
+       scrollTrigger:{trigger:s, start:'top 65%', end:'bottom 40%', toggleActions:'play reverse play reverse'}});
+  });
+  setTargetByProgress(0);
+})();
+</script>
+</body>
+</html>
