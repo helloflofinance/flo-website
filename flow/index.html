@@ -416,20 +416,23 @@
   let focusIdx = -1; // smooth index the nodes read for "active"
   const steps = [...document.querySelectorAll('.step')];
 
+  const SEGS = 7; // 8 stops: hero(-1) -> payoff(6)
+  // quintic smootherstep — makes the camera dwell on each node, then move decisively between
+  const smooth = t => t*t*t*(t*(t*6-15)+10);
   function setTargetByProgress(p){
-    // p: 0..1 across whole page. map to node index -1..6
-    const idx = -1 + p*(7);   // hero(-1) -> payoff(6)
+    const idx = -1 + p*SEGS;   // hero(-1) -> payoff(6)
     focusIdx = idx;
-    const lo=Math.floor(idx), hi=lo+1, f=idx-lo;
+    const lo=Math.floor(idx), hi=lo+1, fe=smooth(idx-lo);
     const a=focusFor(lo), b=focusFor(hi);
-    target.x = a.x+(b.x-a.x)*f;
-    target.y = a.y+(b.y-a.y)*f;
-    target.zoom = a.zoom+(b.zoom-a.zoom)*f;
+    target.x = a.x+(b.x-a.x)*fe;
+    target.y = a.y+(b.y-a.y)*fe;
+    target.zoom = a.zoom+(b.zoom-a.zoom)*fe;
     document.getElementById('prog').style.width=(p*100)+'%';
   }
 
+  let lenis=null;
   if(window.Lenis && !reduce){
-    const lenis=new Lenis({lerp:.09, wheelMultiplier:.9});
+    lenis=new Lenis({lerp:.11, wheelMultiplier:.85, touchMultiplier:1.1});
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
   }
@@ -438,6 +441,30 @@
     trigger:'#scroll', start:'top top', end:'bottom bottom', scrub:true,
     onUpdate:self=>setTargetByProgress(self.progress)
   });
+
+  // ---- settle onto the nearest node when scrolling pauses (crisp node registration) ----
+  const maxScroll = () => document.documentElement.scrollHeight - window.innerHeight;
+  let snapping=false;
+  function snapToNearest(){
+    const ms=maxScroll(); if(ms<=0) return;
+    const dest = Math.round(window.scrollY/ms*SEGS)/SEGS * ms;
+    if(Math.abs(dest-window.scrollY) < 3) return;
+    snapping=true;
+    const done=()=>{ snapping=false; };
+    if(lenis) lenis.scrollTo(dest,{duration:.7, easing:t=>1-Math.pow(1-t,3), lock:true, onComplete:done});
+    else { document.documentElement.style.scrollBehavior='smooth'; window.scrollTo(0,dest); setTimeout(done,700); }
+  }
+  // idle-detection via the animation ticker — fires only after the user actually pauses
+  // (independent of Lenis's per-frame scroll events, which never go quiet)
+  if(!reduce){
+    let lastY=window.scrollY, idle=0, lastT=performance.now();
+    gsap.ticker.add(function(){
+      const now=performance.now(), dt=now-lastT; lastT=now;
+      if(snapping){ lastY=window.scrollY; idle=0; return; }
+      if(Math.abs(window.scrollY-lastY) > 0.5){ lastY=window.scrollY; idle=0; }
+      else if((idle+=dt) > 160){ idle=0; snapToNearest(); }
+    });
+  }
   // step copy fade
   steps.forEach(s=>{
     gsap.fromTo(s.querySelector('.inner'), {autoAlpha:0, y:40},

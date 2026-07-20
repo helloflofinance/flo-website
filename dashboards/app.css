@@ -372,7 +372,10 @@ table.di-tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:520p
     position:sticky;top:0;z-index:15;align-items:center;
   }
   .di-mobtabs::-webkit-scrollbar{display:none}
-  .di-mobtabs .di-mobbrand{display:flex;align-items:center;margin-right:4px;flex:none}
+  .di-mobtabs .di-mobbrand{display:flex;align-items:center;gap:3px;margin-right:4px;flex:none;
+    padding:6px 8px 6px 4px;border-radius:10px;color:var(--flo-silver);transition:background .18s,color .18s}
+  .di-mobtabs .di-mobbrand:hover,.di-mobtabs .di-mobbrand:active{background:rgba(255,255,255,0.05);color:#fff}
+  .di-mobtabs .di-mobbrand svg{width:16px;height:16px;flex:none;opacity:.8}
   .di-mobtabs .di-mobbrand img{height:22px}
   .di-mobtab{
     flex:none;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:10px;

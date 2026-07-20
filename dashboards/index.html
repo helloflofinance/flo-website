@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css?v=4">
+<link rel="stylesheet" href="app.css?v=5">
 </head>
 <body>
 
@@ -71,7 +71,10 @@
 
   <!-- ---------- MOBILE TABS ---------- -->
   <div class="di-mobtabs">
-    <span class="di-mobbrand"><img src="../assets/flo-logo.png" alt="flo"></span>
+    <a class="di-mobbrand" href="../index.html" aria-label="Back to flointelligence">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      <img src="../assets/flo-logo.png" alt="flo">
+    </a>
     <button class="di-mobtab" data-goto="treasury"><svg><use href="#ic-wallet"/></svg>Treasury</button>
     <button class="di-mobtab" data-goto="revenue"><svg><use href="#ic-trend"/></svg>Revenue</button>
     <button class="di-mobtab" data-goto="support"><svg><use href="#ic-ticket"/></svg>Support</button>
@@ -541,6 +544,6 @@
   }
 })();
 </script>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

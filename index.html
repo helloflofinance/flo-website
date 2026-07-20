@@ -1092,17 +1092,11 @@ footer{background:var(--dark);border-top:1px solid var(--b);
       </div>
       <button class="art-arrow art-next" onclick="scrollArticles(1)" aria-label="Next">&#8594;</button>
     </div>
-    <p class="nsub rv" style="margin-top:28px;">New issues dropping weekly. Subscribe to stay ahead.</p>
-  </div>
-</section>
-
-<!-- EMAIL -->
-<section id="email" class="sec">
-  <div class="wrap">
-    <div class="email-c">
-      <p class="ey rv" style="text-align:center">Stay sharp</p>
-      <h2 class="rv">Don't fall behind.<br>Stay ahead.</h2>
-      <p class="lead rv" style="max-width:100%;text-align:center;margin:0 auto 32px">Tools, frameworks, and real-world intelligence for operators doing things differently. A couple of emails a month, worth the open.</p>
+    <!-- newsletter signup (merged in — the subscribe CTA lives with the insights) -->
+    <div class="email-c rv" id="email" style="margin-top:44px;padding-top:40px;border-top:1px solid var(--b)">
+      <p class="ey rv" style="text-align:center">New issues weekly</p>
+      <h2 class="rv">Don't fall behind. Stay ahead.</h2>
+      <p class="lead rv" style="max-width:560px;text-align:center;margin:0 auto 32px">Tools, frameworks, and real-world intelligence for operators doing things differently. A couple of emails a month, worth the open.</p>
       <form class="eform rv" onsubmit="handleEmail(event)">
         <input type="email" class="einput" placeholder="your@email.com" required id="einput">
         <button type="submit" class="esubmit">Join →</button>
