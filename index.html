@@ -108,6 +108,28 @@ h2.dk{color:var(--navy);}
 
 /* SERVICES */
 #work{background:linear-gradient(180deg,var(--dark) 0%,var(--navy) 100%);}
+/* explainer video — click to play, so nothing downloads until asked for */
+.vid{position:relative;margin-top:44px;border:1px solid var(--b);border-radius:16px;
+  overflow:hidden;background:var(--dark);aspect-ratio:16/9;cursor:pointer;
+  transition:border-color .2s;}
+.vid:hover{border-color:rgba(0,207,255,0.18);}
+.vid video,.vid img{display:block;width:100%;height:100%;object-fit:cover;}
+.vid-play{position:absolute;inset:0;display:grid;place-items:center;
+  background:linear-gradient(180deg,rgba(6,13,31,.25),rgba(6,13,31,.55));
+  transition:opacity .25s;border:0;padding:0;width:100%;color:inherit;}
+.vid.playing .vid-play{opacity:0;pointer-events:none;}
+.vid-btn{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(10,27,61,.72);border:1px solid rgba(0,207,255,.45);
+  box-shadow:0 0 40px rgba(20,79,202,.5);transition:transform .2s,background .2s;}
+.vid:hover .vid-btn{transform:scale(1.06);background:rgba(15,44,108,.85);}
+.vid-btn svg{width:26px;height:26px;fill:var(--white);margin-left:4px;}
+.vid-cap{position:absolute;left:0;right:0;bottom:0;padding:44px 26px 18px;
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);
+  background:linear-gradient(180deg,transparent,rgba(6,13,31,.85));
+  transition:opacity .25s;pointer-events:none;}
+.vid.playing .vid-cap{opacity:0;}
+@media(max-width:720px){.vid-btn{width:58px;height:58px}.vid-btn svg{width:20px;height:20px}}
+
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:52px;}
 .svc{background:rgba(255,255,255,0.04);border:1px solid var(--b);border-radius:16px;
   padding:30px 26px;transition:border-color .2s,transform .2s,background .2s;
@@ -605,6 +627,21 @@ footer{background:var(--dark);border-top:1px solid var(--b);
     <p class="ey rv">What flo does</p>
     <h2 class="rv">Systems that do the work,<br>so you don't have to.</h2>
     <p class="lead rv">It starts with one question: what's eating your time? Then flo builds the AI, automations, and systems that take it off your plate — so a small team runs like a big one.</p>
+
+    <!-- 38s explainer. Poster only until clicked, so the 2.7MB never loads for
+         visitors who don't want it. -->
+    <div class="vid rv" id="explainer">
+      <video id="explainer-v" preload="none" playsinline
+             poster="media/flo-explainer-poster.jpg"
+             width="1920" height="1080">
+        <source src="media/flo-explainer.mp4" type="video/mp4">
+      </video>
+      <button class="vid-play" type="button" aria-label="Play the 38-second flo explainer">
+        <span class="vid-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+      <div class="vid-cap">38 sec — what flo actually does</div>
+    </div>
+
     <div class="svc-grid">
       <div class="svc rv">
         <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
@@ -1781,6 +1818,27 @@ Cal.config.forwardQueryParams = true;
   };
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape' && ov.classList.contains('flx-on')) flxClose();
+  });
+})();
+</script>
+
+<script>
+/* Explainer video: click-to-play. preload="none" means the 2.7MB file is only
+   fetched once someone actually asks for it, so the poster costs 63KB. */
+(function(){
+  var wrap = document.getElementById('explainer');
+  if(!wrap) return;
+  var v = document.getElementById('explainer-v');
+  var overlay = wrap.querySelector('.vid-play');
+  function play(){
+    wrap.classList.add('playing');
+    v.controls = true;              // only once playing — at rest the poster and
+    v.play().catch(function(){});   // our own button carry it, uncluttered
+  }
+  overlay.addEventListener('click', play);
+  v.addEventListener('play',  function(){ wrap.classList.add('playing'); v.controls = true; });
+  v.addEventListener('ended', function(){
+    wrap.classList.remove('playing'); v.controls = false; v.currentTime = 0;
   });
 })();
 </script>
