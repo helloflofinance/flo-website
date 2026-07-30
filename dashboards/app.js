@@ -6,7 +6,7 @@
 (function(){
   'use strict';
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var DASH = ['treasury','revenue','support'];
+  var DASH = ['treasury','revenue'];
   var app = document.querySelector('.di-app');
 
   /* ---------- count-up ---------- */

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>flo Intelligence — Live Dashboards</title>
-<meta name="description" content="flo Intelligence — interactive dashboards built by flo. Treasury, revenue and support operations, live.">
+<meta name="description" content="Enterprise dashboards built by flo — treasury and revenue operations, interactive and live. A decade of building these inside real finance teams.">
 <link rel="icon" href="../assets/flo-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,15 +49,11 @@
     <nav class="di-nav">
       <button class="di-navitem" data-goto="treasury">
         <svg><use href="#ic-wallet"/></svg>
-        <span>Treasury &amp; Cash<span class="di-navsub">Meridian Global Holdings</span></span>
+        <span>Treasury &amp; Cash<span class="di-navsub">Halvorsen Industrial Group</span></span>
       </button>
       <button class="di-navitem" data-goto="revenue">
         <svg><use href="#ic-trend"/></svg>
-        <span>Revenue Ops<span class="di-navsub">Northwind SaaS</span></span>
-      </button>
-      <button class="di-navitem" data-goto="support">
-        <svg><use href="#ic-ticket"/></svg>
-        <span>Support Ops<span class="di-navsub">Atlas Helpdesk</span></span>
+        <span>Revenue Ops<span class="di-navsub">Halden Software</span></span>
       </button>
     </nav>
     <div class="di-rail-foot">
@@ -77,7 +73,6 @@
     </a>
     <button class="di-mobtab" data-goto="treasury"><svg><use href="#ic-wallet"/></svg>Treasury</button>
     <button class="di-mobtab" data-goto="revenue"><svg><use href="#ic-trend"/></svg>Revenue</button>
-    <button class="di-mobtab" data-goto="support"><svg><use href="#ic-ticket"/></svg>Support</button>
   </div>
 
   <!-- ---------- MAIN ---------- -->
@@ -87,7 +82,7 @@
     <div class="di-topbar di-topbar-treasury" data-topbar="treasury">
       <div class="di-title">
         <h1 data-doctitle="treasury">Cash Command<span class="di-badge">● Live</span></h1>
-        <p>Meridian Global Holdings · consolidated treasury position</p>
+        <p>Halvorsen Industrial Group · consolidated treasury position</p>
       </div>
       <div class="di-filters">
         <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em">Q2</span> Apr–Jun 2026</span>
@@ -110,7 +105,7 @@
     <div class="di-topbar" data-topbar="revenue" style="display:none">
       <div class="di-title">
         <h1 data-doctitle="revenue">Revenue Operations<span class="di-badge">● Live</span></h1>
-        <p>Northwind SaaS · ARR, retention &amp; pipeline health</p>
+        <p>Halden Software · ARR, retention &amp; pipeline health</p>
       </div>
       <div class="di-filters">
         <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em">TTM</span> Rolling 12 mo</span>
@@ -125,29 +120,6 @@
         <div class="di-seg">
           <button class="active" data-subview-group="rev-chart" data-subview="mrr">MRR</button>
           <button data-subview-group="rev-chart" data-subview="net">Net new</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============ SUPPORT TOPBAR ============ -->
-    <div class="di-topbar" data-topbar="support" style="display:none">
-      <div class="di-title">
-        <h1 data-doctitle="support">Support Operations<span class="di-badge">● Live</span></h1>
-        <p>Atlas Helpdesk · volume, resolution &amp; customer sentiment</p>
-      </div>
-      <div class="di-filters">
-        <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em">30d</span> Last 30 days</span>
-        <div class="di-select">
-          <select data-filter-table="tbl-agent" aria-label="Queue">
-            <option value="all">All queues</option>
-            <option value="billing">Billing</option>
-            <option value="tech">Technical</option>
-            <option value="onboard">Onboarding</option>
-          </select>
-        </div>
-        <div class="di-seg">
-          <button class="active" data-subview-group="sup-chart" data-subview="vol">Volume</button>
-          <button data-subview-group="sup-chart" data-subview="sla">SLA</button>
         </div>
       </div>
     </div>
@@ -254,7 +226,7 @@
                   <rect class="bar" x="590" y="168" width="70" height="36"  rx="6" fill="var(--c5)"/>
                 </g>
               </svg>
-              <div class="axis-x"><span style="flex:1;text-align:center">US Parent</span><span style="flex:1;text-align:center">Meridian UK</span><span style="flex:1;text-align:center">EU GmbH</span><span style="flex:1;text-align:center">APAC Pte</span><span style="flex:1;text-align:center">LatAm SA</span></div>
+              <div class="axis-x"><span style="flex:1;text-align:center">US Parent</span><span style="flex:1;text-align:center">Halvorsen UK</span><span style="flex:1;text-align:center">EU GmbH</span><span style="flex:1;text-align:center">APAC Pte</span><span style="flex:1;text-align:center">LatAm SA</span></div>
             </div>
           </div>
 
@@ -303,7 +275,7 @@
                 <thead><tr><th>Reference</th><th>Counterparty</th><th>Entity</th><th class="r">Amount</th><th>Status</th></tr></thead>
                 <tbody>
                   <tr data-seg="na"><td class="lnk">WIRE-40218</td><td>Cascade Logistics</td><td>US Parent</td><td class="r">$1,240,000</td><td><span class="status-chip ok">Settled</span></td></tr>
-                  <tr data-seg="emea"><td class="lnk">SEPA-11907</td><td>Brightwork Ltd</td><td>Meridian UK</td><td class="r">$612,450</td><td><span class="status-chip ok">Settled</span></td></tr>
+                  <tr data-seg="emea"><td class="lnk">SEPA-11907</td><td>Brightwork Ltd</td><td>Halvorsen UK</td><td class="r">$612,450</td><td><span class="status-chip ok">Settled</span></td></tr>
                   <tr data-seg="apac"><td class="lnk">WIRE-40219</td><td>Sunda Manufacturing</td><td>APAC Pte</td><td class="r">$980,000</td><td><span class="status-chip pend">In review</span></td></tr>
                   <tr data-seg="na"><td class="lnk">ACH-77302</td><td>Ridgeline Payroll</td><td>US Parent</td><td class="r">$438,120</td><td><span class="status-chip ok">Settled</span></td></tr>
                   <tr data-seg="emea"><td class="lnk">WIRE-40221</td><td>Nordic Components AB</td><td>EU GmbH</td><td class="r">$1,505,300</td><td><span class="status-chip risk">Hold · value date</span></td></tr>
@@ -413,110 +385,6 @@
                   <tr data-seg="growth"><td class="lnk">Perch Analytics</td><td>Growth</td><td class="r">$12,300</td><td class="r">145</td><td><div class="cellbar" style="--p:.6"><i></i></div></td><td class="r">98%</td></tr>
                   <tr data-seg="starter"><td class="lnk">Fernwood Coffee Co</td><td>Starter</td><td class="r">$3,900</td><td class="r">38</td><td><div class="cellbar" style="--p:.81"><i></i></div></td><td class="r">112%</td></tr>
                   <tr class="total"><td>Total shown</td><td></td><td class="r">$112,750</td><td class="r">1,613</td><td></td><td class="r">118%</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SUPPORT VIEW ================= -->
-      <section class="di-view" data-dash="support">
-
-        <div class="di-row">
-          <div class="col-4 card hero-stat">
-            <div class="hs-label">Tickets resolved · 30d</div>
-            <div class="hs-val"><span data-count="8420" data-dec="0">0</span></div>
-            <div class="hs-meta"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>14%</span> vs prior 30d</div>
-            <svg class="hs-spark" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
-              <polyline class="trend-line draw" style="--len:200" stroke="var(--accent)" stroke-width="2.4"
-                points="2,30 20,26 38,32 56,20 74,24 92,16 110,18 118,8"/>
-            </svg>
-          </div>
-          <div class="col-8">
-            <div class="di-grid kpi-quad">
-              <div class="card kpi"><div class="kpi-top"><span class="kpi-label">Avg first response</span><span class="kpi-ic"><svg><use href="#ic-clock"/></svg></span></div><div class="kpi-val"><span data-count="1.4" data-dec="1">0</span>h</div><div class="kpi-foot"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>22%</span> faster</div></div>
-              <div class="card kpi"><div class="kpi-top"><span class="kpi-label">Resolution rate</span><span class="kpi-ic"><svg><use href="#ic-target"/></svg></span></div><div class="kpi-val"><span data-count="93.6" data-dec="1">0</span>%</div><div class="kpi-foot"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>1.8pt</span></div></div>
-              <div class="card kpi"><div class="kpi-top"><span class="kpi-label">Backlog</span><span class="kpi-ic"><svg><use href="#ic-layers"/></svg></span></div><div class="kpi-val"><span data-count="212" data-dec="0">0</span></div><div class="kpi-foot"><span class="delta down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>18%</span> cleared</div></div>
-              <div class="card kpi"><div class="kpi-top"><span class="kpi-label">CSAT</span><span class="kpi-ic"><svg><use href="#ic-smile"/></svg></span></div><div class="kpi-val"><span data-count="4.6" data-dec="1">0</span>/5</div><div class="kpi-foot"><span class="delta up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>0.2</span></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="di-row">
-          <div class="col-8 card">
-            <div class="card-head">
-              <div><div class="card-title">Ticket volume vs resolution rate</div><div class="card-sub">Weekly · bars = volume, line = % resolved within SLA</div></div>
-              <div class="card-legend"><span class="lg"><i style="background:var(--accent)"></i>Volume</span><span class="lg"><i style="background:var(--accent-3)"></i>Resolved %</span></div>
-            </div>
-            <div data-subpanel-group="sup-chart" data-subpanel="vol" class="chart">
-              <svg viewBox="0 0 720 232" aria-label="Volume vs resolution combo chart">
-                <line class="gridline" x1="44" y1="30" x2="704" y2="30"/><line class="gridline" x1="44" y1="90" x2="704" y2="90"/><line class="gridline" x1="44" y1="150" x2="704" y2="150"/><line class="gridline" x1="44" y1="204" x2="704" y2="204"/>
-                <text class="chart-y" x="8" y="34">2.4K</text><text class="chart-y" x="18" y="208">0</text>
-                <g>
-                  <rect class="bar" x="70"  y="120" width="52" height="84"  rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="162" y="104" width="52" height="100" rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="254" y="132" width="52" height="72"  rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="346" y="96"  width="52" height="108" rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="438" y="112" width="52" height="92"  rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="530" y="84"  width="52" height="120" rx="5" fill="var(--accent)"/>
-                  <rect class="bar" x="622" y="100" width="52" height="104" rx="5" fill="var(--accent)"/>
-                </g>
-                <!-- resolution % line (secondary axis, higher = better) -->
-                <polyline class="trend-line draw" style="--len:900" stroke="var(--accent-3)" stroke-width="3" stroke-dasharray="900"
-                  points="96,86 188,74 280,80 372,58 464,66 556,46 648,52"/>
-                <circle class="dot" cx="556" cy="46" r="4" fill="var(--accent-3)" stroke="var(--panel)" stroke-width="2"/>
-                <g class="val-callout" transform="translate(520,20)"><rect x="0" y="0" width="46" height="22" rx="6"/><text x="23" y="15" text-anchor="middle">96%</text></g>
-              </svg>
-              <div class="axis-x"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span></div>
-            </div>
-            <div data-subpanel-group="sup-chart" data-subpanel="sla" class="chart" style="display:none">
-              <svg viewBox="0 0 720 232" preserveAspectRatio="none" aria-label="SLA attainment">
-                <line class="gridline" x1="44" y1="30" x2="704" y2="30"/><line class="gridline" x1="44" y1="90" x2="704" y2="90"/><line class="gridline" x1="44" y1="150" x2="704" y2="150"/><line class="gridline" x1="44" y1="204" x2="704" y2="204"/>
-                <text class="chart-y" x="14" y="34">100%</text><text class="chart-y" x="20" y="154">80%</text>
-                <line x1="44" y1="52" x2="704" y2="52" stroke="var(--warn)" stroke-width="1.4" stroke-dasharray="5 5" opacity="0.7"/>
-                <text x="640" y="46" style="fill:var(--warn);font-size:10px">SLA 95%</text>
-                <polygon class="area-fill" fill="url(#supGrad)" points="44,96 154,84 264,90 374,66 484,72 594,52 704,58 704,204 44,204"/>
-                <polyline class="trend-line draw" style="--len:1000" stroke="var(--accent-3)" stroke-width="3" stroke-dasharray="1000"
-                  points="44,96 154,84 264,90 374,66 484,72 594,52 704,58"/>
-                <defs><linearGradient id="supGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent-3)" stop-opacity="0.25"/><stop offset="1" stop-color="var(--accent-3)" stop-opacity="0"/></linearGradient></defs>
-              </svg>
-              <div class="axis-x"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span></div>
-            </div>
-          </div>
-
-          <div class="col-4">
-            <div class="card health warn" style="margin-bottom:18px">
-              <div class="h-top"><span class="h-ic"><svg><use href="#ic-alert"/></svg></span><div><div class="h-label">Billing queue</div><div class="h-state">Needs attention</div></div></div>
-              <div class="h-desc">Billing SLA slipped to <b>88%</b> this week — a refund-policy change drove a spike. <b>Staffing +1</b> suggested for W8.</div>
-            </div>
-            <div class="card">
-              <div class="card-head"><div><div class="card-title">Ticket mix</div></div></div>
-              <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-                <div class="donut" data-segs="46,34,20" data-cols="var(--accent),var(--accent-2),var(--accent-3)" data-center="8.4K" data-centerlab="tickets" style="width:132px;flex:none"></div>
-                <div style="display:flex;flex-direction:column;gap:9px;flex:1;min-width:110px">
-                  <span class="lg"><i style="background:var(--accent)"></i>Technical · 46%</span>
-                  <span class="lg"><i style="background:var(--accent-2)"></i>Billing · 34%</span>
-                  <span class="lg"><i style="background:var(--accent-3)"></i>Onboarding · 20%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="di-row">
-          <div class="col-12 card">
-            <div class="card-head"><div><div class="card-title">Agent performance</div><div class="card-sub">Rolling 30 days · filtered by queue</div></div><span class="card-tag">Live</span></div>
-            <div class="tbl-wrap">
-              <table class="di-tbl" id="tbl-agent">
-                <thead><tr><th>Agent</th><th>Queue</th><th class="r">Resolved</th><th class="r">Avg handle</th><th style="width:150px">CSAT</th><th>Status</th></tr></thead>
-                <tbody>
-                  <tr data-seg="tech"><td class="lnk">Priya N.</td><td>Technical</td><td class="r">742</td><td class="r">14m</td><td><div class="cellbar" style="--p:.96"><i></i></div></td><td><span class="status-chip ok">On track</span></td></tr>
-                  <tr data-seg="billing"><td class="lnk">Marcus D.</td><td>Billing</td><td class="r">688</td><td class="r">11m</td><td><div class="cellbar" style="--p:.9"><i></i></div></td><td><span class="status-chip ok">On track</span></td></tr>
-                  <tr data-seg="billing"><td class="lnk">Lena K.</td><td>Billing</td><td class="r">521</td><td class="r">19m</td><td><div class="cellbar" style="--p:.72"><i></i></div></td><td><span class="status-chip pend">Backlog</span></td></tr>
-                  <tr data-seg="onboard"><td class="lnk">Theo R.</td><td>Onboarding</td><td class="r">410</td><td class="r">22m</td><td><div class="cellbar" style="--p:.84"><i></i></div></td><td><span class="status-chip ok">On track</span></td></tr>
-                  <tr data-seg="tech"><td class="lnk">Amara O.</td><td>Technical</td><td class="r">655</td><td class="r">16m</td><td><div class="cellbar" style="--p:.93"><i></i></div></td><td><span class="status-chip ok">On track</span></td></tr>
-                  <tr class="total"><td>Team total</td><td></td><td class="r">3,016</td><td class="r">16m</td><td></td><td></td></tr>
                 </tbody>
               </table>
             </div>

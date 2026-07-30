@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>flo OS — the system behind a small business</title>
+<meta name="description" content="A working demo of the operating system flo installs for small service businesses — lead response, automations, pipeline and the five numbers that matter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="os.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></symbol>
+    <symbol id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+    <symbol id="ic-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M17 11a3 3 0 1 0 0-6M18 20a5.6 5.6 0 0 0-3-5"/></symbol>
+    <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><rect x="8" y="12" width="3" height="5" rx="1"/><rect x="13" y="8" width="3" height="9" rx="1"/><rect x="18" y="14" width="3" height="3" rx="1"/></symbol>
+    <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L15 13l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3 5.2A2 2 0 0 1 5 3z"/></symbol>
+    <symbol id="ic-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="ic-cash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 10v4M18 10v4"/></symbol>
+    <symbol id="ic-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.5 6 .8-4.4 4.2 1.1 5.9L12 17.1 6.7 19.9l1.1-5.9L3.4 9.8l6-.8z"/></symbol>
+    <symbol id="ic-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4.5-5"/></symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="ic-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M9 3v18"/></symbol>
+  </defs>
+</svg>
+
+<div class="di-app" data-theme="floos">
+
+  <!-- ---------- LEFT RAIL ---------- -->
+  <aside class="di-rail">
+    <div class="di-brand">
+      <img src="../assets/flo-logo.png" alt="flo">
+      <span class="di-brand-tag">OS</span>
+    </div>
+    <div class="di-rail-label">Delaney Plumbing &amp; Heating</div>
+    <nav class="di-nav">
+      <button class="di-navitem" data-goto="today">
+        <svg><use href="#ic-sun"/></svg>
+        <span>Today<span class="di-navsub">What needs you now</span></span>
+      </button>
+      <button class="di-navitem" data-goto="autos">
+        <svg><use href="#ic-bolt"/></svg>
+        <span>Automations<span class="di-navsub">5 running · 2 available</span></span>
+      </button>
+      <button class="di-navitem" data-goto="pipeline">
+        <svg><use href="#ic-users"/></svg>
+        <span>Pipeline<span class="di-navsub">8 open jobs</span></span>
+      </button>
+      <button class="di-navitem" data-goto="numbers">
+        <svg><use href="#ic-chart"/></svg>
+        <span>Numbers<span class="di-navsub">The Monday five</span></span>
+      </button>
+    </nav>
+    <div class="di-rail-foot">
+      <div class="di-live"><span class="dot"></span> Sample data · live clock</div>
+      <a class="di-cta" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">
+        <svg width="15" height="15"><use href="#ic-book"/></svg> Build mine
+      </a>
+      <!-- the enterprise work, framed as pedigree rather than portfolio -->
+      <a class="di-backhome" href="index.html">Enterprise dashboards — a decade of this →</a>
+      <a class="di-backhome" href="../index.html">← Back to flointelligence</a>
+    </div>
+  </aside>
+
+  <!-- ---------- MOBILE TABS ---------- -->
+  <div class="di-mobtabs">
+    <a class="di-mobbrand" href="../index.html" aria-label="Back to flointelligence">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      <img src="../assets/flo-logo.png" alt="flo">
+    </a>
+    <button class="di-mobtab" data-goto="today"><svg><use href="#ic-sun"/></svg>Today</button>
+    <button class="di-mobtab" data-goto="autos"><svg><use href="#ic-bolt"/></svg>Automations</button>
+    <button class="di-mobtab" data-goto="pipeline"><svg><use href="#ic-users"/></svg>Pipeline</button>
+    <button class="di-mobtab" data-goto="numbers"><svg><use href="#ic-chart"/></svg>Numbers</button>
+  </div>
+
+  <main class="di-main">
+
+    <!-- ============ TOPBARS ============ -->
+    <div class="di-topbar" data-topbar="today">
+      <div class="di-title">
+        <h1 data-doctitle="today">Today<span class="di-badge">● Live</span></h1>
+        <p>Three trucks, one town · everything that needs a human</p>
+      </div>
+      <div class="di-filters">
+        <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em" data-today-label>Today</span></span>
+      </div>
+    </div>
+
+    <div class="di-topbar" data-topbar="autos" style="display:none">
+      <div class="di-title">
+        <h1 data-doctitle="autos">Automations<span class="di-badge">● Live</span></h1>
+        <p>The work that happens whether or not anyone is at a desk</p>
+      </div>
+      <div class="di-filters">
+        <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em">7d</span> This week</span>
+      </div>
+    </div>
+
+    <div class="di-topbar" data-topbar="pipeline" style="display:none">
+      <div class="di-title">
+        <h1 data-doctitle="pipeline">Pipeline<span class="di-badge">● Live</span></h1>
+        <p>Six fields, not sixty — the reason it still gets used in month three</p>
+      </div>
+      <div class="di-filters">
+        <div class="os-search">
+          <svg><use href="#ic-search"/></svg>
+          <input type="search" id="pipe-search" placeholder="Search jobs…" aria-label="Search pipeline">
+        </div>
+        <div class="di-seg">
+          <button class="active" data-pipe="all">All</button>
+          <button data-pipe="quoted">Quoted</button>
+          <button data-pipe="new">New</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="di-topbar" data-topbar="numbers" style="display:none">
+      <div class="di-title">
+        <h1 data-doctitle="numbers">Numbers<span class="di-badge">● Live</span></h1>
+        <p>The five an owner actually checks on a Monday morning</p>
+      </div>
+      <div class="di-filters">
+        <span class="di-pill"><svg><use href="#ic-cal"/></svg><span class="di-pill-em">30d</span> Last 30 days</span>
+      </div>
+    </div>
+
+    <div class="di-canvas">
+
+      <!-- ================= TODAY ================= -->
+      <section class="di-view" data-dash="today">
+
+        <div class="di-row">
+          <div class="col-12">
+            <div class="os-recover">
+              <div class="os-recover-lab">While you were under a sink</div>
+              <div class="os-recover-hd">
+                flo answered <b>23</b> calls you couldn't this week.
+                <b>9</b> became booked jobs — about <b>$11,400</b>.
+              </div>
+              <div class="os-recover-foot">
+                <span>Median response <b style="color:var(--good)">48 sec</b></span>
+                <span>Trade median <b>42 min</b></span>
+                <span>Nothing sat unanswered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="di-row">
+          <div class="col-8 card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Needs you now</div>
+                <div class="card-sub">Sorted by what's decaying fastest, not by what arrived last</div>
+              </div>
+              <span class="card-tag" id="todo-count">5 open</span>
+            </div>
+            <div class="os-feed" id="today-feed">
+
+              <div class="os-item hot" data-item>
+                <span class="os-ic"><svg><use href="#ic-phone"/></svg></span>
+                <div>
+                  <div class="os-item-hd">Marisol Vega — burst pipe, Elm &amp; 7th</div>
+                  <div class="os-item-sub">
+                    Called <span class="os-clock" data-ago="4"></span> · flo texted back in <b>41 sec</b>
+                    <span class="os-flag">✓ answered</span><br>
+                    She replied "how soon can someone come?" — <b>nobody has answered that yet</b>
+                  </div>
+                </div>
+                <button class="os-act" data-done="Called">Call now</button>
+              </div>
+
+              <div class="os-item warm" data-item>
+                <span class="os-ic"><svg><use href="#ic-doc"/></svg></span>
+                <div>
+                  <div class="os-item-hd">Quote <span class="os-amt">$2,340</span> — Terrence Aduba, water heater swap</div>
+                  <div class="os-item-sub">
+                    Sent <span class="os-clock" data-ago="5760"></span>, opened twice, no reply ·
+                    flo's day-5 nudge goes out <b>tomorrow 9:00am</b> unless you get there first
+                  </div>
+                </div>
+                <button class="os-act" data-done="Sent">Send now</button>
+              </div>
+
+              <div class="os-item warm" data-item>
+                <span class="os-ic"><svg><use href="#ic-cal"/></svg></span>
+                <div>
+                  <div class="os-item-hd">Tomorrow 7:30am — Kowalczyk residence, unconfirmed</div>
+                  <div class="os-item-sub">
+                    Two reminders sent, no confirmation · unconfirmed first slots are
+                    <b>4× more likely</b> to no-show and cost you the morning
+                  </div>
+                </div>
+                <button class="os-act" data-done="Texted">Text confirm</button>
+              </div>
+
+              <div class="os-item cool" data-item>
+                <span class="os-ic"><svg><use href="#ic-cash"/></svg></span>
+                <div>
+                  <div class="os-item-hd">Invoice #10428 — <span class="os-amt">$874.50</span>, Bennett &amp; Sons</div>
+                  <div class="os-item-sub">
+                    <b>6 days</b> past due · two automatic reminders sent, both opened ·
+                    a phone call collects this one
+                  </div>
+                </div>
+                <button class="os-act" data-done="Reminded">Send reminder</button>
+              </div>
+
+              <div class="os-item cool" data-item>
+                <span class="os-ic"><svg><use href="#ic-star"/></svg></span>
+                <div>
+                  <div class="os-item-hd">3 review requests ready to go out</div>
+                  <div class="os-item-sub">
+                    Jobs closed yesterday: Ruiz, Halloran, Petrakis · queued and waiting on your
+                    nod — reviews under 30 days old carry the most weight locally
+                  </div>
+                </div>
+                <button class="os-act" data-done="Sent 3">Send 3</button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card health good" style="margin-bottom:18px">
+              <div class="h-top">
+                <span class="h-ic"><svg><use href="#ic-gauge"/></svg></span>
+                <div><div class="h-label">Response health</div><div class="h-state">Excellent</div></div>
+              </div>
+              <div class="h-desc">
+                Median first response <b>48 seconds</b> across 31 inbound leads.
+                You are answering faster than <b>roughly 9 in 10</b> shops in the trade —
+                <b>no action needed</b>.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><div><div class="card-title">Today at a glance</div><div class="card-sub">Live off the schedule</div></div></div>
+              <div class="os-feed">
+                <div class="os-item cool" style="grid-template-columns:1fr auto;padding:11px 0">
+                  <div class="os-item-hd" style="font-weight:500;color:var(--muted);font-size:12.5px">Jobs booked</div>
+                  <div class="os-item-hd os-amt">7</div>
+                </div>
+                <div class="os-item cool" style="grid-template-columns:1fr auto;padding:11px 0">
+                  <div class="os-item-hd" style="font-weight:500;color:var(--muted);font-size:12.5px">Still unconfirmed</div>
+                  <div class="os-item-hd os-amt" style="color:var(--warn)">2</div>
+                </div>
+                <div class="os-item cool" style="grid-template-columns:1fr auto;padding:11px 0">
+                  <div class="os-item-hd" style="font-weight:500;color:var(--muted);font-size:12.5px">Invoiced today</div>
+                  <div class="os-item-hd os-amt">$3,187.40</div>
+                </div>
+                <div class="os-item cool" style="grid-template-columns:1fr auto;padding:11px 0">
+                  <div class="os-item-hd" style="font-weight:500;color:var(--muted);font-size:12.5px">Outstanding</div>
+                  <div class="os-item-hd os-amt">$9,642.15</div>
+                </div>
+              </div>
+              <div class="os-note">
+                <svg><use href="#ic-info"/></svg>
+                <span>Delaney Plumbing is a sample business with sample numbers. The system is real — yours would run on your data.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= AUTOMATIONS ================= -->
+      <section class="di-view" data-dash="autos">
+
+        <div class="di-row">
+          <div class="col-12">
+            <div class="os-recover">
+              <div class="os-recover-lab">This week, without anyone lifting a finger</div>
+              <div class="os-recover-hd">
+                <b>23</b> missed calls answered in under a minute · <b>41</b> review requests sent ·
+                <b>4</b> dead quotes revived · <b>$4,380</b> collected early
+              </div>
+              <div class="os-recover-foot">
+                <span>5 automations running</span>
+                <span>2 available, switched off</span>
+                <span>Est. <b style="color:var(--good)">11 hrs</b> of admin avoided</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="di-row">
+          <div class="col-12 card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Running automations</div>
+                <div class="card-sub">Tap any row to see exactly what it does, step by step</div>
+              </div>
+              <span class="card-tag">Live</span>
+            </div>
+
+            <div class="os-auto" id="auto-list">
+
+              <!-- 1. the one every trade asks for first -->
+              <div class="os-arow live open" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Missed call → text back in 45 seconds</div>
+                    <div class="os-aout">
+                      Caught <b>23</b> calls you couldn't answer this week ·
+                      <span class="os-win">9 became booked jobs</span> · about <b>$11,400</b>
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>fired <span data-ago="12"></span></span>
+                  <span class="os-sw" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle missed call text back"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Call rings out or hits voicemail <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Check it's a mobile and not a known supplier or spam number</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Text within <b>45 seconds</b>: "Sorry we missed you — this is Delaney Plumbing. What's going on and what's your address?"</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">Reply lands in <b>Today</b> as a live lead with a decay clock on it</div></div>
+                  <div class="os-step"><span class="os-stepdot">5</span><div class="os-steptxt">No reply in 30 min → second text, then it drops into Pipeline as <b>Cold</b></div></div>
+                </div>
+              </div>
+
+              <!-- 2. reviews -->
+              <div class="os-arow live" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Review request after every completed job</div>
+                    <div class="os-aout">
+                      <b>41</b> asked this month · <span class="os-win">12 new reviews</span> ·
+                      rating <b>4.6 → 4.8</b>
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>fired <span data-ago="127"></span></span>
+                  <span class="os-sw" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle review requests"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Job marked complete on the truck <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Wait <b>3 hours</b> — long enough to be out of the way, short enough to still be fresh</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Text with a one-tap link straight to the Google profile</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">No review in 48 hrs → one email, then stop. Never a third ask.</div></div>
+                  <div class="os-step"><span class="os-stepdot">5</span><div class="os-steptxt">Anything below 4 stars routes to you privately <b>before</b> it gets posted</div></div>
+                </div>
+              </div>
+
+              <!-- 3. quote follow-up -->
+              <div class="os-arow live" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Quote follow-up on day 2, 5 and 12</div>
+                    <div class="os-aout">
+                      <b>18</b> nudges sent · <span class="os-win">4 dead quotes revived</span> ·
+                      <b>$9,120</b> back in play
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>fired <span data-ago="41"></span></span>
+                  <span class="os-sw" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle quote follow-up"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Quote sent and not yet accepted <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Day 2 — short text, no pressure: "Any questions on that number?"</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Day 5 — email that re-attaches the quote and restates what's included</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">Day 12 — last touch, offers to re-price if the job changed</div></div>
+                  <div class="os-step"><span class="os-stepdot">5</span><div class="os-steptxt">Opens are tracked, so <b>Today</b> can tell you who read it twice and still went quiet</div></div>
+                </div>
+              </div>
+
+              <!-- 4. confirmations -->
+              <div class="os-arow live" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Appointment confirmation, then a reminder</div>
+                    <div class="os-aout">
+                      <b>62</b> sent this month · <span class="os-win">no-shows 14% → 4%</span> ·
+                      about <b>6 saved slots</b>
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>fired <span data-ago="6"></span></span>
+                  <span class="os-sw" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle appointment confirmations"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Job lands on the schedule <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Immediate text with the window and the tech's first name</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Reminder the evening before, reply <b>C</b> to confirm</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">Still unconfirmed by 6am → surfaces in <b>Today</b> as a live risk</div></div>
+                </div>
+              </div>
+
+              <!-- 5. invoices -->
+              <div class="os-arow live" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Invoice reminders at 3, 7 and 14 days</div>
+                    <div class="os-aout">
+                      <b>11</b> sent · <span class="os-win">$4,380 collected</span> ·
+                      paid <b>9 days sooner</b> on average
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>fired <span data-ago="188"></span></span>
+                  <span class="os-sw" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle invoice reminders"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Invoice passes its due date <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Day 3 — friendly text with the pay link</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Day 7 — email, invoice re-attached</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">Day 14 — stops automating and hands it to you with the full history</div></div>
+                </div>
+              </div>
+
+              <!-- available, switched off — the menu that doesn't look like a menu -->
+              <div class="os-arow off" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>After-hours AI receptionist</div>
+                    <div class="os-aout">
+                      Not switched on · would answer, qualify and book the
+                      <b>6–9 calls a week</b> that land after 5pm
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>available</span>
+                  <span class="os-sw" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle after-hours receptionist"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Call arrives outside working hours <span class="os-steptag">trigger</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Answers in your business's voice, asks what's wrong and how urgent</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">True emergency → rings your mobile straight away. Everything else → books the first open slot.</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">Transcript and booking are waiting in <b>Today</b> before your first coffee</div></div>
+                  <a class="os-addcta" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Have flo switch this on →</a>
+                </div>
+              </div>
+
+              <div class="os-arow off" data-auto>
+                <div class="os-ahead" data-expand>
+                  <div>
+                    <div class="os-aname"><svg class="os-caret"><use href="#ic-caret"/></svg>Monday 6am owner recap, by text</div>
+                    <div class="os-aout">
+                      Not switched on · the five numbers on your phone before you open the laptop
+                    </div>
+                  </div>
+                  <span class="os-afire"><i></i>available</span>
+                  <span class="os-sw" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle Monday recap"></span>
+                </div>
+                <div class="os-steps">
+                  <div class="os-step"><span class="os-stepdot">1</span><div class="os-steptxt">Every Monday, 6:00am <span class="os-steptag">schedule</span></div></div>
+                  <div class="os-step"><span class="os-stepdot">2</span><div class="os-steptxt">Pulls speed to lead, booking rate, average ticket, close rate, utilisation</div></div>
+                  <div class="os-step"><span class="os-stepdot">3</span><div class="os-steptxt">Flags only what <b>moved</b> — no wall of numbers to read</div></div>
+                  <div class="os-step"><span class="os-stepdot">4</span><div class="os-steptxt">One text. Replaces the 30 minutes you'd spend digging.</div></div>
+                  <a class="os-addcta" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Have flo switch this on →</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="di-row">
+          <div class="col-12">
+            <div class="os-close">
+              <div>
+                <h3>Every row above started as someone's Tuesday afternoon.</h3>
+                <p>These are the automations small service businesses ask for most — missed calls, reviews, quote chasing, confirmations, collections. flo builds them around how your shop actually runs, then hands you the keys.</p>
+              </div>
+              <a class="di-cta" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">
+                <svg width="15" height="15"><use href="#ic-book"/></svg> Book a discovery call
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PIPELINE ================= -->
+      <section class="di-view" data-dash="pipeline">
+        <div class="di-row">
+          <div class="col-12 card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Open jobs</div>
+                <div class="card-sub">Click a status to move it — it stays where you put it</div>
+              </div>
+              <span class="card-tag" id="pipe-count">8 open</span>
+            </div>
+            <div class="tbl-wrap">
+              <table class="di-tbl" id="tbl-pipe">
+                <thead><tr><th>Customer</th><th>Job</th><th>Source</th><th class="r">Value</th><th>Status</th><th>Next touch</th></tr></thead>
+                <tbody>
+                  <tr data-stage="new"><td>Marisol Vega</td><td>Burst pipe — emergency</td><td><span class="os-src call">Missed call</span></td><td class="r">$680</td><td><button class="status-chip risk os-chipbtn" data-cycle>New</button></td><td><span class="os-next"><b>You</b> — call now</span></td></tr>
+                  <tr data-stage="quoted"><td>Terrence Aduba</td><td>Water heater replacement</td><td><span class="os-src web">Website form</span></td><td class="r">$2,340</td><td><button class="status-chip pend os-chipbtn" data-cycle>Quoted</button></td><td><span class="os-next">Auto nudge <b>tomorrow 9:00</b></span></td></tr>
+                  <tr data-stage="quoted"><td>Halloran Mechanical</td><td>Boiler service contract</td><td><span class="os-src ref">Referral</span></td><td class="r">$4,850</td><td><button class="status-chip pend os-chipbtn" data-cycle>Quoted</button></td><td><span class="os-next">Day-5 email <b>Thu</b></span></td></tr>
+                  <tr data-stage="new"><td>Priya Raghunathan</td><td>Kitchen re-pipe estimate</td><td><span class="os-src call">Missed call</span></td><td class="r">$1,275</td><td><button class="status-chip risk os-chipbtn" data-cycle>New</button></td><td><span class="os-next">Auto-text <b>sent 41s</b></span></td></tr>
+                  <tr data-stage="won"><td>Bennett &amp; Sons</td><td>Backflow testing — 4 units</td><td><span class="os-src ref">Referral</span></td><td class="r">$874.50</td><td><button class="status-chip ok os-chipbtn" data-cycle>Won</button></td><td><span class="os-next">Invoice <b>6d overdue</b></span></td></tr>
+                  <tr data-stage="quoted"><td>Kowalczyk residence</td><td>Sump pump install</td><td><span class="os-src web">Website form</span></td><td class="r">$1,690</td><td><button class="status-chip pend os-chipbtn" data-cycle>Quoted</button></td><td><span class="os-next">Confirm <b>7:30am</b></span></td></tr>
+                  <tr data-stage="cold"><td>Devereaux Property Mgmt</td><td>12-unit inspection</td><td><span class="os-src web">Website form</span></td><td class="r">$3,420</td><td><button class="status-chip neutral os-chipbtn" data-cycle>Cold</button></td><td><span class="os-next">No reply in <b>18 days</b></span></td></tr>
+                  <tr data-stage="new"><td>Oyelaran Bakery</td><td>Grease trap — recurring</td><td><span class="os-src call">Missed call</span></td><td class="r">$540</td><td><button class="status-chip risk os-chipbtn" data-cycle>New</button></td><td><span class="os-next">Auto-text <b>sent 38s</b></span></td></tr>
+                  <tr class="total"><td>8 open</td><td></td><td></td><td class="r">$15,669.50</td><td></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="os-note">
+              <svg><use href="#ic-info"/></svg>
+              <span>Six columns is a deliberate choice. Most small businesses abandon a CRM inside 90 days because it asks for forty fields nobody fills in — so this one asks for the six that change what you do next.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= NUMBERS ================= -->
+      <section class="di-view" data-dash="numbers">
+        <div class="di-row">
+          <div class="col-4 card hero-stat">
+            <div class="hs-label">Speed to lead — median</div>
+            <div class="hs-val"><span data-count="48" data-dec="0">0</span><span class="hs-cur" style="font-size:.5em"> sec</span></div>
+            <div class="hs-meta"><span class="delta up">▲ fastest decile</span> trade median is 42 min</div>
+            <div class="os-bench">
+              <div class="os-brow">
+                <span class="os-blab">Delaney</span>
+                <span class="os-btrack"><span class="os-bfill" data-w="97" style="--bar:var(--good)"></span></span>
+                <span class="os-bval">48s</span>
+              </div>
+              <div class="os-brow them">
+                <span class="os-blab">Trade median</span>
+                <span class="os-btrack"><span class="os-bfill" data-w="14" style="--bar:var(--muted)"></span></span>
+                <span class="os-bval">42m</span>
+              </div>
+              <p class="os-bnote">Leads answered inside a minute book at roughly <b>73%</b>. After half an hour it's closer to <b>4%</b>. This one number moves more revenue than anything else on this page.</p>
+            </div>
+          </div>
+
+          <div class="col-8">
+            <div class="di-grid kpi-quad">
+              <div class="card kpi">
+                <div class="kpi-top"><span class="kpi-label">Booking rate</span><span class="kpi-ic"><svg><use href="#ic-cal"/></svg></span></div>
+                <div class="kpi-val"><span data-count="68.4" data-dec="1">0</span>%</div>
+                <div class="kpi-foot"><span class="delta up">▲ 9.2</span> of 31 inbound leads</div>
+              </div>
+              <div class="card kpi">
+                <div class="kpi-top"><span class="kpi-label">Average ticket</span><span class="kpi-ic"><svg><use href="#ic-cash"/></svg></span></div>
+                <div class="kpi-val"><span class="hs-cur">$</span><span data-count="412.65" data-dec="2">0</span></div>
+                <div class="kpi-foot"><span class="delta up">▲ 4.1%</span> 10% here is pure profit</div>
+              </div>
+              <div class="card kpi">
+                <div class="kpi-top"><span class="kpi-label">Close rate</span><span class="kpi-ic"><svg><use href="#ic-doc"/></svg></span></div>
+                <div class="kpi-val"><span data-count="63.2" data-dec="1">0</span>%</div>
+                <div class="kpi-foot"><span class="delta up">▲ 2.4</span> alert below 60%</div>
+              </div>
+              <div class="card kpi">
+                <div class="kpi-top"><span class="kpi-label">Utilisation</span><span class="kpi-ic"><svg><use href="#ic-gauge"/></svg></span></div>
+                <div class="kpi-val"><span data-count="79.3" data-dec="1">0</span>%</div>
+                <div class="kpi-foot"><span class="delta flat">▪ steady</span> top shops 75–85%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="di-row">
+          <div class="col-8 card">
+            <div class="card-head">
+              <div>
+                <div class="card-title">Leads in, jobs booked</div>
+                <div class="card-sub">Weekly · the gap is what response speed closes</div>
+              </div>
+              <div class="card-legend">
+                <span class="lg"><i style="background:var(--muted)"></i>Leads</span>
+                <span class="lg"><i style="background:var(--accent)"></i>Booked</span>
+              </div>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 720 232" preserveAspectRatio="none" aria-label="Leads versus booked jobs by week">
+                <line class="gridline" x1="44" y1="30" x2="704" y2="30"/>
+                <line class="gridline" x1="44" y1="90" x2="704" y2="90"/>
+                <line class="gridline" x1="44" y1="150" x2="704" y2="150"/>
+                <line class="gridline" x1="44" y1="204" x2="704" y2="204"/>
+                <text class="chart-y" x="10" y="34">40</text>
+                <text class="chart-y" x="10" y="94">28</text>
+                <text class="chart-y" x="10" y="154">16</text>
+                <text class="chart-y" x="14" y="208">4</text>
+                <defs><linearGradient id="osGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--accent)" stop-opacity="0.26"/>
+                  <stop offset="1" stop-color="var(--accent)" stop-opacity="0"/>
+                </linearGradient></defs>
+                <polyline class="trend-line draw" style="--len:1200" stroke="var(--muted)" stroke-width="2.2" stroke-dasharray="1200"
+                  points="44,120 154,104 264,112 374,86 484,92 594,72 704,66"/>
+                <polygon class="area-fill" fill="url(#osGrad)" points="44,168 154,150 264,144 374,116 484,110 594,88 704,80 704,204 44,204"/>
+                <polyline class="trend-line draw" style="--len:1200" stroke="var(--accent)" stroke-width="3" stroke-dasharray="1200"
+                  points="44,168 154,150 264,144 374,116 484,110 594,88 704,80"/>
+                <circle class="dot" cx="704" cy="80" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>
+                <g class="val-callout" transform="translate(652,52)"><rect x="0" y="0" width="50" height="22" rx="6"/><text x="25" y="15" text-anchor="middle">21 won</text></g>
+              </svg>
+              <div class="axis-x"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span></div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card health warn" style="margin-bottom:18px">
+              <div class="h-top">
+                <span class="h-ic"><svg><use href="#ic-doc"/></svg></span>
+                <div><div class="h-label">Quotes going quiet</div><div class="h-state">Watch</div></div>
+              </div>
+              <div class="h-desc">
+                <b>6 quotes</b> worth <b>$14,205</b> have gone 10+ days without a reply.
+                The day-12 automation catches four of them — the
+                <b>Devereaux</b> job is big enough to call yourself.
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><div class="card-title">Where the work comes from</div><div class="card-sub">Last 30 days</div></div></div>
+              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                <div class="donut" data-segs="44,31,19,6" data-cols="var(--c1),var(--c2),var(--c3),var(--c6)" data-center="31" data-centerlab="leads" style="width:142px;flex:none"></div>
+                <div style="display:flex;flex-direction:column;gap:9px;flex:1;min-width:118px">
+                  <span class="lg"><i style="background:var(--c1)"></i>Phone · 44%</span>
+                  <span class="lg"><i style="background:var(--c2)"></i>Website · 31%</span>
+                  <span class="lg"><i style="background:var(--c3)"></i>Referral · 19%</span>
+                  <span class="lg"><i style="background:var(--c6)"></i>Repeat · 6%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="di-row">
+          <div class="col-12">
+            <div class="os-close">
+              <div>
+                <h3>Five numbers, thirty seconds, once a week.</h3>
+                <p>Not a reporting pack nobody opens. The handful an owner actually acts on — pulled automatically, flagged only when something moves.</p>
+              </div>
+              <a class="di-cta" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">
+                <svg width="15" height="15"><use href="#ic-book"/></svg> Book a discovery call
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="os.js"></script>
+</body>
+</html>
