@@ -8,36 +8,76 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* HERO */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
-  padding:0 clamp(24px,8vw,140px);padding-top:62px;
-  position:relative;overflow:hidden;background:var(--dark);}
-#hero-particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+/* HERO — light "flow" stage.
+   Two canvases with the copy sandwiched between them: particles further from
+   camera than the type draw behind it (#hero-b), nearer ones over it
+   (#hero-f), so the strand passes *through* the headline. Ink tokens below
+   are the light-ground counterparts of the dark shell's --white/--slate. */
+#hero{--ink:#14181F;--ink-2:#59606E;--ink-3:#7C8496;--rule:#D8D6D2;
+  min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  /* the nav now floats at top:14 with a 58px pill, so clear 72px + breathing */
+  padding:0 clamp(24px,8vw,140px);padding-top:104px;
+  /* clears the 180px handoff gradient below, so the stats row never sits in it */
+  padding-bottom:200px;
+  position:relative;overflow:hidden;background:#EDECEA;}
+#hero-b,#hero-f{position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;display:block;}
+#hero-b{z-index:1;}
+#hero-f{z-index:3;}
+/* hands the light hero off into the dark site below */
+#hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:180px;z-index:4;
+  pointer-events:none;background:linear-gradient(180deg,rgba(6,13,31,0),var(--dark));}
 .hero-l{position:relative;z-index:2;max-width:760px;}
-.hero-tagline{font-size:11px;font-weight:500;color:var(--slate);
+/* fit-content so the strand cut-out below hugs the text instead of punching a
+   700px hole across the whole copy column */
+.hero-tagline{font-size:11px;font-weight:500;color:#59606E;
   letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;
-  display:flex;align-items:center;gap:10px;}
-.hero-tagline::before{content:'';width:20px;height:1px;background:var(--cyan);}
+  display:flex;align-items:center;gap:10px;width:fit-content;}
+.hero-tagline::before{content:'';width:20px;height:1px;background:var(--accent);}
 .pill{display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,207,255,0.08);border:1px solid rgba(0,207,255,0.18);
+  background:rgba(20,79,202,0.07);border:1px solid rgba(20,79,202,0.20);
   border-radius:100px;padding:6px 16px;margin-bottom:28px;}
-.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 8px var(--cyan);}
-.pill span{font-size:11px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;}
-h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
-  letter-spacing:-2px;color:var(--white);margin-bottom:22px;}
-.hero-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--slate);
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 8px rgba(20,79,202,.55);}
+.pill span{font-size:11px;font-weight:500;color:var(--accent);letter-spacing:1px;text-transform:uppercase;}
+/* Weight 300, not 700. Big + light + tight reads editorial; big + bold reads
+   like a SaaS template. Same Poppins either way. */
+h1{font-size:clamp(38px,5.2vw,74px);font-weight:300;line-height:1.05;
+  letter-spacing:-2.6px;color:var(--ink);margin-bottom:22px;}
+h1 b{font-weight:500;color:var(--accent);}
+.hero-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--ink-2);
   line-height:1.72;max-width:440px;margin-bottom:36px;}
 .hero-stats{display:flex;gap:clamp(20px,3vw,44px);margin-top:48px;
-  padding-top:32px;border-top:1px solid var(--b);flex-wrap:wrap;}
-.sv{font-size:clamp(22px,2.5vw,30px);font-weight:700;color:var(--white);letter-spacing:-1px;line-height:1;}
-.sl{font-size:11px;font-weight:400;color:var(--slate);letter-spacing:.8px;text-transform:uppercase;margin-top:5px;}
+  padding-top:32px;border-top:1px solid var(--rule);flex-wrap:wrap;}
+.sv{font-size:clamp(22px,2.5vw,30px);font-weight:600;color:var(--ink);letter-spacing:-1px;line-height:1;}
+.sl{font-size:11px;font-weight:400;color:var(--ink-3);letter-spacing:.8px;text-transform:uppercase;margin-top:5px;}
 .hero-cred{display:flex;align-items:center;gap:13px;margin-top:30px;max-width:430px;}
 .hero-cred-av{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:center top;
-  border:1.5px solid rgba(0,207,255,0.45);box-shadow:0 0 0 3px rgba(0,207,255,0.08);flex-shrink:0;}
+  border:1.5px solid rgba(20,79,202,0.40);box-shadow:0 0 0 3px rgba(20,79,202,0.07);flex-shrink:0;}
 .hero-cred-txt{display:flex;flex-direction:column;line-height:1.4;}
-.hero-cred-txt strong{font-size:13px;font-weight:600;color:var(--white);letter-spacing:-.2px;}
-.hero-cred-txt span{font-size:12px;font-weight:300;color:var(--slate);}
+.hero-cred-txt strong{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.2px;}
+.hero-cred-txt span{font-size:12px;font-weight:300;color:var(--ink-3);}
+/* the shell's ghost button is built for a dark ground */
+#hero .btn-g{color:var(--ink);border-color:#C9C7C3;}
+#hero .btn-g:hover{color:var(--accent);border-color:var(--accent);}
+
+/* NAV — floating glass pill, inset from the edges like the reference.
+   Two states: light frosted while it sits over the light hero, dark frosted
+   once the page turns navy. Homepage-only override; other pages keep the
+   shell's full-width bar. */
+/* geometry + the dark state now live in shared.css, so every page gets the
+   same pill. Only the light state is homepage-specific. */
+nav.glass-light{background:rgba(255,255,255,0.55);
+  border-color:rgba(255,255,255,0.75);
+  box-shadow:0 10px 34px rgba(10,27,61,0.10);}
+nav.glass-light .nav-links a{color:#4A5262;}
+nav.glass-light .nav-links a:hover{color:var(--accent);background:rgba(20,79,202,0.08);}
+nav.glass-light .nav-links a[aria-current="page"]{color:#14181F;background:rgba(20,79,202,0.08);}
+nav.glass-light .hamburger span{background:#14181F;}
+body:has(nav.glass-light) .mob-menu{background:rgba(255,255,255,0.72);
+  border-color:rgba(255,255,255,0.8);box-shadow:0 14px 40px rgba(10,27,61,0.14);}
+body:has(nav.glass-light) .mob-menu a{color:#14181F;border-bottom-color:rgba(10,27,61,0.08);}
+body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
 
 
 /* SERVICES */
@@ -334,7 +374,9 @@ h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
 
 /* RESPONSIVE — shell breakpoints live in shared.css */
 @media(max-width:900px){
-  #hero{grid-template-columns:1fr;padding-top:78px;min-height:auto;padding-bottom:60px;}
+  /* Mobile: the composition sits behind the copy, so the hero keeps a full
+     screen of height for it to bloom into rather than collapsing to content. */
+  #hero{padding-top:78px;padding-bottom:170px;}
 
   .svc-grid{grid-template-columns:1fr;}
   .prod-grid{grid-template-columns:1fr;}
@@ -428,15 +470,16 @@ h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
 </div>
 
 <!-- HERO -->
-<section id="hero">
-  <canvas id="hero-particles"></canvas>
+<section id="hero" data-nav="light" data-nav-fade="190">
+  <canvas id="hero-b"></canvas>
+  <canvas id="hero-f"></canvas>
   <div class="hero-l">
     <div class="hero-tagline rv">flo &mdash; Intelligence in Motion</div>
     <div class="pill rv">
       <div class="pill-dot"></div>
       <span>AI &amp; Automation Consulting</span>
     </div>
-    <h1 class="rv">AI and automation,<br>built for how small<br>businesses actually run.</h1>
+    <h1 class="rv">AI and automation,<br>built for <b>how small<br>businesses actually run.</b></h1>
     <p class="hero-sub rv">flo builds the AI systems, automations, and websites that handle the busywork behind your business — intake, scheduling, admin, reporting — so solo operators and small teams aren't stuck doing all of it by hand.</p>
     <div class="actions rv">
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
@@ -451,7 +494,9 @@ h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
     </div>
     <div class="hero-stats rv">
       <div><div class="sv" data-count="10" data-suffix="+">10+</div><div class="sl">Years in the trenches</div></div>
-      <div><div class="sv" data-count="3" data-suffix="+">3+</div><div class="sl">Client systems shipped</div></div>
+      <!-- no data-count here on purpose: the count-up animation only runs on
+           .sv[data-count], and leaving it would overwrite this with "3+" -->
+      <div><div class="sv">Multiple</div><div class="sl">Client systems shipped</div></div>
       <div><div class="sv">∞</div><div class="sl">Hours of busywork automated</div></div>
     </div>
   </div>
@@ -822,7 +867,7 @@ h1{font-size:clamp(36px,4.8vw,66px);font-weight:700;line-height:1.06;
 </section>
 
 <!-- PRODUCTS -->
-<section id="products" class="sec" style="background:var(--light)">
+<section id="products" class="sec" style="background:var(--light)" data-nav="light">
   <div class="wrap">
     <p class="ey ey-d rv">Digital product · Self-serve</p>
     <h2 class="dk rv">Not ready for a build? Start here.</h2>
@@ -961,243 +1006,450 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
   els.forEach(el=>co.observe(el));
 })();
 
-// NAV
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').style.background=
-    window.scrollY>40?'rgba(6,13,31,0.98)':'rgba(6,13,31,0.88)';
-});
-
-// HERO NEURAL NETWORK
-// A live "thinking system": drifting nodes, connections that form and dissolve
-// over time, signal pulses travelling the edges, and cursor/touch reactivity.
-// Pure 2D canvas — no libraries — so it stays light on mobile.
+// NAV — light glass over the hero, dark glass once the page turns navy.
+//
+// The inline wordmark is a near-white PNG, so it vanishes on a light bar.
+// Preferred fix is the real two-tone artwork (navy "flo" + cyan mark) at
+// assets/flo-logo-navy.png — drop that file in and it is picked up
+// automatically. Until it exists, fall back to recolouring the existing
+// wordmark's pixels to flat brand navy through a canvas. Either way the src
+// is swapped per nav state; never a black silhouette.
+const LIGHT_LOGO='assets/flo-logo-navy.png';
 (function(){
-  const canvas=document.getElementById('hero-particles');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const coarse=window.matchMedia('(pointer: coarse)').matches;
+  const nav=document.getElementById('nav'), hero=document.getElementById('hero');
+  const img=document.querySelector('.logo img');
+  if(!nav)return;
+  let whiteSrc=null, navySrc=null;
 
-  const DPR=Math.min(window.devicePixelRatio||1,2);
-  let W,H,mobile;
-  function resize(){
-    W=canvas.offsetWidth||window.innerWidth;
-    H=canvas.offsetHeight||window.innerHeight;
-    mobile=W<768;
-    canvas.width=W*DPR;canvas.height=H*DPR;
-    ctx.setTransform(DPR,0,0,DPR,0,0);
-  }
-  resize();
-
-  // Node count scales with viewport area, capped hard on mobile for FPS.
-  function targetCount(){
-    return Math.max(30,Math.round(Math.min((W*H)/12500, mobile?54:112)));
-  }
-  const CONN = ()=> mobile?118:150;   // connection distance threshold
-  const nodes=[];
-  function seed(){
-    nodes.length=0;
-    const n=targetCount();
-    for(let i=0;i<n;i++){
-      nodes.push({
-        x:Math.random()*W, y:Math.random()*H,
-        vx:(Math.random()-.5)*0.22, vy:(Math.random()-.5)*0.22,
-        base:0.30+Math.random()*0.55,           // baseline activity
-        phase:Math.random()*Math.PI*2,
-        pspeed:0.5+Math.random()*0.9,
-        hub:Math.random()<0.18,                 // some nodes read as "more active"
-        r:0, energy:0
-      });
-    }
-    nodes.forEach(nd=>{ nd.r = nd.hub?(1.7+Math.random()*1.7):(0.9+Math.random()*1.1); });
-  }
-  seed();
-
-  // Signal pulses travel along a chosen edge from node a -> b.
-  const pulses=[];
-  function seedPulses(){
-    pulses.length=0;
-    const n=mobile?7:16;
-    for(let i=0;i<n;i++) pulses.push({a:0,b:0,t:1,speed:0,fresh:false});
-  }
-  seedPulses();
-  const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-
-  // Pointer influence (works for mouse move + touch drag). Canvas stays
-  // pointer-events:none so hero buttons remain clickable; we read window events.
-  let mx=-9999,my=-9999,mActive=false;
-  const bursts=[];
-  function toLocal(e){const r=canvas.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
-  if(!reduce){
-    window.addEventListener('pointermove',e=>{const[x,y]=toLocal(e);mx=x;my=y;mActive=(y>=0&&y<=H&&x>=0&&x<=W);},{passive:true});
-    window.addEventListener('pointerdown',e=>{
-      const[x,y]=toLocal(e);
-      if(y<0||y>H||x<0||x>W)return;           // only react inside the hero
-      bursts.push({x,y,t:0});
-      // energise nearby nodes + fire a few extra pulses from the tap point
-      let seeded=0;
-      for(let i=0;i<nodes.length;i++){
-        const dx=nodes[i].x-x,dy=nodes[i].y-y,d=Math.hypot(dx,dy);
-        if(d<170){ nodes[i].energy=Math.min(1.4,nodes[i].energy+(1-d/170)); }
-      }
-      for(let p=0;p<pulses.length&&seeded<4;p++){
-        if(pulses[p].t>=1){ assignPulse(pulses[p],x,y); seeded++; }
-      }
-    },{passive:true});
-    window.addEventListener('resize',()=>{resize();seed();});
-    // subtle scroll parallax — the network recedes as the hero scrolls away
-    window.addEventListener('scroll',()=>{
-      const s=window.scrollY;
-      canvas.style.transform='translate3d(0,'+(s*0.28).toFixed(1)+'px,0)';
-      canvas.style.opacity=Math.max(0.35,1-s/(H*1.15)).toFixed(3);
-    },{passive:true});
-  }
-
-  // Assign a pulse to an active edge, optionally biased to start near (ox,oy).
-  let edges=[];
-  function assignPulse(pl,ox,oy){
-    if(!edges.length){pl.t=1;return;}
-    let e;
-    if(ox!==undefined){
-      let best=null,bd=1e9;
-      for(let k=0;k<edges.length;k++){
-        const na=nodes[edges[k].i];
-        const d=Math.hypot(na.x-ox,na.y-oy);
-        if(d<bd){bd=d;best=edges[k];}
-      }
-      e=best||edges[(Math.random()*edges.length)|0];
-    } else e=edges[(Math.random()*edges.length)|0];
-    pl.a=e.i;pl.b=e.j;pl.t=0;pl.speed=0.004+Math.random()*0.010;pl.fresh=true;
-  }
-
-  const TAU=Math.PI*2;
-  function frame(t){
-    const time=t*0.001;
-    ctx.clearRect(0,0,W,H);
-    const thr=CONN();
-
-    // --- move nodes (gentle drift + subtle pull toward pointer) ---
-    for(let i=0;i<nodes.length;i++){
-      const nd=nodes[i];
-      if(mActive){
-        const dx=mx-nd.x,dy=my-nd.y,d2=dx*dx+dy*dy;
-        if(d2<170*170){const d=Math.sqrt(d2)||1;const f=(1-d/170)*0.010;nd.vx+=dx/d*f;nd.vy+=dy/d*f;}
-      }
-      nd.vx+=(Math.random()-.5)*0.006; nd.vy+=(Math.random()-.5)*0.006;
-      nd.vx*=0.97; nd.vy*=0.97;
-      const sp=Math.hypot(nd.vx,nd.vy),max=0.55;
-      if(sp>max){nd.vx=nd.vx/sp*max;nd.vy=nd.vy/sp*max;}
-      nd.x+=nd.vx; nd.y+=nd.vy;
-      if(nd.x<-30)nd.x=W+30; else if(nd.x>W+30)nd.x=-30;
-      if(nd.y<-30)nd.y=H+30; else if(nd.y>H+30)nd.y=-30;
-      nd.energy*=0.95;
-    }
-
-    // --- build edges + draw connections (distance + slow form/dissolve) ---
-    edges=[];
-    ctx.lineWidth=0.7;
-    for(let i=0;i<nodes.length;i++){
-      const a=nodes[i];
-      for(let j=i+1;j<nodes.length;j++){
-        const b=nodes[j];
-        const dx=a.x-b.x; if(dx>thr||dx<-thr)continue;
-        const dy=a.y-b.y; if(dy>thr||dy<-thr)continue;
-        const d=Math.hypot(dx,dy);
-        if(d>=thr)continue;
-        // per-pair oscillation → connections fade in and out over time
-        const form=0.55+0.45*Math.sin(time*0.5+(i*12.9898+j*4.1414));
-        const prox=1-d/thr;
-        let a2=prox*prox*form*0.62;
-        // highlight near the pointer
-        const near=mActive?Math.max(0,1-Math.min(Math.hypot((a.x+b.x)/2-mx,(a.y+b.y)/2-my)/170,1)):0;
-        edges.push({i,j,s:a2+near*0.4});
-        if(a2<0.012&&near<0.05)continue;
-        if(near>0.05){
-          ctx.strokeStyle='rgba(0,207,255,'+(a2*0.9+near*0.55).toFixed(3)+')';
-        }else{
-          ctx.strokeStyle='rgba(55,125,235,'+a2.toFixed(3)+')';
+  // Two-tone the wordmark for the light bar: navy "flo", cyan arrow.
+  // The arrow is a separate connected component from the f and the lo, so the
+  // split is derived from the artwork rather than hard-coded coordinates.
+  // Labelling uses a strict alpha cutoff — include the soft halo and all three
+  // shapes fuse into one blob — then each anti-aliased edge pixel is assigned
+  // to its nearest core shape so the outlines stay smooth.
+  function twoToneFallback(){
+    try{
+      const W=img.naturalWidth, H=img.naturalHeight;
+      const c=document.createElement('canvas'); c.width=W; c.height=H;
+      const g=c.getContext('2d'); g.drawImage(img,0,0);
+      const im=g.getImageData(0,0,W,H), d=im.data;
+      const core=i=>d[i*4+3]>60;
+      const lab=new Int32Array(W*H).fill(-1), comps=[];
+      for(let i=0;i<W*H;i++){
+        if(!core(i)||lab[i]>=0)continue;
+        const id=comps.length, st=[i]; lab[i]=id; let x0=1e9;
+        while(st.length){
+          const p=st.pop(), px=p%W, py=(p/W)|0;
+          if(px<x0)x0=px;
+          for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+            const nx=px+dx, ny=py+dy;
+            if(nx<0||ny<0||nx>=W||ny>=H)continue;
+            const q=ny*W+nx;
+            if(core(q)&&lab[q]<0){lab[q]=id;st.push(q);}
+          }
         }
-        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        comps.push({id,x0});
       }
-    }
-
-    ctx.globalCompositeOperation='lighter';
-    // --- soft cursor halo: the system glows toward the viewer ---
-    if(mActive){
-      const hg=ctx.createRadialGradient(mx,my,0,mx,my,160);
-      hg.addColorStop(0,'rgba(0,207,255,0.036)');
-      hg.addColorStop(1,'rgba(0,207,255,0)');
-      ctx.fillStyle=hg;ctx.beginPath();ctx.arc(mx,my,160,0,TAU);ctx.fill();
-    }
-    // --- nodes (glow scaled by activity; brighter = "more active") ---
-    for(let i=0;i<nodes.length;i++){
-      const nd=nodes[i];
-      let cur=mActive?Math.max(0,1-Math.min(Math.hypot(nd.x-mx,nd.y-my)/170,1)):0;
-      const act=Math.min(1.4, nd.base*(0.6+0.4*Math.sin(time*nd.pspeed+nd.phase))+cur*0.7+nd.energy);
-      const R=nd.r*(1+act*0.5), o=Math.min(1,0.13+act*0.5);
-      const cyan=nd.hub||act>0.85||cur>0.3;
-      const col=cyan?'0,207,255':'70,130,230';
-      const g=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,R*4);
-      g.addColorStop(0,'rgba('+col+','+(o*0.32).toFixed(3)+')');
-      g.addColorStop(1,'rgba('+col+',0)');
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(nd.x,nd.y,R*4,0,TAU);ctx.fill();
-      ctx.fillStyle='rgba('+(cyan?'150,225,255':'120,170,240')+','+o.toFixed(3)+')';
-      ctx.beginPath();ctx.arc(nd.x,nd.y,R,0,TAU);ctx.fill();
-    }
-
-    // --- signal pulses: the brightest thing in the scene ---
-    for(let p=0;p<pulses.length;p++){
-      const pl=pulses[p];
-      if(pl.t>=1){ assignPulse(pl); if(pl.t>=1)continue; if(pl.fresh){pl.t=Math.random()*0.25;pl.fresh=false;} }
-      pl.t+=pl.speed;
-      const a=nodes[pl.a],b=nodes[pl.b];
-      if(!a||!b){pl.t=1;continue;}
-      const e=easeInOut(Math.min(pl.t,1));
-      const x=a.x+(b.x-a.x)*e, y=a.y+(b.y-a.y)*e;
-      const fade=Math.sin(Math.min(pl.t,1)*Math.PI); // fade in/out along the trip
-      const g=ctx.createRadialGradient(x,y,0,x,y,7);
-      g.addColorStop(0,'rgba(200,240,255,'+(0.66*fade).toFixed(3)+')');
-      g.addColorStop(0.35,'rgba(0,207,255,'+(0.4*fade).toFixed(3)+')');
-      g.addColorStop(1,'rgba(0,207,255,0)');
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,6.5,0,TAU);ctx.fill();
-      ctx.fillStyle='rgba(225,247,255,'+(0.62*fade).toFixed(3)+')';
-      ctx.beginPath();ctx.arc(x,y,1.5,0,TAU);ctx.fill();
-    }
-
-    // --- tap ripples (touch/click feedback) ---
-    for(let bI=bursts.length-1;bI>=0;bI--){
-      const bu=bursts[bI]; bu.t+=0.03;
-      if(bu.t>=1){bursts.splice(bI,1);continue;}
-      const rad=bu.t*150, o=(1-bu.t)*0.5;
-      ctx.strokeStyle='rgba(0,207,255,'+o.toFixed(3)+')';ctx.lineWidth=1.2;
-      ctx.beginPath();ctx.arc(bu.x,bu.y,rad,0,TAU);ctx.stroke();
-    }
-    ctx.globalCompositeOperation='source-over';
-    raf=requestAnimationFrame(frame);
+      if(comps.length<2)throw 0;                // not separable — bail to flat
+      const arrow=comps.slice().sort((a,b)=>b.x0-a.x0)[0].id;  // right-most shape
+      const known=[]; for(let i=0;i<W*H;i++) if(lab[i]>=0) known.push(i);
+      const NAVY=[10,27,61], CYAN=[0,207,255];
+      for(let i=0;i<W*H;i++){
+        if(d[i*4+3]===0)continue;
+        let id=lab[i];
+        if(id<0){
+          const px=i%W, py=(i/W)|0; let bd=1e9;
+          for(let k=0;k<known.length;k++){
+            const q=known[k], dd=(q%W-px)**2+(((q/W)|0)-py)**2;
+            if(dd<bd){bd=dd;id=lab[q];}
+          }
+        }
+        const col=id===arrow?CYAN:NAVY;
+        d[i*4]=col[0]; d[i*4+1]=col[1]; d[i*4+2]=col[2];  // alpha untouched
+      }
+      g.putImageData(im,0,0);
+      navySrc=c.toDataURL();
+    }catch(e){ navySrc=null; }                  // never break the nav over this
+    upd();
   }
 
-  // Static single frame for reduced-motion users.
-  function staticFrame(){
-    ctx.clearRect(0,0,W,H);
-    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
-      const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y),thr=CONN();
-      if(d<thr){ctx.strokeStyle='rgba(40,110,220,'+(0.28*(1-d/thr)).toFixed(3)+')';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
-    }
-    for(let i=0;i<nodes.length;i++){const nd=nodes[i];ctx.fillStyle=nd.hub?'rgba(0,207,255,0.8)':'rgba(120,170,240,0.6)';ctx.beginPath();ctx.arc(nd.x,nd.y,nd.r,0,TAU);ctx.fill();}
+  function makeNavy(){
+    whiteSrc=img.src;
+    const probe=new Image();
+    probe.onload=()=>{ navySrc=LIGHT_LOGO; upd(); };
+    probe.onerror=twoToneFallback;
+    probe.src=LIGHT_LOGO;
   }
 
-  // Only run while the hero is visible + tab is focused (battery/CPU friendly).
-  let raf=0,running=false;
-  function start(){ if(running||reduce)return; running=true; raf=requestAnimationFrame(frame); }
-  function stop(){ running=false; cancelAnimationFrame(raf); }
-  if(reduce){ staticFrame(); }
-  else{
-    document.addEventListener('visibilitychange',()=>{ document.hidden?stop():start(); });
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(es=>{ es[0].isIntersecting?start():stop(); },{threshold:0.01})
-        .observe(canvas);
-    } else start();
+  // Any section marked data-nav="light" flips the bar to its light state, not
+  // just the hero — the products block is light too, and a dark bar sitting on
+  // it looked like a mistake. data-nav-fade trims the zone where a section
+  // gradients out to dark (the hero's handoff), so the bar switches early.
+  const zones=[...document.querySelectorAll('[data-nav="light"]')];
+  const PROBE=44;                              // the nav's vertical centre
+
+  function upd(){
+    const over=zones.some(el=>{
+      const r=el.getBoundingClientRect();
+      const fade=parseFloat(el.dataset.navFade||0);
+      return r.top<=PROBE && (r.bottom-fade)>=PROBE;
+    });
+    nav.classList.toggle('glass-light',over);
+    nav.classList.toggle('glass-dark',!over);
+    if(navySrc&&img) img.src = over ? navySrc : whiteSrc;
   }
+
+  if(img){ if(img.complete&&img.naturalWidth) makeNavy(); else img.addEventListener('load',makeNavy); }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);
+  upd();
+})();
+
+// HERO — PARTICLE STRAND
+// A rope of particles swept along a 3D spline, hand-projected with real
+// perspective and drawn from a pre-blurred sprite atlas for genuine depth of
+// field. Canvas 2D only — no WebGL, no library.
+//
+// Two canvases with the hero copy sandwiched between them (#hero-b behind,
+// #hero-f in front): every particle is routed by depth, so the strand passes
+// *through* the headline rather than behind it.
+//
+// The hover mechanic: the cursor finds the nearest position ALONG THE STRAND
+// (arc length), not the nearest particle — so a coherent band of the flow
+// lights up and travels with you, instead of random dots twinkling.
+//
+// House rule from video/flo-explainer: nothing calls Math.random(). A seeded
+// PRNG keeps the composition art-directed and identical on every load.
+(function(){
+const cvB=document.getElementById('hero-b'), cvF=document.getElementById('hero-f');
+if(!cvB||!cvF)return;
+const ctxB=cvB.getContext('2d'), ctxF=cvF.getContext('2d');
+const kick=document.querySelector('.hero-tagline');
+const CT=[ctxB,ctxF];                    // 0 = behind the copy, 1 = in front
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TAU=Math.PI*2;
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);
+  t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+const cl=v=>v<0?0:v>1?1:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const smooth=t=>t*t*(3-2*t);
+
+let W,H,DPR,mobile,cx,cy,FL;
+
+// flo tokens only. Pure cyan is too pale to read on a light ground, so the
+// ramp lands on a deepened cyan and keeps accent blue as its brightest note.
+const PAL={ramp:[[16,42,92],[20,79,202],[0,146,206],[24,104,208],[13,48,112]],
+           accent:[20,79,202], debris:[152,160,176], amb:0.94};
+function rampAt(s){
+  const r=PAL.ramp, f=cl(s)*(r.length-1), i=Math.min(Math.floor(f),r.length-2), t=f-i;
+  const a=r[i],b=r[i+1];
+  return [lerp(a[0],b[0],t),lerp(a[1],b[1],t),lerp(a[2],b[2],t)];
+}
+
+// ── sprite atlas ────────────────────────────────────────────────────────────
+// Every sprite the renderer will ever need is baked ONCE: [blur][ramp step],
+// plus accent and debris sets. Tinting per particle per frame is what dropped
+// an earlier pass to single-figure fps.
+const LV=6, RN=26, CORE=4;
+let SPRC=[], SPRA=[], SPRD=[];
+function bake(rr,gg,bb,blur){
+  const R=Math.ceil(CORE+blur*3)+1, s=document.createElement('canvas');
+  s.width=s.height=R*2; const g=s.getContext('2d');
+  if(blur>0)g.filter='blur('+blur.toFixed(1)+'px)';
+  const rg=g.createRadialGradient(R,R,0,R,R,CORE);
+  rg.addColorStop(0,'rgba('+rr+','+gg+','+bb+',1)');
+  rg.addColorStop(0.5,'rgba('+rr+','+gg+','+bb+',0.62)');
+  rg.addColorStop(1,'rgba('+rr+','+gg+','+bb+',0)');
+  g.fillStyle=rg; g.beginPath(); g.arc(R,R,CORE,0,TAU); g.fill();
+  return {c:s,r:R};
+}
+function buildSprites(){
+  SPRC=[];SPRA=[];SPRD=[];
+  for(let i=0;i<LV;i++){
+    const blur=i*1.55, row=[];
+    for(let k=0;k<RN;k++){const c=rampAt(k/(RN-1));row.push(bake(c[0]|0,c[1]|0,c[2]|0,blur));}
+    SPRC.push(row);
+    SPRA.push(bake(PAL.accent[0],PAL.accent[1],PAL.accent[2],blur));
+    SPRD.push(bake(PAL.debris[0],PAL.debris[1],PAL.debris[2],blur));
+  }
+}
+
+// ── the spline ──────────────────────────────────────────────────────────────
+function cr1(p0,p1,p2,p3,t){const t2=t*t,t3=t2*t;
+  return 0.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3);}
+
+// Local space; x right, y down, z into screen. Arcs in high on the left, sweeps
+// near through the middle, exits low right. Overshoots the frame by ~3x on both
+// sides so no camera tilt can ever swing a terminus into view.
+const CTRL=[
+  [-6.60, 1.34, 3.10],[-5.40, 0.86, 2.30],[-4.30, 0.26, 1.55],
+  [-3.20,-0.34, 0.70],[-2.05,-0.86, 0.04],[-0.95,-1.08,-0.36],
+  [ 0.15,-0.58,-0.50],[ 1.25, 0.24,-0.22],[ 2.30, 0.52, 0.44],
+  [ 3.30, 0.92, 0.92],[ 4.40, 1.66, 1.34],[ 5.50, 2.48, 1.86],
+  [ 6.60, 3.34, 2.46]
+];
+const LUTN=420; let LUT=[];
+function buildLUT(){
+  LUT=[]; const n=CTRL.length;
+  for(let k=0;k<LUTN;k++){
+    const u=k/(LUTN-1)*(n-3), i=Math.min(Math.floor(u),n-4), t=u-i, p=[];
+    for(let d=0;d<3;d++)p[d]=cr1(CTRL[i][d],CTRL[i+1][d],CTRL[i+2][d],CTRL[i+3][d],t);
+    LUT.push({p});
+  }
+  // tangent → normal/binormal, so the tube keeps a consistent cross-section
+  for(let k=0;k<LUTN;k++){
+    const a=LUT[Math.max(0,k-1)].p, b=LUT[Math.min(LUTN-1,k+1)].p;
+    let tx=b[0]-a[0],ty=b[1]-a[1],tz=b[2]-a[2];
+    const m=Math.hypot(tx,ty,tz)||1; tx/=m;ty/=m;tz/=m;
+    let nx=-tz, ny=0, nz=tx;
+    const mn=Math.hypot(nx,ny,nz)||1; nx/=mn;ny/=mn;nz/=mn;
+    LUT[k].n=[nx,ny,nz];
+    LUT[k].b=[ty*nz-tz*ny, tz*nx-tx*nz, tx*ny-ty*nx];
+  }
+}
+
+// ── particles ───────────────────────────────────────────────────────────────
+const NB=40;                             // depth bands
+let pts=[], debris=[], BUF=null;
+function build(){
+  const r=rng(20260802);
+  // a thicker tube needs more bodies or the extra volume just reads as sparse
+  const N=mobile?2100:4900;
+  pts=[];
+  for(let i=0;i<N;i++){
+    let s=r(); s=cl(s*1.06-0.03);       // bias inward so the ends taper
+    // A narrow frame only shows the middle ~quarter of the spline, so spending
+    // particles on the off-screen tails leaves the visible part a bare thread.
+    // Pack them into the window the camera can actually see — the cut points
+    // at 0.24/0.76 project well outside the frame, so no terminus is exposed.
+    if(mobile) s=0.24+s*0.52;
+    const k=Math.min(LUTN-1,Math.round(s*(LUTN-1))), L=LUT[k];
+    const ang=r()*TAU;
+    // Tight core, short halo. A long halo reads as a smear, not a strand.
+    const q=r(), rad=(q<0.84? q*0.098 : 0.082+Math.pow(q-0.84,1.2)*0.62)*(0.80+Math.sin(s*7.1)*0.20);
+    const ca=Math.cos(ang), sa=Math.sin(ang);
+    // unit radial direction, kept so hover can push each particle straight out
+    // from the strand's axis rather than just recolouring it
+    const ux=L.n[0]*ca+L.b[0]*sa, uy=L.n[1]*ca+L.b[1]*sa, uz=L.n[2]*ca+L.b[2]*sa;
+    pts.push({s, ux,uy,uz,
+      x:L.p[0]+ux*rad,
+      y:L.p[1]+uy*rad,
+      z:L.p[2]+uz*rad,
+      // per-particle push scale — without it the whole band displaces as one
+      // rigid slab, which reads as a bulge rather than something disturbed
+      pv:0.45+r()*1.05,
+      ph:r()*TAU, am:0.004+r()*0.012, sz:0.55+r()*1.05, hi:0});
+  }
+  // Flat buffers allocated once — a per-particle object per frame handed the
+  // GC ~200k objects a second.
+  BUF={sx:new Float32Array(N), sy:new Float32Array(N), f:new Float32Array(N),
+       bl:new Float32Array(N), bin:new Int16Array(N), vis:new Uint8Array(N),
+       lay:new Uint8Array(N), cnt:new Int32Array(NB+1), ord:new Int32Array(N)};
+
+  debris=[];
+  const D=mobile?24:58;
+  for(let i=0;i<D;i++)debris.push({x:(r()-0.5)*4.4, y:(r()-0.5)*2.6, z:(r()-0.5)*2.6,
+                                   ph:r()*TAU, sz:0.5+r()*1.1, sp:0.12+r()*0.3});
+}
+
+function resize(){
+  DPR=Math.min(window.devicePixelRatio||1,2);
+  W=cvB.offsetWidth||window.innerWidth;
+  H=cvB.offsetHeight||window.innerHeight;
+  mobile=W<760;
+  for(const c of [cvB,cvF]){c.width=Math.round(W*DPR);c.height=Math.round(H*DPR);}
+  ctxB.setTransform(DPR,0,0,DPR,0,0); ctxF.setTransform(DPR,0,0,DPR,0,0);
+  cx=W*0.50;
+  cy=mobile ? H*0.26 : H*0.42;          // clears the kicker line on the left
+  // On mobile the hero is content-tall, so min(W,H) collapses to the width and
+  // the strand shrinks to a thread. Scale off the width deliberately instead.
+  FL=mobile ? W*0.72 : Math.min(W,H)*0.66;
+  buildSprites();
+}
+
+// ── interaction ─────────────────────────────────────────────────────────────
+// Canvases stay pointer-events:none so the hero buttons keep working; we read
+// window events and convert into canvas space.
+let mx=-9999,my=-9999,mIn=false,sHov=-1,sHovE=-1,hovAmt=0,parx=0,pary=0;
+if(!reduce){
+  const track=e=>{
+    const r=cvB.getBoundingClientRect();
+    mx=e.clientX-r.left; my=e.clientY-r.top;
+    mIn=(mx>=0&&mx<=W&&my>=0&&my<=H);
+  };
+  window.addEventListener('pointermove',track,{passive:true});
+  // touch: pointerdown registers the first contact so a drag scrubs the strand
+  // immediately, and lifting releases it instead of leaving the band stuck lit
+  window.addEventListener('pointerdown',track,{passive:true});
+  window.addEventListener('pointerup',()=>{mIn=false;},{passive:true});
+  window.addEventListener('pointercancel',()=>{mIn=false;},{passive:true});
+  let rt=0;
+  window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{resize();build();},160);});
+}
+
+const FOCUS=-0.15;                       // z that is tack sharp
+// The plane the copy occupies. The strand's near end bottoms out around
+// zc 1.85, so this has to sit just in front of that — push it back and the
+// whole near half falls into the dimmed foreground layer and the strand
+// washes out. Only a thin nearest slice should cross over the type.
+const TEXTZ=1.90;
+let el=0,last=0;
+
+function render(t){
+  const ei=1-Math.pow(1-cl(t/2.4),3);    // outCubic intro reveal
+
+  ctxB.clearRect(0,0,W,H); ctxF.clearRect(0,0,W,H);
+
+  const tpx=mIn?(mx/W-0.5):0, tpy=mIn?(my/H-0.5):0;
+  parx+=(tpx-parx)*0.045; pary+=(tpy-pary)*0.045;
+  const yaw=Math.sin(t*0.11)*0.12+parx*0.26;
+  const pit=Math.cos(t*0.09)*0.05-pary*0.16;
+  const cyaw=Math.cos(yaw), syaw=Math.sin(yaw), cpit=Math.cos(pit), spit=Math.sin(pit);
+
+  const N=pts.length, B=BUF;
+  B.cnt.fill(0);
+
+  // 1st pass: transform, project, bin. Depth bands rather than a true sort —
+  // O(n), and at this density the order only has to be right within a band.
+  let bestD=1e9,bestS=-1,live=0;
+  for(let i=0;i<N;i++){
+    const p=pts[i]; B.vis[i]=0;
+    // Reveal blooms OUTWARD from the middle of the strand. Sweeping from s=0
+    // meant starting off-screen left, so the hero sat visibly empty for the
+    // first second and a half of every page load.
+    if(Math.abs(p.s-0.5)>ei*0.58)continue;
+    // Hover parts the strand: lit particles are pushed straight out along the
+    // radial direction baked in at build time, so the rope opens rather than
+    // just changing colour. Uses last frame's p.hi — a frame of lag here is
+    // invisible and avoids a second projection pass.
+    const push=p.hi*0.10*p.pv;
+    const wob=Math.sin(t*0.55+p.ph)*p.am;
+    const x=p.x+p.ux*push, y=p.y+wob+p.uy*push, z=p.z+Math.cos(t*0.4+p.ph)*p.am+p.uz*push;
+    const x1=x*cyaw+z*syaw; let z1=-x*syaw+z*cyaw;
+    const y1=y*cpit-z1*spit; z1=y*spit+z1*cpit;
+    const zc=z1+2.35;
+    if(zc<0.25)continue;
+    const f=FL/zc, sx=cx+x1*f, sy=cy+y1*f;
+    if(sx<-70||sx>W+70||sy<-70||sy>H+70)continue;
+    const bl=cl(Math.abs(zc-(2.35+FOCUS))/1.95);
+    // Heavily defocused particles overlap almost totally, so drawing every
+    // other one is free visually and halves the most expensive blits.
+    if(bl>0.62&&(i&1))continue;
+    B.sx[i]=sx;B.sy[i]=sy;B.f[i]=f;B.bl[i]=bl;B.vis[i]=1;live++;
+    B.lay[i]=zc<TEXTZ?1:0;               // nearer than the type → draw over it
+    const bi=Math.min(NB-1,Math.max(0,Math.round((1-cl((zc-1.0)/2.6))*(NB-1))));
+    B.bin[i]=bi; B.cnt[bi+1]++;
+    if(mIn&&(i&3)===0){
+      const dd=(sx-mx)*(sx-mx)+(sy-my)*(sy-my);
+      if(dd<bestD){bestD=dd;bestS=p.s;}
+    }
+  }
+  for(let b=0;b<NB;b++)B.cnt[b+1]+=B.cnt[b];
+  for(let i=0;i<N;i++) if(B.vis[i]) B.ord[B.cnt[B.bin[i]]++]=i;
+  for(let b=NB;b>0;b--)B.cnt[b]=B.cnt[b-1]; B.cnt[0]=0;
+
+  // hover: lock onto a position along the strand, then ease toward it
+  const inRange=mIn&&bestD<150*150;
+  if(inRange)sHov=bestS;
+  hovAmt+=((inRange?1:0)-hovAmt)*0.12;
+  if(sHovE<0)sHovE=sHov;
+  if(sHov>=0)sHovE+=(sHov-sHovE)*0.16;
+
+  // 2nd pass: far → near
+  const hot=sHovE>=0&&hovAmt>0.01;
+  for(let k=0;k<live;k++){
+    const i=B.ord[k], p=pts[i];
+    const lay=B.lay[i], ctx=CT[lay];
+    // Particles crossing in front of the copy are held back so the headline
+    // stays readable — they read as foreground haze, not clutter.
+    // 0.42 was too harsh on a light ground — pale blue at that alpha over a
+    // near-white page is invisible, and it was swallowing most of the strand.
+    const lm=lay?0.62:1;
+    const blur=B.bl[i], li=Math.min(LV-1,Math.round(blur*(LV-1)));
+    const hi=hot?smooth(cl(1-Math.abs(p.s-sHovE)/0.105))*hovAmt:0;
+    // Asymmetric: quick to disturb, slow to recover. A symmetric ease snaps
+    // back the instant the cursor leaves and reads as a hover state; the slow
+    // return makes the strand feel like it settles back into its shape.
+    p.hi+=(hi-p.hi)*(hi>p.hi?0.17:0.042);
+    const h=p.hi;
+    const sp=SPRC[li][Math.min(RN-1,(p.s*(RN-1))|0)];
+    const size=p.sz*B.f[i]*0.0062*(1+h*0.55);
+    // Ends dissolve rather than stopping — no hard terminus, ever.
+    const ef=smooth(cl(p.s/0.12))*smooth(cl((1-p.s)/0.12));
+    const a=PAL.amb*(0.34+(1-blur)*0.56)*cl(ei*1.4)*lm*ef;
+    if(a<=0.012||size<0.16)continue;
+    const R=sp.r*(size/CORE);
+    ctx.globalAlpha=a<1?a:1;
+    ctx.drawImage(sp.c,B.sx[i]-R,B.sy[i]-R,R*2,R*2);
+    if(h>0.02){
+      const sa=SPRA[li], Ra=sa.r*(size*0.88/CORE), aa=h*0.55*PAL.amb*lm;
+      ctx.globalAlpha=aa<1?aa:1;
+      ctx.drawImage(sa.c,B.sx[i]-Ra,B.sy[i]-Ra,Ra*2,Ra*2);
+    }
+  }
+
+  // floating debris — scale cues
+  for(let i=0;i<debris.length;i++){
+    const d=debris[i], y=d.y+Math.sin(t*d.sp+d.ph)*0.09;
+    const x1=d.x*cyaw+d.z*syaw; let z1=-d.x*syaw+d.z*cyaw;
+    const y1=y*cpit-z1*spit; z1=y*spit+z1*cpit;
+    const zc=z1+2.35; if(zc<0.3)continue;
+    const f=FL/zc, sx=cx+x1*f, sy=cy+y1*f;
+    const blur=cl(Math.abs(zc-(2.35+FOCUS))/1.95);
+    const li=Math.min(LV-1,Math.round(blur*(LV-1)));
+    const sp=SPRD[li], dl=zc<TEXTZ?1:0, dc=CT[dl];
+    const R=sp.r*(d.sz*f*0.0045/CORE);
+    dc.globalAlpha=(0.26+(1-blur)*0.30)*cl(ei*1.2)*(dl?0.42:1);
+    dc.drawImage(sp.c,sx-R,sy-R,R*2,R*2);
+  }
+  ctxB.globalAlpha=1; ctxF.globalAlpha=1;
+
+  // "flo — intelligence in motion" must stay readable wherever the strand
+  // happens to be. It can't simply be raised above the foreground canvas —
+  // .hero-l has its own z-index and therefore its own stacking context, so a
+  // child can't escape it. Punch the kicker's box out of the foreground layer
+  // instead, feathered so it never reads as a rectangular hole.
+  // Cleared from BOTH layers: particles behind it don't cover the text, but
+  // pale blue behind mid-grey caps still kills the contrast and it reads as
+  // broken up. The box hugs the text (width:fit-content), so this is a small
+  // hole in the strand rather than a gap across the whole column.
+  if(kick){
+    const r=kick.getBoundingClientRect(), b=cvF.getBoundingClientRect();
+    const x=r.left-b.left-12, y=r.top-b.top-9, w=r.width+24, h=r.height+18;
+    for(const c of [ctxB,ctxF]){
+      c.save();
+      c.globalCompositeOperation='destination-out';
+      c.filter='blur(7px)';
+      c.fillStyle='#000';
+      c.fillRect(x,y,w,h);
+      c.restore();
+    }
+  }
+}
+
+// ── loop ────────────────────────────────────────────────────────────────────
+// Elapsed time accumulates only while visible, so tabbing away mid-intro
+// resumes rather than skipping. Stops entirely once the hero scrolls off.
+let raf=0,running=false;
+function frame(now){
+  el+=Math.min((now-last)/1000,0.05); last=now;
+  render(el);
+  raf=requestAnimationFrame(frame);
+}
+function start(){if(running||reduce)return;running=true;last=performance.now();raf=requestAnimationFrame(frame);}
+function stop(){running=false;cancelAnimationFrame(raf);}
+
+buildLUT(); resize(); build();
+if(reduce){ render(9); }
+else{
+  document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=>{es[0].isIntersecting?start():stop();},{threshold:0.01}).observe(cvB);
+  } else start();
+}
+
+// Art-direction hook — render(t) is pure, so any moment can be held still.
+window.__strandSeek=v=>{stop();render(v);};
 })();
 
 

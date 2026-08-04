@@ -22,12 +22,19 @@ html{scroll-behavior:smooth}
 body{font-family:var(--f);background:var(--dark);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;
+/* Floating glass pill. Lives here rather than on the homepage so the nav
+   doesn't change geometry between pages — a bar that changes shape as you
+   navigate reads as a bug. Dark glass is the default; the homepage adds a
+   light state for the stretch where it sits over the light hero. */
+nav{position:fixed;top:14px;left:50%;right:auto;transform:translateX(-50%);z-index:900;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(20px,5vw,64px);height:62px;
-  background:rgba(6,13,31,0.88);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--b);transition:background .3s;}
+  width:min(1380px,calc(100% - 28px));height:58px;border-radius:100px;
+  padding:0 10px 0 22px;
+  background:rgba(10,20,42,0.55);
+  backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);
+  border:1px solid rgba(255,255,255,0.10);
+  box-shadow:0 10px 34px rgba(0,0,0,0.34);
+  transition:background .35s,border-color .35s,box-shadow .35s;}
 .logo{text-decoration:none;}
 .logo-text{font-size:22px;font-weight:700;font-family:var(--f);color:var(--white);letter-spacing:-0.5px;}
 .nav-links{display:flex;gap:2px;}
@@ -41,9 +48,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;
 .nav-cta:hover{opacity:.88;transform:translateY(-1px)}
 .hamburger{display:none;cursor:pointer;background:none;border:none;color:var(--white);padding:8px;flex-direction:column;gap:5px;}
 .hamburger span{display:block;width:20px;height:1.5px;background:var(--white);border-radius:2px;}
-.mob-menu{display:none;position:fixed;top:62px;left:0;right:0;z-index:899;
-  background:rgba(6,13,31,0.97);backdrop-filter:blur(20px);
-  padding:16px clamp(20px,5vw,64px) 28px;border-bottom:1px solid var(--b);
+/* clears the floating pill and picks up the same glass treatment */
+.mob-menu{display:none;position:fixed;top:84px;left:14px;right:14px;z-index:899;
+  background:rgba(10,20,42,0.86);border-radius:18px;
+  backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);
+  padding:14px 20px 22px;border:1px solid rgba(255,255,255,0.10);
+  box-shadow:0 14px 40px rgba(0,0,0,0.42);
   flex-direction:column;gap:2px;}
 .mob-menu a{font-size:15px;color:var(--silver);text-decoration:none;
   padding:12px 0;border-bottom:1px solid var(--b);display:block;transition:color .15s;}
