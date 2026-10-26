@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Power BI Dashboards &amp; Automated Reporting | flo</title>
-<meta name="description" content="Power BI dashboards and automated reporting for small businesses — your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.">
+<meta name="description" content="Power BI dashboards and automated reporting for small businesses. Your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.">
 <link rel="canonical" href="https://flointelligence.netlify.app/services/dashboards">
 <meta name="theme-color" content="#000d3a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="flo Intelligence in Motion">
 <meta property="og:title" content="Power BI Dashboards &amp; Automated Reporting | flo">
-<meta property="og:description" content="Power BI dashboards and automated reporting for small businesses — your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.">
+<meta property="og:description" content="Power BI dashboards and automated reporting for small businesses. Your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.">
 <meta property="og:url" content="https://flointelligence.netlify.app/services/dashboards">
 <meta property="og:image" content="https://flointelligence.netlify.app/media/flo-explainer-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,9 +21,9 @@
 <link rel="stylesheet" href="../shared.css">
 <style>
 /* Pillar page. Deliberately plain: one job, one intent, one route out.
-   The wave language lives in the page head so every service page opens in
-   the same navy-and-electric-blue world as the homepage hero, without
-   paying for WebGL on a page nobody came here to look at. */
+   The wave language opens the page so every service page lands in the same
+   navy-and-electric-blue world as the homepage hero, without paying for
+   WebGL on a page nobody came here to look at. */
 #s-hero{position:relative;overflow:hidden;
   padding:calc(118px + env(safe-area-inset-top,0px)) max(clamp(24px,5vw,80px),env(safe-area-inset-left,0px)) clamp(44px,6vw,72px);
   background:
@@ -39,12 +39,13 @@
   letter-spacing:-2px;color:var(--white);margin:8px 0 20px;}
 .s-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--silver);
   line-height:1.72;max-width:620px;}
-.s-price{margin-top:26px;display:inline-flex;align-items:center;gap:9px;
-  font-size:13px;color:var(--silver);border:1px solid var(--b);border-radius:100px;
-  padding:9px 18px;background:rgba(255,255,255,0.03);}
-.s-price i{width:6px;height:6px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 8px var(--cyan);flex-shrink:0;}
-.s-price a{color:var(--cyan);text-decoration:none;}
+/* A rule, not a capsule with a glowing dot on it. Same information, without
+   announcing that a template produced it. */
+.s-price{margin-top:28px;display:block;width:fit-content;max-width:100%;
+  font-size:13px;color:var(--silver);line-height:1.6;
+  border-left:2px solid var(--accent);padding:3px 0 3px 14px;}
+.s-price a{color:var(--cyan);text-decoration:none;white-space:nowrap;}
+.s-price a:hover{text-decoration:underline;}
 #s-problem{background:var(--navy);}
 .s-prose p{font-size:clamp(14px,1.4vw,16.5px);font-weight:300;color:var(--slate);
   line-height:1.8;max-width:680px;margin-bottom:16px;}
@@ -103,7 +104,7 @@
     "name": "Dashboards and reporting, built on Power BI",
     "serviceType": "Dashboards and reporting, built on Power BI",
     "url": "https://flointelligence.netlify.app/services/dashboards",
-    "description": "Power BI dashboards and automated reporting for small businesses — your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.",
+    "description": "Power BI dashboards and automated reporting for small businesses. Your numbers in one place, refreshed automatically, built by someone who has run finance reporting inside real operations.",
     "provider": {
       "@type": "ProfessionalService",
       "@id": "https://flointelligence.netlify.app/#business",
@@ -120,7 +121,7 @@
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "What gets built",
+      "name": "What gets wired up.",
       "itemListElement": [
         {
           "@type": "Offer",
@@ -186,7 +187,7 @@
         "name": "How often does it refresh?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Whatever the decision needs — daily for most operators, more often where the source supports it. Set during scoping, not guessed at."
+          "text": "Whatever the decision needs. Daily for most operators, more often where the source supports it. Set during scoping rather than guessed at."
         }
       },
       {
@@ -275,30 +276,30 @@
     <p class="ey">Service &middot; Dashboards &amp; Power BI</p>
     <h1>Dashboards that show what's working.</h1>
     <p class="s-sub">Power BI first, because it is what most small businesses can actually afford to keep running. Your numbers in one place, refreshed on their own, in a view you can read in thirty seconds.</p>
-    <span class="s-price"><i></i>Dashboards and reporting start at $2,000. <a href="../pricing.html">See the full ladder &rarr;</a></span>
+    <span class="s-price">Dashboards and reporting start at $2,000. <a href="../pricing.html">See the full ladder &rarr;</a></span>
   </div>
 </section>
 
 <section id="s-problem" class="sec">
   <div class="wrap">
-    <p class="ey rv">The problem</p>
-    <h2 class="rv">The numbers exist. Nobody can see them in one place.</h2>
+    <p class="ey rv">The gap</p>
+    <h2 class="rv">The numbers exist. Nobody can see them together.</h2>
     <div class="s-prose rv">
       <p>Revenue is in one system, jobs in another, costs in a spreadsheet somebody rebuilds every month. Getting a straight answer to <i>how did we actually do</i> takes half a day, so it gets asked quarterly instead of weekly.</p>
       <p>By the time the picture is assembled it's describing a month you can no longer do anything about.</p>
-      <p>A dashboard is worth building when it changes a decision &mdash; which means it has to be short, current, and about the handful of numbers an owner actually acts on.</p>
+      <p>A dashboard is worth building when it changes a decision. That means it has to be short, current, and about the handful of numbers an owner actually acts on.</p>
     </div>
   </div>
 </section>
 
 <section id="s-build" class="sec">
   <div class="wrap">
-    <p class="ey rv">What gets built</p>
-    <h2 class="rv">Dashboards and reporting, built on Power BI, in practice.</h2>
+    <p class="ey rv">The build</p>
+    <h2 class="rv">What gets wired up.</h2>
     <div class="s-list">
       <div class="s-item rv"><h3>Power BI as the default</h3><p>Mature, affordable at small-business scale, and it talks to nearly everything. Where another tool genuinely fits better, flo will say so on the call.</p></div>
       <div class="s-item rv"><h3>Automated data pipelines</h3><p>The pulling, cleaning and joining happens on a schedule. Nobody exports anything by hand.</p></div>
-      <div class="s-item rv"><h3>Live KPI views</h3><p>The handful of numbers that drive decisions, up front — not forty tiles nobody reads.</p></div>
+      <div class="s-item rv"><h3>Live KPI views</h3><p>The handful of numbers that drive decisions, up front. Not forty tiles nobody reads.</p></div>
       <div class="s-item rv"><h3>Reports that send themselves</h3><p>The weekly or monthly pack assembled and delivered without anybody rebuilding it.</p></div>
       <div class="s-item rv"><h3>Built to be handed over</h3><p>Documented, owned by you, and explained to the person who will keep it running.</p></div>
     </div>
@@ -307,10 +308,10 @@
 
 <section id="s-proof" class="sec">
   <div class="wrap">
-    <p class="ey rv">Proof</p>
-    <h2 class="rv">Where this comes from</h2>
+    <p class="ey rv">Where this comes from</p>
+    <h2 class="rv">Ten years of reporting, then flo.</h2>
     <div class="s-proof-box rv">
-      <p>A decade of corporate finance and treasury reporting &mdash; building Power BI reporting against real operational and invoice data inside a large organisation, long before flo existed. That work belongs to the employer and isn't published here. What <i>is</i> public is flo's own build: a live dashboard app you can open and click through right now.</p>
+      <p>A decade of corporate finance and treasury reporting, building Power BI against real operational and invoice data inside a large organisation, long before flo existed. That work belongs to the employer and isn't published here. What <i>is</i> public is flo's own build: a live dashboard app you can open and click through right now.</p>
       <div class="s-proof-links">
         <a href="../dashboards/index.html">Open the flo Intelligence dashboards &rarr;</a>
         <a href="../dashboards/os.html">Open the flo OS demo (simulated data) &rarr;</a>
@@ -322,12 +323,12 @@
 
 <section id="s-faq" class="sec">
   <div class="wrap">
-    <p class="ey rv">Questions</p>
-    <h2 class="rv">Before you book.</h2>
+    <p class="ey rv">Practical questions</p>
+    <h2 class="rv">Tooling, data, upkeep.</h2>
     <div class="s-faq">
       <details class="s-q rv"><summary>Why Power BI and not something else?</summary><p>Cost and reach. At small-business scale Power BI is the cheapest capable option, and it connects to nearly every system a small operator already runs. If your stack genuinely points somewhere else, flo will tell you on the call rather than sell you the thing it prefers.</p></details>
       <details class="s-q rv"><summary>Do I need clean data before we start?</summary><p>No. Cleaning and joining the messy sources is most of the work, and it's part of the build.</p></details>
-      <details class="s-q rv"><summary>How often does it refresh?</summary><p>Whatever the decision needs — daily for most operators, more often where the source supports it. Set during scoping, not guessed at.</p></details>
+      <details class="s-q rv"><summary>How often does it refresh?</summary><p>Whatever the decision needs. Daily for most operators, more often where the source supports it. Set during scoping rather than guessed at.</p></details>
       <details class="s-q rv"><summary>Who keeps it running afterwards?</summary><p>You own it and the hand-over covers how it works. Ongoing support is available monthly if you'd rather flo kept an eye on it.</p></details>
     </div>
   </div>
@@ -337,11 +338,11 @@
   <div class="wrap">
     <div class="s-cta-box rv">
       <div>
-        <h2>Start with the intake.</h2>
-        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together &mdash; that part is free, and it is not a pitch.</p>
+        <h2>Bring your messiest spreadsheet.</h2>
+        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together. That part is free, and it is not a pitch.</p>
         <div class="s-intake">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          <span>Booking asks a few intake questions first &mdash; what is eating your week, what you already run on &mdash; so the call starts with context instead of a blank page.</span>
+          <span>Booking asks a few intake questions first, so the call starts with context instead of a blank page.</span>
         </div>
       </div>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call &rarr;</a>

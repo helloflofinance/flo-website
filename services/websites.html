@@ -21,9 +21,9 @@
 <link rel="stylesheet" href="../shared.css">
 <style>
 /* Pillar page. Deliberately plain: one job, one intent, one route out.
-   The wave language lives in the page head so every service page opens in
-   the same navy-and-electric-blue world as the homepage hero, without
-   paying for WebGL on a page nobody came here to look at. */
+   The wave language opens the page so every service page lands in the same
+   navy-and-electric-blue world as the homepage hero, without paying for
+   WebGL on a page nobody came here to look at. */
 #s-hero{position:relative;overflow:hidden;
   padding:calc(118px + env(safe-area-inset-top,0px)) max(clamp(24px,5vw,80px),env(safe-area-inset-left,0px)) clamp(44px,6vw,72px);
   background:
@@ -39,12 +39,13 @@
   letter-spacing:-2px;color:var(--white);margin:8px 0 20px;}
 .s-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--silver);
   line-height:1.72;max-width:620px;}
-.s-price{margin-top:26px;display:inline-flex;align-items:center;gap:9px;
-  font-size:13px;color:var(--silver);border:1px solid var(--b);border-radius:100px;
-  padding:9px 18px;background:rgba(255,255,255,0.03);}
-.s-price i{width:6px;height:6px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 8px var(--cyan);flex-shrink:0;}
-.s-price a{color:var(--cyan);text-decoration:none;}
+/* A rule, not a capsule with a glowing dot on it. Same information, without
+   announcing that a template produced it. */
+.s-price{margin-top:28px;display:block;width:fit-content;max-width:100%;
+  font-size:13px;color:var(--silver);line-height:1.6;
+  border-left:2px solid var(--accent);padding:3px 0 3px 14px;}
+.s-price a{color:var(--cyan);text-decoration:none;white-space:nowrap;}
+.s-price a:hover{text-decoration:underline;}
 #s-problem{background:var(--navy);}
 .s-prose p{font-size:clamp(14px,1.4vw,16.5px);font-weight:300;color:var(--slate);
   line-height:1.8;max-width:680px;margin-bottom:16px;}
@@ -120,7 +121,7 @@
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "What gets built",
+      "name": "What you actually get.",
       "itemListElement": [
         {
           "@type": "Offer",
@@ -140,7 +141,7 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Written to convert, not to fill space"
+            "name": "Written to convert"
           }
         },
         {
@@ -170,7 +171,7 @@
         "name": "What does a website cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Launch packages start at $350 and the full ladder is published on the pricing page — no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number."
+          "text": "Launch packages start at $350 and the full ladder is published on the pricing page, so there's no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number."
         }
       },
       {
@@ -178,7 +179,7 @@
         "name": "How long until it's live?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A launch package is usually days, not months. Larger builds depend on how much content and integration is involved; you get the timeline in writing before work starts."
+          "text": "A launch package is usually days rather than months. Larger builds depend on how much content and integration is involved, and you get the timeline in writing before work starts."
         }
       },
       {
@@ -191,10 +192,10 @@
       },
       {
         "@type": "Question",
-        "name": "Who hosts it, and can I edit it?",
+        "name": "Can you build in more than one language?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You own the site and the hosting account. Hand-over covers how to make everyday edits yourself, and ongoing support is available monthly if you'd rather not."
+          "text": "Yes. The Claudio Vivas site ships in Spanish and English from the same build, with the language toggle in the header and both versions indexed."
         }
       }
     ]
@@ -275,16 +276,16 @@
     <p class="ey">Service &middot; Web</p>
     <h1>Websites that book calls.</h1>
     <p class="s-sub">A site is not a brochure. It is the thing standing between somebody who is ready to hire you and the moment they actually do. flo builds the short path between the two.</p>
-    <span class="s-price"><i></i>Website launch packages start at $350. <a href="../pricing.html">See the full ladder &rarr;</a></span>
+    <span class="s-price">Website launch packages start at $350. <a href="../pricing.html">See the full ladder &rarr;</a></span>
   </div>
 </section>
 
 <section id="s-problem" class="sec">
   <div class="wrap">
-    <p class="ey rv">The problem</p>
-    <h2 class="rv">Most small-business sites are a dead end.</h2>
+    <p class="ey rv">The dead end</p>
+    <h2 class="rv">Most small-business sites stop at hello.</h2>
     <div class="s-prose rv">
-      <p>They look fine. They load slowly on a phone, which is where nearly everyone sees them. They say what the business does and then stop &mdash; no booking, no form, nothing to do next but find an email address and hope.</p>
+      <p>They look fine. They load slowly on a phone, which is where nearly everyone sees them. They say what the business does and then stop, with no booking, no form, and nothing to do next but find an email address and hope.</p>
       <p>Then there's the other failure: a template so generic that it makes a genuinely good operator look interchangeable with every other result on the page.</p>
       <p>A site earns its keep when somebody lands on it and books. Everything else is decoration.</p>
     </div>
@@ -293,13 +294,13 @@
 
 <section id="s-build" class="sec">
   <div class="wrap">
-    <p class="ey rv">What gets built</p>
-    <h2 class="rv">Websites that book calls, in practice.</h2>
+    <p class="ey rv">The build</p>
+    <h2 class="rv">What you actually get.</h2>
     <div class="s-list">
       <div class="s-item rv"><h3>Custom, mobile-first design</h3><p>Designed at phone width first, because that's where the traffic is. Fast on a real connection, not just on a fibre line in a demo.</p></div>
       <div class="s-item rv"><h3>Booking and lead capture built in</h3><p>Your calendar on the page. Intake questions asked up front, so the first conversation starts with context.</p></div>
-      <div class="s-item rv"><h3>Written to convert, not to fill space</h3><p>Copy that says what you do, who it's for and what happens next — in your voice, not in agency filler.</p></div>
-      <div class="s-item rv"><h3>Technical SEO from day one</h3><p>Unique titles and descriptions, schema markup, a clean sitemap and real page speed. Built in, not sold back to you later.</p></div>
+      <div class="s-item rv"><h3>Written to convert</h3><p>Copy that says what you do, who it's for and what happens next, in your voice rather than in agency filler.</p></div>
+      <div class="s-item rv"><h3>Technical SEO from day one</h3><p>Unique titles and descriptions, schema markup, a clean sitemap and real page speed. Built in rather than sold back to you later.</p></div>
       <div class="s-item rv"><h3>Yours to keep</h3><p>You own the site and the source. Hand-over includes how to update it.</p></div>
     </div>
   </div>
@@ -307,13 +308,14 @@
 
 <section id="s-proof" class="sec">
   <div class="wrap">
-    <p class="ey rv">Proof</p>
-    <h2 class="rv">Sites you can go and look at</h2>
+    <p class="ey rv">Go and look</p>
+    <h2 class="rv">Three sites, all live.</h2>
     <div class="s-proof-box rv">
-      <p><b>Icon Barbershop</b> and <b>Cameron Johnson</b> are both live. Visit them, open them on your phone, and judge the load time yourself &mdash; which is rather the point of publishing them instead of describing them.</p>
+      <p><b>Icon Barbershop</b>, <b>Cameron Johnson</b> and <b>Claudio Alejandro Vivas</b> are all public. Visit them, open them on your phone, and judge the load time yourself, which is rather the point of publishing them instead of describing them. The Vivas site runs fully bilingual in Spanish and English for an audience of clubs and federations across two continents.</p>
       <div class="s-proof-links">
         <a href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener">Icon Barbershop &rarr;</a>
         <a href="https://camjohnson.netlify.app" target="_blank" rel="noopener">Cameron Johnson &rarr;</a>
+        <a href="https://claudiovivas.netlify.app" target="_blank" rel="noopener">Claudio Alejandro Vivas &rarr;</a>
         <a href="../index.html#clients">See all client work &rarr;</a>
       </div>
     </div>
@@ -322,13 +324,13 @@
 
 <section id="s-faq" class="sec">
   <div class="wrap">
-    <p class="ey rv">Questions</p>
-    <h2 class="rv">Before you book.</h2>
+    <p class="ey rv">Before you ask</p>
+    <h2 class="rv">Cost, timing, ownership.</h2>
     <div class="s-faq">
-      <details class="s-q rv"><summary>What does a website cost?</summary><p>Launch packages start at $350 and the full ladder is published on the pricing page — no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number.</p></details>
-      <details class="s-q rv"><summary>How long until it's live?</summary><p>A launch package is usually days, not months. Larger builds depend on how much content and integration is involved; you get the timeline in writing before work starts.</p></details>
+      <details class="s-q rv"><summary>What does a website cost?</summary><p>Launch packages start at $350 and the full ladder is published on the pricing page, so there's no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number.</p></details>
+      <details class="s-q rv"><summary>How long until it's live?</summary><p>A launch package is usually days rather than months. Larger builds depend on how much content and integration is involved, and you get the timeline in writing before work starts.</p></details>
       <details class="s-q rv"><summary>Do I need to write all the copy?</summary><p>No. Bring what you have and flo writes the rest from the discovery call. You approve every word before it ships.</p></details>
-      <details class="s-q rv"><summary>Who hosts it, and can I edit it?</summary><p>You own the site and the hosting account. Hand-over covers how to make everyday edits yourself, and ongoing support is available monthly if you'd rather not.</p></details>
+      <details class="s-q rv"><summary>Can you build in more than one language?</summary><p>Yes. The Claudio Vivas site ships in Spanish and English from the same build, with the language toggle in the header and both versions indexed.</p></details>
     </div>
   </div>
 </section>
@@ -337,11 +339,11 @@
   <div class="wrap">
     <div class="s-cta-box rv">
       <div>
-        <h2>Start with the intake.</h2>
-        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together &mdash; that part is free, and it is not a pitch.</p>
+        <h2>Show me the site you've got.</h2>
+        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together. That part is free, and it is not a pitch.</p>
         <div class="s-intake">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          <span>Booking asks a few intake questions first &mdash; what is eating your week, what you already run on &mdash; so the call starts with context instead of a blank page.</span>
+          <span>Booking asks a few intake questions first, so the call starts with context instead of a blank page.</span>
         </div>
       </div>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call &rarr;</a>

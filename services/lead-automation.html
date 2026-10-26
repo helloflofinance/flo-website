@@ -21,9 +21,9 @@
 <link rel="stylesheet" href="../shared.css">
 <style>
 /* Pillar page. Deliberately plain: one job, one intent, one route out.
-   The wave language lives in the page head so every service page opens in
-   the same navy-and-electric-blue world as the homepage hero, without
-   paying for WebGL on a page nobody came here to look at. */
+   The wave language opens the page so every service page lands in the same
+   navy-and-electric-blue world as the homepage hero, without paying for
+   WebGL on a page nobody came here to look at. */
 #s-hero{position:relative;overflow:hidden;
   padding:calc(118px + env(safe-area-inset-top,0px)) max(clamp(24px,5vw,80px),env(safe-area-inset-left,0px)) clamp(44px,6vw,72px);
   background:
@@ -39,12 +39,13 @@
   letter-spacing:-2px;color:var(--white);margin:8px 0 20px;}
 .s-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--silver);
   line-height:1.72;max-width:620px;}
-.s-price{margin-top:26px;display:inline-flex;align-items:center;gap:9px;
-  font-size:13px;color:var(--silver);border:1px solid var(--b);border-radius:100px;
-  padding:9px 18px;background:rgba(255,255,255,0.03);}
-.s-price i{width:6px;height:6px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 8px var(--cyan);flex-shrink:0;}
-.s-price a{color:var(--cyan);text-decoration:none;}
+/* A rule, not a capsule with a glowing dot on it. Same information, without
+   announcing that a template produced it. */
+.s-price{margin-top:28px;display:block;width:fit-content;max-width:100%;
+  font-size:13px;color:var(--silver);line-height:1.6;
+  border-left:2px solid var(--accent);padding:3px 0 3px 14px;}
+.s-price a{color:var(--cyan);text-decoration:none;white-space:nowrap;}
+.s-price a:hover{text-decoration:underline;}
 #s-problem{background:var(--navy);}
 .s-prose p{font-size:clamp(14px,1.4vw,16.5px);font-weight:300;color:var(--slate);
   line-height:1.8;max-width:680px;margin-bottom:16px;}
@@ -120,7 +121,7 @@
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "What gets built",
+      "name": "What actually gets installed.",
       "itemListElement": [
         {
           "@type": "Offer",
@@ -194,7 +195,7 @@
         "name": "Do I own it afterwards?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. You own the system and the accounts it runs on. flo hands it over and teaches your team to run it — it isn't rented back to you."
+          "text": "Yes. You own the system and the accounts it runs on. flo hands it over and teaches your team to run it."
         }
       }
     ]
@@ -275,17 +276,17 @@
     <p class="ey">Service &middot; Automation</p>
     <h1>Automations that fill your calendar.</h1>
     <p class="s-sub">Inbound interest arrives at all hours. You don't. flo builds the intake, booking and follow-up that run while you're on a job, so a lead never cools off waiting for you to get back to your phone.</p>
-    <span class="s-price"><i></i>Workflow automation starts at $2,500. <a href="../pricing.html">See the full ladder &rarr;</a></span>
+    <span class="s-price">Workflow automation starts at $2,500. <a href="../pricing.html">See the full ladder &rarr;</a></span>
   </div>
 </section>
 
 <section id="s-problem" class="sec">
   <div class="wrap">
-    <p class="ey rv">The problem</p>
+    <p class="ey rv">Where it leaks</p>
     <h2 class="rv">The leak is almost never the leads.</h2>
     <div class="s-prose rv">
       <p>Most small operators don't have a traffic problem. They have a <b>response-time</b> problem. Somebody calls during a job, leaves no voicemail, and books with whoever answered first.</p>
-      <p>The same leak shows up three more times: an enquiry that sat in an inbox overnight, a quote nobody followed up on, a booking that never got a reminder and turned into a no-show.</p>
+      <p>The same leak shows up three more times. An enquiry that sat in an inbox overnight. A quote nobody followed up on. A booking that never got a reminder and turned into a no-show.</p>
       <p>None of that needs a bigger team. It needs a system that does the predictable part the moment it happens, every time, without anybody remembering to.</p>
     </div>
   </div>
@@ -293,24 +294,24 @@
 
 <section id="s-build" class="sec">
   <div class="wrap">
-    <p class="ey rv">What gets built</p>
-    <h2 class="rv">Lead and calendar automation, in practice.</h2>
+    <p class="ey rv">The build</p>
+    <h2 class="rv">What actually gets installed.</h2>
     <div class="s-list">
-      <div class="s-item rv"><h3>Automated intake and capture</h3><p>Calls, forms and messages land in one place with the details already attached — who, what, where, how urgent — instead of scattered across a phone, an inbox and a notepad.</p></div>
+      <div class="s-item rv"><h3>Automated intake and capture</h3><p>Calls, forms and messages land in one place with the details already attached: who, what, where, how urgent. Not scattered across a phone, an inbox and a notepad.</p></div>
       <div class="s-item rv"><h3>Missed-call text back</h3><p>A missed call sends a text within seconds. The conversation starts while they still have their phone in their hand.</p></div>
       <div class="s-item rv"><h3>Booking and scheduling flows</h3><p>People pick a slot themselves against your real availability. No phone tag, no double-bookings, no evening spent rescheduling.</p></div>
       <div class="s-item rv"><h3>Follow-up that doesn't forget</h3><p>Quotes get chased on a schedule you set. Reminders go out before appointments. Review requests go out after the work is done.</p></div>
-      <div class="s-item rv"><h3>Wired into what you already use</h3><p>Your existing phone number, calendar, inbox and CRM. flo connects them — it doesn't ask you to move house.</p></div>
+      <div class="s-item rv"><h3>Wired into what you already use</h3><p>Your existing phone number, calendar, inbox and CRM. flo connects them rather than asking you to move house.</p></div>
     </div>
   </div>
 </section>
 
 <section id="s-proof" class="sec">
   <div class="wrap">
-    <p class="ey rv">Proof</p>
-    <h2 class="rv">Built for a real shop</h2>
+    <p class="ey rv">Built for</p>
+    <h2 class="rv">A real shop, a real pipeline.</h2>
     <div class="s-proof-box rv">
-      <p><b>American Precision Woodwork</b> &mdash; a custom client-intake automation for a growing woodworking shop, turning scattered inbound leads into one organized, hands-off pipeline so nothing slips through the cracks. Owner: Anthony Izquierdo. Private internal build, so there's no public URL to visit.</p>
+      <p><b>American Precision Woodwork</b>, a growing woodworking shop. A custom client-intake automation that turns scattered inbound leads into one organized, hands-off pipeline so nothing slips through the cracks. Owner: Anthony Izquierdo. It's a private internal build, so there's no public URL to visit.</p>
       <div class="s-proof-links">
         <a href="../index.html#clients">See all client work &rarr;</a>
         <a href="../dashboards/os.html">Open the flo OS demo (simulated data) &rarr;</a>
@@ -321,13 +322,13 @@
 
 <section id="s-faq" class="sec">
   <div class="wrap">
-    <p class="ey rv">Questions</p>
-    <h2 class="rv">Before you book.</h2>
+    <p class="ey rv">Straight answers</p>
+    <h2 class="rv">Four things people ask.</h2>
     <div class="s-faq">
       <details class="s-q rv"><summary>How long does an automation build take?</summary><p>Most first builds land inside two to three weeks from the discovery call. Scope drives it more than anything else: one workflow is quick, rewiring intake across a whole business takes longer. You get the timeline in writing before anything starts.</p></details>
       <details class="s-q rv"><summary>Do I have to change my phone number or my calendar?</summary><p>No. flo builds around the number, calendar and inbox you already use. Making you migrate tools is how these projects stall.</p></details>
       <details class="s-q rv"><summary>What happens if the automation gets something wrong?</summary><p>Every flow has a human override and a visible log, so you can see what fired and when. Nothing is a black box you can't inspect or switch off.</p></details>
-      <details class="s-q rv"><summary>Do I own it afterwards?</summary><p>Yes. You own the system and the accounts it runs on. flo hands it over and teaches your team to run it — it isn't rented back to you.</p></details>
+      <details class="s-q rv"><summary>Do I own it afterwards?</summary><p>Yes. You own the system and the accounts it runs on. flo hands it over and teaches your team to run it.</p></details>
     </div>
   </div>
 </section>
@@ -337,10 +338,10 @@
     <div class="s-cta-box rv">
       <div>
         <h2>Start with the intake.</h2>
-        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together &mdash; that part is free, and it is not a pitch.</p>
+        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together. That part is free, and it is not a pitch.</p>
         <div class="s-intake">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          <span>Booking asks a few intake questions first &mdash; what is eating your week, what you already run on &mdash; so the call starts with context instead of a blank page.</span>
+          <span>Booking asks a few intake questions first, so the call starts with context instead of a blank page.</span>
         </div>
       </div>
       <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call &rarr;</a>

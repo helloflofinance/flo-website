@@ -61,15 +61,9 @@
   pointer-events:none;background:linear-gradient(180deg,rgba(6,13,31,0),var(--dark));}
 .hero-l{position:relative;z-index:3;max-width:700px;}
 .hero-tagline{font-size:11px;font-weight:500;color:var(--ink-3);
-  letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:30px;
   display:flex;align-items:center;gap:10px;width:fit-content;}
 .hero-tagline::before{content:'';width:20px;height:1px;background:var(--cyan);}
-.pill{display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,207,255,0.08);border:1px solid rgba(0,207,255,0.24);
-  border-radius:100px;padding:6px 16px;margin-bottom:28px;}
-.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 8px rgba(0,207,255,.65);}
-.pill span{font-size:11px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;}
 /* Weight 300, not 700. Big + light + tight reads editorial; big + bold reads
    like a SaaS template. Same Poppins either way. */
 h1{font-size:clamp(36px,5.2vw,74px);font-weight:300;line-height:1.05;
@@ -226,15 +220,51 @@ a.svc{display:block;text-decoration:none;color:inherit;}
   display:flex;align-items:center;gap:8px;}
 .svc-list li:last-child{border:none}
 .svc-list li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
-.cta-bar{margin-top:52px;padding:36px 40px;border-radius:16px;
-  background:rgba(20,79,202,0.1);border:1px solid rgba(20,79,202,0.22);
-  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
-.cta-bar h3{font-size:20px;font-weight:600;color:var(--white);margin-bottom:6px;}
-.cta-bar p{font-size:14px;color:var(--slate);max-width:440px;}
+/* ROUTER — "what's eating your week?"
+   Tabs are plain text with a rule under the active one. No capsules, no
+   glowing dots: the point is that it answers a question, not that it
+   announces itself. The stage has a floor height so switching answers
+   never shifts the page under the cursor. */
+.rtr{margin-top:52px;padding:clamp(26px,3.6vw,44px);border-radius:16px;
+  border:1px solid var(--b);background:rgba(255,255,255,0.03);}
+.rtr-q{font-size:clamp(17px,2vw,22px);font-weight:600;color:var(--white);
+  letter-spacing:-.4px;margin-bottom:22px;}
+.rtr-tabs{display:flex;flex-wrap:wrap;gap:4px;
+  border-bottom:1px solid var(--b);margin-bottom:28px;}
+.rtr-tabs button{font-family:var(--f);font-size:13.5px;font-weight:500;
+  color:var(--slate);background:none;border:0;cursor:pointer;
+  padding:11px 16px;position:relative;transition:color .15s;}
+.rtr-tabs button:hover{color:var(--silver);}
+.rtr-tabs button::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;
+  height:2px;background:var(--cyan);opacity:0;transition:opacity .18s;}
+.rtr-tabs button[aria-selected="true"]{color:var(--white);}
+.rtr-tabs button[aria-selected="true"]::after{opacity:1;}
+.rtr-tabs button:focus-visible{outline:2px solid var(--cyan);outline-offset:-4px;border-radius:6px;}
+.rtr-stage{min-height:184px;}
+.rtr-panel[hidden]{display:none;}
+.rtr-diag{font-size:clamp(17px,2.1vw,24px);font-weight:300;color:var(--white);
+  line-height:1.35;letter-spacing:-.6px;max-width:620px;margin-bottom:14px;}
+.rtr-fix{font-size:14px;font-weight:300;color:var(--slate);line-height:1.7;
+  max-width:560px;margin-bottom:26px;}
+.rtr-go{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+.rtr-svc{font-size:13px;font-weight:600;color:var(--cyan);text-decoration:none;}
+.rtr-svc:hover{text-decoration:underline;}
+.rtr-foot{font-size:12.5px;font-weight:300;color:rgba(122,139,168,.8);
+  line-height:1.6;margin-top:30px;padding-top:20px;border-top:1px solid var(--b);}
+.rtr-foot a{color:var(--slate);text-decoration:none;}
+.rtr-foot a:hover{color:var(--cyan);}
+@media(max-width:520px){
+  .rtr-tabs button{padding:10px 12px;font-size:13px;}
+  .rtr-stage{min-height:224px;}
+  .rtr-go{gap:16px;}
+  .rtr-go .btn-p{width:100%;justify-content:center;}
+}
 
 /* CLIENT WORK */
 #clients{background:var(--navy);}
-.cw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px;}
+.cw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:52px;}
+@media(max-width:1240px){.cw-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.cw-grid{grid-template-columns:1fr;}}
 .cw{display:flex;flex-direction:column;background:rgba(255,255,255,0.03);
   border:1px solid var(--b);border-radius:16px;overflow:hidden;
   transition:border-color .2s,transform .2s,box-shadow .2s;}
@@ -475,13 +505,10 @@ a.svc{display:block;text-decoration:none;color:inherit;}
   .svc-grid{grid-template-columns:1fr;}
   .prod-grid{grid-template-columns:1fr;}
   .prod-slim{grid-template-columns:1fr;}
-  .cw-grid{grid-template-columns:1fr;}
   .steps{grid-template-columns:1fr 1fr;}
   .step:not(:last-child)::before{display:none;}
   .about-grid{grid-template-columns:1fr;}
   .about-photo-col{position:static;max-width:280px;}
-  .cta-bar{flex-direction:column;text-align:center;}
-  .cta-bar p{max-width:100%;}
 }
 @media(max-width:480px){
   h1{letter-spacing:-1.5px;}
@@ -595,7 +622,7 @@ a.svc{display:block;text-decoration:none;color:inherit;}
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="pricing.html">Pricing</a>
   <a href="#insights" onclick="closeMenu()">Insights</a>
-  <a href="dashboards/os.html" onclick="closeMenu()">flo OS ✦</a>
+  <a href="dashboards/os.html" onclick="closeMenu()">flo OS</a>
   <a href="flow/index.html" onclick="if(window.flxOpen){closeMenu();flxOpen();return false;}">The flo way</a>
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
 </div>
@@ -643,10 +670,6 @@ a.svc{display:block;text-decoration:none;color:inherit;}
   <canvas id="hero-c" aria-hidden="true"></canvas>
   <div class="hero-l">
     <div class="hero-tagline rv">flo &mdash; Intelligence in Motion</div>
-    <div class="pill rv">
-      <div class="pill-dot"></div>
-      <span>AI &amp; Automation Consulting</span>
-    </div>
     <h1 class="rv">AI and automation,<br>built for <b>how small<br>businesses actually run.</b></h1>
     <p class="hero-sub rv">flo builds the AI systems, automations, and websites that handle the busywork behind your business &mdash; intake, scheduling, admin, reporting &mdash; so solo operators and small teams aren't stuck doing all of it by hand.</p>
     <div class="actions rv">
@@ -758,15 +781,56 @@ a.svc{display:block;text-decoration:none;color:inherit;}
         <span class="svc-go">Dashboards &amp; Power BI &rarr;</span>
       </a>
     </div>
-    <div class="cta-bar rv">
-      <div>
-        <h3>Not sure which you need?</h3>
-        <p>That's what the discovery call is for. We'll talk through where your time and money are going, and figure out the right first move together. Pricing is published — no guessing games.</p>
+    <!-- Router. The old block asked "not sure which you need?" and then left
+         the visitor to work it out from four cards. This asks the question
+         the owner can actually answer — what is eating the week — and routes
+         them to the matching service page and the intake. All four panels
+         stay in the markup so every answer is crawlable, not just the open
+         one. -->
+    <div class="rtr rv">
+      <p class="rtr-q" id="rtr-q">What&rsquo;s eating your week?</p>
+      <div class="rtr-tabs" role="tablist" aria-labelledby="rtr-q">
+          <button type="button" role="tab" id="rtr-t0" aria-controls="rtr-p0" aria-selected="true" tabindex="0">Missed calls</button>
+          <button type="button" role="tab" id="rtr-t1" aria-controls="rtr-p1" aria-selected="false" tabindex="-1">Admin and inbox</button>
+          <button type="button" role="tab" id="rtr-t2" aria-controls="rtr-p2" aria-selected="false" tabindex="-1">Nobody books</button>
+          <button type="button" role="tab" id="rtr-t3" aria-controls="rtr-p3" aria-selected="false" tabindex="-1">Can&rsquo;t see the numbers</button>
       </div>
-      <div class="actions" style="flex-wrap:nowrap">
-        <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
-        <a href="pricing.html" class="btn-g">See pricing</a>
+      <div class="rtr-stage">
+          <div class="rtr-panel" id="rtr-p0" role="tabpanel" aria-labelledby="rtr-t0">
+            <p class="rtr-diag">You are losing jobs to whoever answered first.</p>
+            <p class="rtr-fix">The fix is intake and follow-up that run while you are on a job, so the conversation starts before they call the next name on the list.</p>
+            <div class="rtr-go">
+              <a class="btn-p" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book the call &rarr;</a>
+              <a class="rtr-svc" href="services/lead-automation.html">Lead &amp; calendar automation &rarr;</a>
+            </div>
+          </div>
+          <div class="rtr-panel" id="rtr-p1" role="tabpanel" aria-labelledby="rtr-t1" hidden>
+            <p class="rtr-diag">The work that pays is losing to the work that does not.</p>
+            <p class="rtr-fix">The fix is narrow AI built on your own templates, pricing and history, drafting and sorting the repeat work for you to approve.</p>
+            <div class="rtr-go">
+              <a class="btn-p" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book the call &rarr;</a>
+              <a class="rtr-svc" href="services/ai-admin.html">AI for admin work &rarr;</a>
+            </div>
+          </div>
+          <div class="rtr-panel" id="rtr-p2" role="tabpanel" aria-labelledby="rtr-t2" hidden>
+            <p class="rtr-diag">People find you, read you, and then have nothing to do next.</p>
+            <p class="rtr-fix">The fix is a fast, mobile-first site with the calendar on the page and the intake questions asked before the first conversation.</p>
+            <div class="rtr-go">
+              <a class="btn-p" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book the call &rarr;</a>
+              <a class="rtr-svc" href="services/websites.html">Websites that book calls &rarr;</a>
+            </div>
+          </div>
+          <div class="rtr-panel" id="rtr-p3" role="tabpanel" aria-labelledby="rtr-t3" hidden>
+            <p class="rtr-diag">Revenue, jobs and costs live in three places that never meet.</p>
+            <p class="rtr-fix">The fix is Power BI pulling them together on a schedule, down to the handful of numbers you actually act on.</p>
+            <div class="rtr-go">
+              <a class="btn-p" href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book the call &rarr;</a>
+              <a class="rtr-svc" href="services/dashboards.html">Dashboards &amp; Power BI &rarr;</a>
+            </div>
+          </div>
       </div>
+      <p class="rtr-foot">Every price is published, so none of this ends in
+        &ldquo;request a quote&rdquo;. <a href="pricing.html">See pricing &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -852,6 +916,21 @@ a.svc{display:block;text-decoration:none;color:inherit;}
         </div>
       </div>
 
+      <div class="cw rv">
+        <a class="cw-frame" href="https://claudiovivas.netlify.app" target="_blank" rel="noopener" aria-label="Visit the Claudio Alejandro Vivas career site">
+          <div class="cw-bar"><i></i><i></i><i></i><span class="cw-url">claudiovivas.netlify.app</span></div>
+          <div class="cw-shot"><img class="cw-img" src="assets/clients/claudio-vivas.webp" alt="Claudio Alejandro Vivas career site — name and coaching credentials over a portrait" loading="lazy" width="497" height="310"></div>
+        </a>
+        <div class="cw-body">
+          <div class="cw-type">Career Profile</div>
+          <div class="cw-name">Claudio Alejandro Vivas</div>
+          <p class="cw-desc">A bilingual career site for an Argentine coach with a CONMEBOL Pro licence. Record, playing systems, squads and archive in one place, in Spanish and English, for clubs and federations to read.</p>
+          <div class="cw-meta">T&eacute;cnico &middot; Licencia Pro CONMEBOL</div>
+          <a class="cw-link" href="https://claudiovivas.netlify.app" target="_blank" rel="noopener">Visit site &rarr;</a>
+          <a class="cw-svc" href="services/websites.html">The service behind it: <b>Websites that book calls &rarr;</b></a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -865,18 +944,17 @@ a.svc{display:block;text-decoration:none;color:inherit;}
     border-radius:14px;background:rgba(255,255,255,0.025);
     text-decoration:none;transition:border-color .2s,background .2s;}
   .demo-strip:hover{border-color:rgba(0,207,255,0.22);background:rgba(255,255,255,0.045);}
-  .demo-tag{font-size:10px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;
-    color:var(--cyan);border:1px solid rgba(0,207,255,0.28);border-radius:100px;
-    padding:4px 11px;flex-shrink:0;}
+  .demo-label{font-size:10px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--slate);flex-shrink:0;border-left:2px solid var(--accent);padding-left:12px;}
   .demo-strip p{font-size:14px;font-weight:300;color:var(--slate);line-height:1.6;flex:1 1 320px;}
   .demo-strip p b{font-weight:600;color:var(--silver);}
   .demo-strip span.go{font-size:13px;font-weight:600;color:var(--cyan);white-space:nowrap;}
 </style>
 <section id="demo-line">
   <a class="demo-strip" href="dashboards/os.html">
-    <span class="demo-tag">Demo</span>
-    <p><b>flo OS</b> &mdash; a working demo of the missed-call, quote-chasing and
-       review system flo installs. Runs on simulated data, not client results.</p>
+    <span class="demo-label">Demo</span>
+    <p><b>flo OS</b> is a working demo of the missed-call, quote-chasing and
+       review system flo installs. It runs on simulated data, not client results.</p>
     <span class="go">Open the demo &rarr;</span>
   </a>
 </section>
@@ -1189,6 +1267,40 @@ const LIGHT_LOGO='assets/flo-logo-navy.png';
 // so that visitor never pays for three.js at all.
 
 
+// ROUTER — "what's eating your week?"
+// Real tablist behaviour: click, plus arrow / Home / End keys. A tablist that
+// only answers to a mouse is a row of divs wearing tab roles.
+(function(){
+  const root=document.querySelector('.rtr'); if(!root)return;
+  const list=root.querySelector('[role="tablist"]');
+  const tabs=[...root.querySelectorAll('[role="tab"]')];
+  const panels=tabs.map(t=>document.getElementById(t.getAttribute('aria-controls')));
+
+  function select(i,moveFocus){
+    tabs.forEach((t,j)=>{
+      const on=j===i;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+      if(panels[j])panels[j].hidden=!on;
+    });
+    if(moveFocus)tabs[i].focus();
+  }
+
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>select(i)));
+
+  list.addEventListener('keydown',e=>{
+    const i=tabs.indexOf(document.activeElement); if(i<0)return;
+    let n=null;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown')n=(i+1)%tabs.length;
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=(i-1+tabs.length)%tabs.length;
+    else if(e.key==='Home')n=0;
+    else if(e.key==='End')n=tabs.length-1;
+    if(n===null)return;
+    e.preventDefault(); select(n,true);
+  });
+})();
+
+
 // EMAIL — direct Beehiiv API subscription
 async function handleEmail(e){
   e.preventDefault();
@@ -1340,7 +1452,7 @@ async function handleEmail(e){
       chips:[{t:'Book a call',a:'cal'},{t:'See our work',a:'q:clients'}]},
     web:{a:"Fast, custom websites built to convert — book calls, capture leads, and make you look as sharp as you are. Packages start at $350 (Launch), $700 (Elevate) and $1,500 (Signature).",
       chips:[{t:'See the packages',a:'scroll:pricing'},{t:'Book a call',a:'cal'}]},
-    clients:{a:"A few recent builds:\n\n• American Precision Woodwork — custom client-intake automation\n• Icon Barbershop — custom website\n• Cameron Johnson — custom athlete profile page\n\nDifferent industries, same goal: build the thing that earns its keep.",
+    clients:{a:"A few recent builds:\n\n• American Precision Woodwork — custom client-intake automation\n• Icon Barbershop — custom website\n• Cameron Johnson — custom athlete profile page\n• Claudio Alejandro Vivas — bilingual career site for a football coach\n\nDifferent industries, same goal: build the thing that earns its keep.",
       chips:[{t:'See the work',a:'scroll:clients'},{t:'Book a call',a:'cal'}]},
     about:{a:"flo is Phillip Bowers — a decade inside real business operations, now building AI and automation for solo operators and small teams. Practitioner-built, not theory.",
       chips:[{t:'What does flo do?',a:'q:services'},{t:'Book a call',a:'cal'}]},
