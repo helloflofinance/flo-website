@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# The scroll experience and the explainer build are not pages anyone should
+# land on from a search result.
+Disallow: /flow/
+Disallow: /video/
+Disallow: /prototype/
+
+Sitemap: https://flointelligence.netlify.app/sitemap.xml

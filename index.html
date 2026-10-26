@@ -2,64 +2,149 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>flo — Intelligence in Motion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI &amp; Automation Consulting for Small Business | flo</title>
+<meta name="description" content="flo builds lead and calendar automations, custom AI for admin work, websites that book calls, and Power BI dashboards for solo operators and small teams. Book a discovery call.">
+<link rel="canonical" href="https://flointelligence.netlify.app/">
+<meta name="theme-color" content="#000d3a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="flo Intelligence in Motion">
+<meta property="og:title" content="AI &amp; Automation Consulting for Small Business | flo">
+<meta property="og:description" content="Lead and calendar automations, custom AI for admin work, websites that book calls, and dashboards that show what's working.">
+<meta property="og:url" content="https://flointelligence.netlify.app/">
+<meta property="og:image" content="https://flointelligence.netlify.app/media/flo-explainer-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@floIntelligence">
+<link rel="icon" href="assets/flo-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* HERO — light "flow" stage.
-   Two canvases with the copy sandwiched between them: particles further from
-   camera than the type draw behind it (#hero-b), nearer ones over it
-   (#hero-f), so the strand passes *through* the headline. Ink tokens below
-   are the light-ground counterparts of the dark shell's --white/--slate. */
-#hero{--ink:#14181F;--ink-2:#59606E;--ink-3:#7C8496;--rule:#D8D6D2;
-  min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-  /* the nav now floats at top:14 with a 58px pill, so clear 72px + breathing */
-  padding:0 clamp(24px,8vw,140px);padding-top:104px;
-  /* clears the 180px handoff gradient below, so the stats row never sits in it */
-  padding-bottom:200px;
-  position:relative;overflow:hidden;background:#EDECEA;}
-#hero-b,#hero-f{position:absolute;inset:0;width:100%;height:100%;
-  pointer-events:none;display:block;}
-#hero-b{z-index:1;}
-#hero-f{z-index:3;}
-/* hands the light hero off into the dark site below */
-#hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:180px;z-index:4;
+/* HERO — FLOW-FIELD WAVES.
+   A deep navy field with ribbons of electric blue and teal light streaming
+   from lower-left to upper-right. The waves themselves are WebGL
+   (assets/hero-flowfield.js); everything here is the ground they sit on, the
+   static frame that stands in for them, and the copy that has to stay
+   readable over both.
+
+   The headline is real HTML and never touches the canvas — search engines and
+   screen readers get the h1 whether or not a GPU ever shows up. */
+#hero{--ink:#FFFFFF;--ink-2:#AFC2E0;--ink-3:#7A8BA8;--rule:rgba(255,255,255,0.12);
+  position:relative;overflow:hidden;isolation:isolate;
+  display:flex;flex-direction:column;justify-content:center;
+  /* svh keeps Safari's collapsing toolbar from clipping the hero; dvh wins
+     where it is supported, vh is the floor for everything older */
+  min-height:100vh;min-height:100svh;min-height:100dvh;
+  /* iPhone: the notch, the Dynamic Island and the home indicator are not ours
+     to draw in. 104px clears the floating nav pill, the insets clear the
+     hardware, and neither the headline nor a CTA ever lands underneath. */
+  padding-top:calc(104px + env(safe-area-inset-top,0px));
+  padding-bottom:calc(150px + env(safe-area-inset-bottom,0px));
+  padding-left:max(clamp(24px,8vw,140px),calc(env(safe-area-inset-left,0px) + 20px));
+  padding-right:max(clamp(24px,8vw,140px),calc(env(safe-area-inset-right,0px) + 20px));
+  background:
+    radial-gradient(115% 85% at 76% 64%,rgba(4,106,212,.28),transparent 62%),
+    radial-gradient(85% 70% at 97% 42%,rgba(0,207,255,.13),transparent 66%),
+    radial-gradient(95% 95% at 4% 2%,rgba(0,3,16,.80),transparent 58%),
+    linear-gradient(145deg,#000a2c 0%,#000d3a 46%,#04143f 100%);}
+#hero-c,.hero-static{position:absolute;inset:0;width:100%;height:100%;
+  display:block;z-index:1;pointer-events:none;transition:opacity .9s ease;}
+#hero-c{opacity:0;}
+#hero.hero-live #hero-c{opacity:1;}
+/* The static frame is what reduced-motion gets, and what a phone that drops
+   its GL context falls back to — so it carries the same wave language on its
+   own rather than reading as a placeholder. */
+.hero-static{opacity:1;}
+#hero.hero-live .hero-static{opacity:0;}
+/* hands the navy hero off into the dark site below */
+#hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:170px;z-index:2;
   pointer-events:none;background:linear-gradient(180deg,rgba(6,13,31,0),var(--dark));}
-.hero-l{position:relative;z-index:2;max-width:760px;}
-/* fit-content so the strand cut-out below hugs the text instead of punching a
-   700px hole across the whole copy column */
-.hero-tagline{font-size:11px;font-weight:500;color:#59606E;
+.hero-l{position:relative;z-index:3;max-width:700px;}
+.hero-tagline{font-size:11px;font-weight:500;color:var(--ink-3);
   letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;
   display:flex;align-items:center;gap:10px;width:fit-content;}
-.hero-tagline::before{content:'';width:20px;height:1px;background:var(--accent);}
+.hero-tagline::before{content:'';width:20px;height:1px;background:var(--cyan);}
 .pill{display:inline-flex;align-items:center;gap:8px;
-  background:rgba(20,79,202,0.07);border:1px solid rgba(20,79,202,0.20);
+  background:rgba(0,207,255,0.08);border:1px solid rgba(0,207,255,0.24);
   border-radius:100px;padding:6px 16px;margin-bottom:28px;}
-.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
-  box-shadow:0 0 8px rgba(20,79,202,.55);}
-.pill span{font-size:11px;font-weight:500;color:var(--accent);letter-spacing:1px;text-transform:uppercase;}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);
+  box-shadow:0 0 8px rgba(0,207,255,.65);}
+.pill span{font-size:11px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;}
 /* Weight 300, not 700. Big + light + tight reads editorial; big + bold reads
    like a SaaS template. Same Poppins either way. */
-h1{font-size:clamp(38px,5.2vw,74px);font-weight:300;line-height:1.05;
-  letter-spacing:-2.6px;color:var(--ink);margin-bottom:22px;}
-h1 b{font-weight:500;color:var(--accent);}
+h1{font-size:clamp(36px,5.2vw,74px);font-weight:300;line-height:1.05;
+  letter-spacing:-2.6px;color:var(--ink);margin-bottom:22px;
+  /* the field is bright on the right; this keeps the type off it */
+  text-shadow:0 2px 40px rgba(0,8,30,.75);}
+h1 b{font-weight:500;color:#9FD8FF;}
 .hero-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--ink-2);
-  line-height:1.72;max-width:440px;margin-bottom:36px;}
-.hero-stats{display:flex;gap:clamp(20px,3vw,44px);margin-top:48px;
-  padding-top:32px;border-top:1px solid var(--rule);flex-wrap:wrap;}
-.sv{font-size:clamp(22px,2.5vw,30px);font-weight:600;color:var(--ink);letter-spacing:-1px;line-height:1;}
-.sl{font-size:11px;font-weight:400;color:var(--ink-3);letter-spacing:.8px;text-transform:uppercase;margin-top:5px;}
-.hero-cred{display:flex;align-items:center;gap:13px;margin-top:30px;max-width:430px;}
+  line-height:1.72;max-width:460px;margin-bottom:36px;
+  text-shadow:0 1px 24px rgba(0,8,30,.7);}
+.hero-cred{display:flex;align-items:center;gap:13px;margin-top:34px;max-width:430px;}
 .hero-cred-av{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:center top;
-  border:1.5px solid rgba(20,79,202,0.40);box-shadow:0 0 0 3px rgba(20,79,202,0.07);flex-shrink:0;}
+  border:1.5px solid rgba(0,207,255,0.40);box-shadow:0 0 0 3px rgba(0,207,255,0.08);flex-shrink:0;}
 .hero-cred-txt{display:flex;flex-direction:column;line-height:1.4;}
 .hero-cred-txt strong{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.2px;}
 .hero-cred-txt span{font-size:12px;font-weight:300;color:var(--ink-3);}
-/* the shell's ghost button is built for a dark ground */
-#hero .btn-g{color:var(--ink);border-color:#C9C7C3;}
-#hero .btn-g:hover{color:var(--accent);border-color:var(--accent);}
+/* scroll hint — ambient, never a gate; nothing in the hero needs a tap */
+.hero-scroll{position:absolute;left:50%;transform:translateX(-50%);z-index:3;
+  bottom:calc(34px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:rgba(122,139,168,.75);}
+.hero-scroll i{display:block;width:1px;height:38px;
+  background:linear-gradient(180deg,rgba(0,207,255,.9),transparent);
+  animation:heroScroll 2.4s ease-in-out infinite;}
+@keyframes heroScroll{0%,100%{opacity:.25;transform:scaleY(.5);transform-origin:top}
+  50%{opacity:1;transform:scaleY(1);transform-origin:top}}
+
+/* ── hero responsive ───────────────────────────────────────────────────────
+   Large phones and down: the copy owns the full width, so the waves move to
+   the lower half (the shader's shield handles that side) and the type gets a
+   little more room. */
+@media(max-width:900px){
+  .hero-l{max-width:none;}
+  .hero-sub{max-width:none;}
+}
+/* standard phone check — 390px, iPhone 14/15/16 portrait */
+@media(max-width:430px){
+  #hero{padding-top:calc(94px + env(safe-area-inset-top,0px));
+        padding-bottom:calc(132px + env(safe-area-inset-bottom,0px));}
+  h1{letter-spacing:-1.4px;}
+  .hero-cred{margin-top:28px;}
+}
+@media(max-width:390px){
+  h1{font-size:clamp(30px,8.6vw,36px);}
+  .hero-tagline{font-size:10px;letter-spacing:2.2px;}
+  .hero-scroll{display:none;}
+}
+/* short landscape phones: a full-height hero would push everything off screen */
+@media(max-height:560px) and (orientation:landscape){
+  #hero{min-height:auto;padding-top:calc(92px + env(safe-area-inset-top,0px));
+        padding-bottom:110px;}
+  .hero-cred,.hero-scroll{display:none;}
+}
+/* ── dual-screen and foldables ─────────────────────────────────────────────
+   When the window is spanned across a hinge, each pane is treated as its own
+   viewport: the headline and CTAs stay wholly on the left pane and nothing
+   straddles the fold. env() fallbacks keep this harmless on every other
+   device. The older `spanning` syntax is kept for shipped Surface Duo stock
+   browsers that never got the segments properties. */
+@media (horizontal-viewport-segments: 2),(spanning: single-fold-vertical){
+  #hero{padding-right:calc(100vw - env(viewport-segment-right 0 0,50vw) + 28px);}
+  .hero-l{max-width:calc(env(viewport-segment-width 0 0,50vw) - clamp(48px,10vw,180px));}
+  .hero-scroll{left:calc(env(viewport-segment-width 0 0,50vw) / 2);transform:none;}
+}
+@media (vertical-viewport-segments: 2),(spanning: single-fold-horizontal){
+  #hero{min-height:env(viewport-segment-height 0 0,50vh);
+        justify-content:flex-start;padding-bottom:70px;}
+  .hero-scroll{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  /* a single static wave frame, and the WebGL field is never even fetched */
+  #hero-c{display:none;}
+  #hero.hero-live .hero-static{opacity:1;}
+  .hero-scroll i{animation:none;opacity:.7;}
+}
 
 /* NAV — floating glass pill, inset from the edges like the reference.
    Two states: light frosted while it sits over the light hero, dark frosted
@@ -105,6 +190,10 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
 @media(max-width:720px){.vid-btn{width:58px;height:58px}.vid-btn svg{width:20px;height:20px}}
 
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:52px;}
+a.svc{display:block;text-decoration:none;color:inherit;}
+.svc-go{display:inline-flex;align-items:center;gap:7px;margin-top:18px;
+  font-size:13px;font-weight:600;color:var(--cyan);transition:gap .15s;}
+.svc:hover .svc-go{gap:12px;}
 .svc{background:rgba(255,255,255,0.04);border:1px solid var(--b);border-radius:16px;
   padding:30px 26px;transition:border-color .2s,transform .2s,background .2s;
   position:relative;overflow:hidden;}
@@ -170,6 +259,11 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
 .cw-name{font-size:17px;font-weight:600;color:var(--white);letter-spacing:-.3px;margin-bottom:8px;}
 .cw-desc{font-size:13.5px;font-weight:300;color:var(--slate);line-height:1.65;margin-bottom:18px;flex-grow:1;}
 .cw-meta{font-size:12px;color:rgba(200,216,240,0.5);margin-bottom:14px;}
+.cw-svc{display:block;font-size:12px;color:var(--slate);text-decoration:none;
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--b);transition:color .15s;}
+.cw-svc b{font-weight:600;color:var(--silver);}
+.cw-svc:hover{color:var(--cyan);}
+.cw-svc:hover b{color:var(--cyan);}
 .cw-link{font-size:13px;font-weight:600;color:var(--cyan);text-decoration:none;
   display:inline-flex;align-items:center;gap:6px;transition:gap .15s;}
 .cw-link:hover{gap:10px;}
@@ -437,6 +531,43 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
   .ins-grid{grid-template-columns:1fr;gap:40px;}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://flointelligence.netlify.app/#business",
+  "name": "flo Intelligence in Motion",
+  "alternateName": "flo",
+  "url": "https://flointelligence.netlify.app/",
+  "description": "AI and automation consulting for solo operators and small teams: lead and calendar automation, custom AI for admin work, websites that book calls, and Power BI dashboards.",
+  "email": "hello.flo.finance@gmail.com",
+  "image": "https://flointelligence.netlify.app/media/flo-explainer-poster.jpg",
+  "logo": "https://flointelligence.netlify.app/assets/flo-logo.png",
+  "priceRange": "$$",
+  "founder": {
+    "@type": "Person",
+    "name": "Phillip Bowers",
+    "jobTitle": "Founder",
+    "image": "https://flointelligence.netlify.app/assets/avatar.jpg"
+  },
+  "sameAs": [
+    "https://x.com/floIntelligence",
+    "https://www.instagram.com/flointelligence/",
+    "https://www.youtube.com/@floIntelligence",
+    "https://flo-intelligence-in-motion.beehiiv.com"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "What flo builds",
+    "itemListElement": [
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Lead and calendar automation","url":"https://flointelligence.netlify.app/services/lead-automation"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"AI that replaces manual admin","url":"https://flointelligence.netlify.app/services/ai-admin"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Websites that book calls","url":"https://flointelligence.netlify.app/services/websites"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Power BI dashboards and reporting","url":"https://flointelligence.netlify.app/services/dashboards"}}
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
@@ -469,10 +600,47 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
   <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
 </div>
 
-<!-- HERO -->
-<section id="hero" data-nav="light" data-nav-fade="190">
-  <canvas id="hero-b"></canvas>
-  <canvas id="hero-f"></canvas>
+<!-- HERO — flow-field waves (see assets/hero-flowfield.js) -->
+<section id="hero">
+  <!-- Static wave frame: the reduced-motion hero, and the fallback for any
+       device that cannot give us a WebGL context. Same ribbons, same ramp
+       from the dark upper-left to the lit lower-right, simply held still —
+       a quieter version of the picture rather than a placeholder for it.
+       Never the only thing carrying the message: the h1 below does that. -->
+  <svg class="hero-static" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+       fill="none" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="hsRamp" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="0.38" stop-color="#fff" stop-opacity="0.07"/>
+        <stop offset="0.66" stop-color="#fff" stop-opacity="0.46"/>
+        <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+      </linearGradient>
+      <mask id="hsMask"><rect width="1440" height="900" fill="url(#hsRamp)"/></mask>
+      <filter id="hsGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="9"/>
+      </filter>
+      <g id="hsLines" stroke-linecap="round">
+        <path d="M-100 430 C 320 404 560 262 820 198 S 1240 74 1560 -68" stroke="#0c3a8c" stroke-width="1.40" opacity="0.55"/>
+        <path d="M-100 486 C 320 460 560 318 820 254 S 1240 130 1560 -12" stroke="#174b94" stroke-width="1.71" opacity="0.59"/>
+        <path d="M-100 542 C 320 516 560 374 820 310 S 1240 186 1560 44" stroke="#235d9d" stroke-width="2.02" opacity="0.63"/>
+        <path d="M-100 598 C 320 572 560 430 820 366 S 1240 242 1560 100" stroke="#2f6ea6" stroke-width="2.33" opacity="0.67"/>
+        <path d="M-100 654 C 320 628 560 486 820 422 S 1240 298 1560 156" stroke="#3b80ae" stroke-width="2.64" opacity="0.71"/>
+        <path d="M-100 710 C 320 684 560 542 820 478 S 1240 354 1560 212" stroke="#4791b7" stroke-width="2.95" opacity="0.75"/>
+        <path d="M-100 766 C 320 740 560 598 820 534 S 1240 410 1560 268" stroke="#53a3c0" stroke-width="3.25" opacity="0.80"/>
+        <path d="M-100 822 C 320 796 560 654 820 590 S 1240 466 1560 324" stroke="#5fb4c9" stroke-width="3.56" opacity="0.84"/>
+        <path d="M-100 878 C 320 852 560 710 820 646 S 1240 522 1560 380" stroke="#6bc6d1" stroke-width="3.87" opacity="0.88"/>
+        <path d="M-100 934 C 320 908 560 766 820 702 S 1240 578 1560 436" stroke="#77d7da" stroke-width="4.18" opacity="0.92"/>
+        <path d="M-100 990 C 320 964 560 822 820 758 S 1240 634 1560 492" stroke="#83e9e3" stroke-width="4.49" opacity="0.96"/>
+        <path d="M-100 1046 C 320 1020 560 878 820 814 S 1240 690 1560 548" stroke="#8ffbec" stroke-width="4.80" opacity="1.00"/>
+      </g>
+    </defs>
+    <g mask="url(#hsMask)">
+      <use href="#hsLines" filter="url(#hsGlow)" opacity="0.75"/>
+      <use href="#hsLines"/>
+    </g>
+  </svg>
+  <canvas id="hero-c" aria-hidden="true"></canvas>
   <div class="hero-l">
     <div class="hero-tagline rv">flo &mdash; Intelligence in Motion</div>
     <div class="pill rv">
@@ -480,27 +648,20 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
       <span>AI &amp; Automation Consulting</span>
     </div>
     <h1 class="rv">AI and automation,<br>built for <b>how small<br>businesses actually run.</b></h1>
-    <p class="hero-sub rv">flo builds the AI systems, automations, and websites that handle the busywork behind your business — intake, scheduling, admin, reporting — so solo operators and small teams aren't stuck doing all of it by hand.</p>
+    <p class="hero-sub rv">flo builds the AI systems, automations, and websites that handle the busywork behind your business &mdash; intake, scheduling, admin, reporting &mdash; so solo operators and small teams aren't stuck doing all of it by hand.</p>
     <div class="actions rv">
-      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call →</a>
-      <a href="https://flofinance.gumroad.com/l/smarter-by-design-pro?_gl=1*16bruwe*_ga*MTg2MTcyMzQzNS4xNzgxMTQzNjE1*_ga_6LJN6D94N6*czE3ODExNDM2MTQkbzEkZzEkdDE3ODExNDc0NDckajQ5JGwwJGgw" class="btn-g" target="_blank" rel="noopener">Get the Framework</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call &rarr;</a>
+      <a href="#work" class="btn-g">See what flo builds</a>
     </div>
     <div class="hero-cred rv">
-      <img src="assets/avatar.jpg" alt="Phillip Bowers, founder of flo" class="hero-cred-av" width="46" height="46" loading="lazy">
+      <img src="assets/avatar.jpg" alt="Phillip Bowers, founder of flo" class="hero-cred-av" width="46" height="46" fetchpriority="low">
       <div class="hero-cred-txt">
-        <strong>Phillip Bowers · Founder</strong>
-        <span>A decade inside real operations — now building AI for small business.</span>
+        <strong>Phillip Bowers &middot; Founder</strong>
+        <span>A decade inside real operations &mdash; now building AI for small business.</span>
       </div>
     </div>
-    <div class="hero-stats rv">
-      <div><div class="sv" data-count="10" data-suffix="+">10+</div><div class="sl">Years in the trenches</div></div>
-      <!-- no data-count here on purpose: the count-up animation only runs on
-           .sv[data-count], and leaving it would overwrite this with "3+" -->
-      <div><div class="sv">Multiple</div><div class="sl">Client systems shipped</div></div>
-      <div><div class="sv">∞</div><div class="sl">Hours of busywork automated</div></div>
-    </div>
   </div>
-
+  <div class="hero-scroll" aria-hidden="true"><i></i>Scroll</div>
 </section>
 
 <!-- SERVICES -->
@@ -525,7 +686,7 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
     </div>
 
     <div class="svc-grid">
-      <div class="svc rv">
+      <a class="svc rv" href="services/lead-automation.html">
         <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
           <rect class="st" x="7" y="11" width="30" height="26" rx="4"/>
           <line class="st" x1="7" y1="18" x2="37" y2="18"/>
@@ -541,8 +702,9 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <li>Scheduling &amp; booking flows</li>
           <li>Follow-ups &amp; reminders that never miss</li>
         </ul>
-      </div>
-      <div class="svc rv">
+        <span class="svc-go">Lead &amp; calendar automation &rarr;</span>
+      </a>
+      <a class="svc rv" href="services/ai-admin.html">
         <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
           <line class="st" x1="11" y1="13" x2="19" y2="19"/><line class="st" x1="11" y1="31" x2="19" y2="25"/><line class="st" x1="33" y1="13" x2="25" y2="19"/>
           <circle class="ac" cx="22" cy="22" r="7"/>
@@ -557,8 +719,9 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <li>Document &amp; email automation</li>
           <li>AI-assisted reporting</li>
         </ul>
-      </div>
-      <div class="svc rv">
+        <span class="svc-go">AI for admin work &rarr;</span>
+      </a>
+      <a class="svc rv" href="services/websites.html">
         <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
           <rect class="st" x="7" y="9" width="30" height="25" rx="3"/>
           <line class="st" x1="7" y1="15" x2="37" y2="15"/>
@@ -574,8 +737,9 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <li>Conversion-focused layout</li>
           <li>Booking &amp; lead capture built in</li>
         </ul>
-      </div>
-      <div class="svc rv">
+        <span class="svc-go">Websites that book calls &rarr;</span>
+      </a>
+      <a class="svc rv" href="services/dashboards.html">
         <div class="svc-icon"><svg class="svc-ic" viewBox="0 0 44 44" aria-hidden="true">
           <path class="st" d="M9 9 v26 h26"/>
           <rect class="bar" x="14" y="24" width="4.6" height="9" rx="1.4"/>
@@ -591,7 +755,8 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <li>Live KPI dashboards</li>
           <li>Clear, decision-ready views</li>
         </ul>
-      </div>
+        <span class="svc-go">Dashboards &amp; Power BI &rarr;</span>
+      </a>
     </div>
     <div class="cta-bar rv">
       <div>
@@ -655,6 +820,7 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <p class="cw-desc">A custom client-intake automation for a growing woodworking shop — turning scattered inbound leads into one organized, hands-off pipeline so nothing slips through the cracks.</p>
           <div class="cw-meta">Owner · Anthony Izquierdo</div>
           <span class="cw-private">Private internal build</span>
+          <a class="cw-svc" href="services/lead-automation.html">The service behind it: <b>Lead &amp; calendar automation &rarr;</b></a>
         </div>
       </div>
 
@@ -668,6 +834,7 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <div class="cw-name">Icon Barbershop</div>
           <p class="cw-desc">A custom, mobile-first website for a modern barbershop — designed to fill chairs, not just look sharp. Fast, clean, and built to turn visitors into booked appointments.</p>
           <a class="cw-link" href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener">Visit site →</a>
+          <a class="cw-svc" href="services/websites.html">The service behind it: <b>Websites that book calls &rarr;</b></a>
         </div>
       </div>
 
@@ -681,6 +848,7 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
           <div class="cw-name">Cameron Johnson</div>
           <p class="cw-desc">A custom digital profile for a competitive soccer player — highlights, stats, and story on one recruiter-ready page that works as hard as he does on the pitch.</p>
           <a class="cw-link" href="https://camjohnson.netlify.app" target="_blank" rel="noopener">Visit site →</a>
+          <a class="cw-svc" href="services/websites.html">The service behind it: <b>Websites that book calls &rarr;</b></a>
         </div>
       </div>
 
@@ -688,93 +856,29 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
   </div>
 </section>
 
-<!-- ===== Live Dashboards teaser (links to the flo Intelligence app) ===== -->
+<!-- flo OS demo — one line, per the trim. The full walkthrough lives on
+     its own page; the numbers inside it are simulated, never client results. -->
 <style>
-  #dash-teaser{background:linear-gradient(180deg,#0A1B3D 0%,#060D1F 100%)}
-  .dash-card{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,56px);align-items:center;
-    background:radial-gradient(120% 140% at 0% 0%,rgba(0,207,255,.10),transparent 55%),
-               linear-gradient(135deg,rgba(20,79,202,.16),rgba(4,8,26,.22));
-    border:1px solid rgba(0,207,255,.18);border-radius:26px;padding:clamp(28px,4.5vw,60px);
-    position:relative;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
-  .dash-card .ey{color:#00CFFF}
-  .dash-card h2{color:#fff;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-.02em;margin:6px 0 16px}
-  .dash-card .lead{color:#7A8BA8;max-width:470px}
-  .dash-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
-  .dash-chip{font-size:12.5px;font-weight:500;color:#C8D8F0;background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:7px 14px}
-  .dash-open-btn{margin-top:26px;display:inline-flex;align-items:center;gap:11px;font-family:'Poppins',sans-serif;
-    font-weight:500;font-size:16px;color:#04081a;background:#00CFFF;border:0;border-radius:100px;
-    padding:15px 28px;cursor:pointer;text-decoration:none;transition:transform .35s ease,box-shadow .35s ease}
-  .dash-open-btn svg{width:16px;height:16px}
-  .dash-open-btn:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,207,255,.38)}
-  /* mini live-dashboard preview */
-  .dash-viz{position:relative;display:block;border:1px solid rgba(255,255,255,.08);border-radius:18px;
-    background:linear-gradient(160deg,#0d1f30,#0a1526);padding:18px;overflow:hidden;text-decoration:none;
-    box-shadow:0 24px 60px -30px rgba(0,0,0,.7);transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s}
-  .dash-viz:hover{transform:translateY(-3px);border-color:rgba(0,207,255,.4)}
-  .dash-viz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .dash-viz-top b{font-size:13px;color:#EAF3F1;font-weight:600}
-  .dash-viz-live{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#00CFFF}
-  .dash-viz-live i{width:6px;height:6px;border-radius:50%;background:#00CFFF;box-shadow:0 0 8px #00CFFF;animation:dashDot 2s infinite}
-  @keyframes dashDot{0%,100%{opacity:.4}50%{opacity:1}}
-  .dash-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-  .dash-tile{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:11px}
-  .dash-tile span{display:block;font-size:9.5px;color:#8AA1AE;margin-bottom:5px}
-  .dash-tile b{font-size:19px;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
-  .dash-tile b em{font-style:normal;color:#00CFFF}
-  .dash-spark{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:12px}
-  .dash-spark svg{width:100%;height:76px;display:block}
-  .dash-spark .dl{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5;
-    stroke-dasharray:400;stroke-dashoffset:400;animation:dashDraw 3s ease-out forwards}
-  @keyframes dashDraw{to{stroke-dashoffset:0}}
-  .dash-spark .df{opacity:0;animation:dashFade 1.4s ease .6s forwards}
-  @keyframes dashFade{to{opacity:1}}
-  @media (max-width:820px){
-    .dash-card{grid-template-columns:1fr;text-align:center}
-    .dash-card .lead{margin-left:auto;margin-right:auto}
-    .dash-chips{justify-content:center}
-    .dash-viz{order:-1;max-width:460px;margin:0 auto;text-align:left}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .dash-spark .dl{animation:none;stroke-dashoffset:0}.dash-spark .df{animation:none;opacity:1}.dash-viz-live i{animation:none}
-  }
+  #demo-line{padding:0 clamp(24px,5vw,80px) clamp(40px,6vw,72px);background:var(--dark);}
+  .demo-strip{max-width:1200px;margin:0 auto;display:flex;align-items:center;
+    gap:16px;flex-wrap:wrap;padding:20px 24px;border:1px solid var(--b);
+    border-radius:14px;background:rgba(255,255,255,0.025);
+    text-decoration:none;transition:border-color .2s,background .2s;}
+  .demo-strip:hover{border-color:rgba(0,207,255,0.22);background:rgba(255,255,255,0.045);}
+  .demo-tag{font-size:10px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--cyan);border:1px solid rgba(0,207,255,0.28);border-radius:100px;
+    padding:4px 11px;flex-shrink:0;}
+  .demo-strip p{font-size:14px;font-weight:300;color:var(--slate);line-height:1.6;flex:1 1 320px;}
+  .demo-strip p b{font-weight:600;color:var(--silver);}
+  .demo-strip span.go{font-size:13px;font-weight:600;color:var(--cyan);white-space:nowrap;}
 </style>
-<section id="dash-teaser" class="sec">
-  <div class="wrap">
-    <div class="dash-card rv">
-      <div class="dash-card-copy">
-        <p class="ey">flo OS — a working demo</p>
-        <h2>The system that answers<br>while you're on a job.</h2>
-        <p class="lead">Missed calls texted back in 45 seconds. Quotes chased on day 2, 5 and 12. Reviews asked for after every job. Step inside a working demo of what flo installs — and see the five numbers an owner actually checks.</p>
-        <div class="dash-chips">
-          <span class="dash-chip">Missed-call text back</span>
-          <span class="dash-chip">Quote follow-up</span>
-          <span class="dash-chip">Review requests</span>
-          <span class="dash-chip">The Monday five</span>
-        </div>
-        <a href="dashboards/os.html" class="dash-open-btn">
-          Open flo OS
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-      <a class="dash-viz" href="dashboards/os.html#autos" aria-label="Open the flo OS demo">
-        <div class="dash-viz-top"><b>flo OS · Automations</b><span class="dash-viz-live"><i></i>Live</span></div>
-        <div class="dash-tiles">
-          <div class="dash-tile"><span>Calls caught</span><b>23</b></div>
-          <div class="dash-tile"><span>Became jobs</span><b>9</b></div>
-          <div class="dash-tile"><span>Response</span><b>48<em>s</em></b></div>
-        </div>
-        <div class="dash-spark">
-          <svg viewBox="0 0 320 76" preserveAspectRatio="none" aria-hidden="true">
-            <defs><linearGradient id="dashG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00CFFF" stop-opacity=".28"/><stop offset="1" stop-color="#00CFFF" stop-opacity="0"/></linearGradient></defs>
-            <polygon class="df" fill="url(#dashG)" points="6,58 52,50 98,54 144,34 190,40 236,22 282,28 314,16 314,72 6,72"/>
-            <polyline class="dl" stroke="#2F7BFF" points="6,64 52,58 98,60 144,46 190,50 236,36 282,40 314,32"/>
-            <polyline class="dl" stroke="#00CFFF" style="animation-delay:.15s" points="6,58 52,50 98,54 144,34 190,40 236,22 282,28 314,16"/>
-          </svg>
-        </div>
-      </a>
-    </div>
-  </div>
+<section id="demo-line">
+  <a class="demo-strip" href="dashboards/os.html">
+    <span class="demo-tag">Demo</span>
+    <p><b>flo OS</b> &mdash; a working demo of the missed-call, quote-chasing and
+       review system flo installs. Runs on simulated data, not client results.</p>
+    <span class="go">Open the demo &rarr;</span>
+  </a>
 </section>
 
 <!-- HOW WE WORK (+ "The flo way" motion experience) -->
@@ -790,34 +894,6 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
       <div class="step rv"><div class="step-num">4</div><h3>Enablement</h3><p>Your team learns to run it. It's yours to operate — a system you own, not one you rent.</p></div>
     </div>
 
-    <!-- ===== "The flo way" motion experience (same journey, in motion) ===== -->
-    <div class="flx-card rv" style="margin-top:clamp(28px,4vw,52px)">
-      <div class="flx-card-copy">
-        <p class="ey">The flo way — in motion</p>
-        <h2>See exactly how it flows.</h2>
-        <p class="lead">The four steps above — brought to life. An interactive walk through what working with flo actually feels like.</p>
-        <button type="button" class="flx-open-btn" onclick="flxOpen()">
-          Watch the work flow
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>
-        </button>
-      </div>
-      <button type="button" class="flx-card-viz" onclick="flxOpen()" aria-label="Open the flo way experience">
-        <svg viewBox="0 0 440 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <linearGradient id="flxLine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#144FCA"/><stop offset="1" stop-color="#00CFFF"/>
-            </linearGradient>
-          </defs>
-          <path class="flx-path" d="M30,150 C110,150 120,70 200,70 S330,150 410,90" fill="none" stroke="url(#flxLine)" stroke-width="2.5"/>
-          <path class="flx-path flx-flow" d="M30,150 C110,150 120,70 200,70 S330,150 410,90" fill="none" stroke="#b9f2ff" stroke-width="2.5" stroke-linecap="round"/>
-          <g class="flx-nodes">
-            <circle cx="30" cy="150" r="9"/><circle cx="200" cy="70" r="11"/>
-            <circle cx="300" cy="112" r="9"/><circle cx="410" cy="90" r="10"/>
-          </g>
-        </svg>
-        <span class="flx-viz-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-      </button>
-    </div>
   </div>
 </section>
 
@@ -942,7 +1018,10 @@ body:has(nav.glass-light) .mob-menu .mob-cta{color:#fff!important;}
       <div class="ftagline">Intelligence in Motion</div>
     </div>
     <div class="flinks">
-      <a href="#work">Services</a>
+      <a href="services/lead-automation.html">Lead &amp; calendar automation</a>
+      <a href="services/ai-admin.html">AI for admin work</a>
+      <a href="services/websites.html">Websites</a>
+      <a href="services/dashboards.html">Dashboards</a>
       <a href="#clients">Clients</a>
       <a href="#about">About</a>
       <a href="pricing.html">Pricing</a>
@@ -1105,352 +1184,9 @@ const LIGHT_LOGO='assets/flo-logo-navy.png';
   upd();
 })();
 
-// HERO — PARTICLE STRAND
-// A rope of particles swept along a 3D spline, hand-projected with real
-// perspective and drawn from a pre-blurred sprite atlas for genuine depth of
-// field. Canvas 2D only — no WebGL, no library.
-//
-// Two canvases with the hero copy sandwiched between them (#hero-b behind,
-// #hero-f in front): every particle is routed by depth, so the strand passes
-// *through* the headline rather than behind it.
-//
-// The hover mechanic: the cursor finds the nearest position ALONG THE STRAND
-// (arc length), not the nearest particle — so a coherent band of the flow
-// lights up and travels with you, instead of random dots twinkling.
-//
-// House rule from video/flo-explainer: nothing calls Math.random(). A seeded
-// PRNG keeps the composition art-directed and identical on every load.
-(function(){
-const cvB=document.getElementById('hero-b'), cvF=document.getElementById('hero-f');
-if(!cvB||!cvF)return;
-const ctxB=cvB.getContext('2d'), ctxF=cvF.getContext('2d');
-const kick=document.querySelector('.hero-tagline');
-const CT=[ctxB,ctxF];                    // 0 = behind the copy, 1 = in front
-const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const TAU=Math.PI*2;
-const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);
-  t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
-const cl=v=>v<0?0:v>1?1:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
-const smooth=t=>t*t*(3-2*t);
-
-let W,H,DPR,mobile,cx,cy,FL;
-
-// flo tokens only. Pure cyan is too pale to read on a light ground, so the
-// ramp lands on a deepened cyan and keeps accent blue as its brightest note.
-const PAL={ramp:[[16,42,92],[20,79,202],[0,146,206],[24,104,208],[13,48,112]],
-           accent:[20,79,202], debris:[152,160,176], amb:0.94};
-function rampAt(s){
-  const r=PAL.ramp, f=cl(s)*(r.length-1), i=Math.min(Math.floor(f),r.length-2), t=f-i;
-  const a=r[i],b=r[i+1];
-  return [lerp(a[0],b[0],t),lerp(a[1],b[1],t),lerp(a[2],b[2],t)];
-}
-
-// ── sprite atlas ────────────────────────────────────────────────────────────
-// Every sprite the renderer will ever need is baked ONCE: [blur][ramp step],
-// plus accent and debris sets. Tinting per particle per frame is what dropped
-// an earlier pass to single-figure fps.
-const LV=6, RN=26, CORE=4;
-let SPRC=[], SPRA=[], SPRD=[];
-function bake(rr,gg,bb,blur){
-  const R=Math.ceil(CORE+blur*3)+1, s=document.createElement('canvas');
-  s.width=s.height=R*2; const g=s.getContext('2d');
-  if(blur>0)g.filter='blur('+blur.toFixed(1)+'px)';
-  const rg=g.createRadialGradient(R,R,0,R,R,CORE);
-  rg.addColorStop(0,'rgba('+rr+','+gg+','+bb+',1)');
-  rg.addColorStop(0.5,'rgba('+rr+','+gg+','+bb+',0.62)');
-  rg.addColorStop(1,'rgba('+rr+','+gg+','+bb+',0)');
-  g.fillStyle=rg; g.beginPath(); g.arc(R,R,CORE,0,TAU); g.fill();
-  return {c:s,r:R};
-}
-function buildSprites(){
-  SPRC=[];SPRA=[];SPRD=[];
-  for(let i=0;i<LV;i++){
-    const blur=i*1.55, row=[];
-    for(let k=0;k<RN;k++){const c=rampAt(k/(RN-1));row.push(bake(c[0]|0,c[1]|0,c[2]|0,blur));}
-    SPRC.push(row);
-    SPRA.push(bake(PAL.accent[0],PAL.accent[1],PAL.accent[2],blur));
-    SPRD.push(bake(PAL.debris[0],PAL.debris[1],PAL.debris[2],blur));
-  }
-}
-
-// ── the spline ──────────────────────────────────────────────────────────────
-function cr1(p0,p1,p2,p3,t){const t2=t*t,t3=t2*t;
-  return 0.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3);}
-
-// Local space; x right, y down, z into screen. Arcs in high on the left, sweeps
-// near through the middle, exits low right. Overshoots the frame by ~3x on both
-// sides so no camera tilt can ever swing a terminus into view.
-const CTRL=[
-  [-6.60, 1.34, 3.10],[-5.40, 0.86, 2.30],[-4.30, 0.26, 1.55],
-  [-3.20,-0.34, 0.70],[-2.05,-0.86, 0.04],[-0.95,-1.08,-0.36],
-  [ 0.15,-0.58,-0.50],[ 1.25, 0.24,-0.22],[ 2.30, 0.52, 0.44],
-  [ 3.30, 0.92, 0.92],[ 4.40, 1.66, 1.34],[ 5.50, 2.48, 1.86],
-  [ 6.60, 3.34, 2.46]
-];
-const LUTN=420; let LUT=[];
-function buildLUT(){
-  LUT=[]; const n=CTRL.length;
-  for(let k=0;k<LUTN;k++){
-    const u=k/(LUTN-1)*(n-3), i=Math.min(Math.floor(u),n-4), t=u-i, p=[];
-    for(let d=0;d<3;d++)p[d]=cr1(CTRL[i][d],CTRL[i+1][d],CTRL[i+2][d],CTRL[i+3][d],t);
-    LUT.push({p});
-  }
-  // tangent → normal/binormal, so the tube keeps a consistent cross-section
-  for(let k=0;k<LUTN;k++){
-    const a=LUT[Math.max(0,k-1)].p, b=LUT[Math.min(LUTN-1,k+1)].p;
-    let tx=b[0]-a[0],ty=b[1]-a[1],tz=b[2]-a[2];
-    const m=Math.hypot(tx,ty,tz)||1; tx/=m;ty/=m;tz/=m;
-    let nx=-tz, ny=0, nz=tx;
-    const mn=Math.hypot(nx,ny,nz)||1; nx/=mn;ny/=mn;nz/=mn;
-    LUT[k].n=[nx,ny,nz];
-    LUT[k].b=[ty*nz-tz*ny, tz*nx-tx*nz, tx*ny-ty*nx];
-  }
-}
-
-// ── particles ───────────────────────────────────────────────────────────────
-const NB=40;                             // depth bands
-let pts=[], debris=[], BUF=null;
-function build(){
-  const r=rng(20260802);
-  // a thicker tube needs more bodies or the extra volume just reads as sparse
-  const N=mobile?2100:4900;
-  pts=[];
-  for(let i=0;i<N;i++){
-    let s=r(); s=cl(s*1.06-0.03);       // bias inward so the ends taper
-    // A narrow frame only shows the middle ~quarter of the spline, so spending
-    // particles on the off-screen tails leaves the visible part a bare thread.
-    // Pack them into the window the camera can actually see — the cut points
-    // at 0.24/0.76 project well outside the frame, so no terminus is exposed.
-    if(mobile) s=0.24+s*0.52;
-    const k=Math.min(LUTN-1,Math.round(s*(LUTN-1))), L=LUT[k];
-    const ang=r()*TAU;
-    // Tight core, short halo. A long halo reads as a smear, not a strand.
-    const q=r(), rad=(q<0.84? q*0.098 : 0.082+Math.pow(q-0.84,1.2)*0.62)*(0.80+Math.sin(s*7.1)*0.20);
-    const ca=Math.cos(ang), sa=Math.sin(ang);
-    // unit radial direction, kept so hover can push each particle straight out
-    // from the strand's axis rather than just recolouring it
-    const ux=L.n[0]*ca+L.b[0]*sa, uy=L.n[1]*ca+L.b[1]*sa, uz=L.n[2]*ca+L.b[2]*sa;
-    pts.push({s, ux,uy,uz,
-      x:L.p[0]+ux*rad,
-      y:L.p[1]+uy*rad,
-      z:L.p[2]+uz*rad,
-      // per-particle push scale — without it the whole band displaces as one
-      // rigid slab, which reads as a bulge rather than something disturbed
-      pv:0.45+r()*1.05,
-      ph:r()*TAU, am:0.004+r()*0.012, sz:0.55+r()*1.05, hi:0});
-  }
-  // Flat buffers allocated once — a per-particle object per frame handed the
-  // GC ~200k objects a second.
-  BUF={sx:new Float32Array(N), sy:new Float32Array(N), f:new Float32Array(N),
-       bl:new Float32Array(N), bin:new Int16Array(N), vis:new Uint8Array(N),
-       lay:new Uint8Array(N), cnt:new Int32Array(NB+1), ord:new Int32Array(N)};
-
-  debris=[];
-  const D=mobile?24:58;
-  for(let i=0;i<D;i++)debris.push({x:(r()-0.5)*4.4, y:(r()-0.5)*2.6, z:(r()-0.5)*2.6,
-                                   ph:r()*TAU, sz:0.5+r()*1.1, sp:0.12+r()*0.3});
-}
-
-function resize(){
-  DPR=Math.min(window.devicePixelRatio||1,2);
-  W=cvB.offsetWidth||window.innerWidth;
-  H=cvB.offsetHeight||window.innerHeight;
-  mobile=W<760;
-  for(const c of [cvB,cvF]){c.width=Math.round(W*DPR);c.height=Math.round(H*DPR);}
-  ctxB.setTransform(DPR,0,0,DPR,0,0); ctxF.setTransform(DPR,0,0,DPR,0,0);
-  cx=W*0.50;
-  cy=mobile ? H*0.26 : H*0.42;          // clears the kicker line on the left
-  // On mobile the hero is content-tall, so min(W,H) collapses to the width and
-  // the strand shrinks to a thread. Scale off the width deliberately instead.
-  FL=mobile ? W*0.72 : Math.min(W,H)*0.66;
-  buildSprites();
-}
-
-// ── interaction ─────────────────────────────────────────────────────────────
-// Canvases stay pointer-events:none so the hero buttons keep working; we read
-// window events and convert into canvas space.
-let mx=-9999,my=-9999,mIn=false,sHov=-1,sHovE=-1,hovAmt=0,parx=0,pary=0;
-if(!reduce){
-  const track=e=>{
-    const r=cvB.getBoundingClientRect();
-    mx=e.clientX-r.left; my=e.clientY-r.top;
-    mIn=(mx>=0&&mx<=W&&my>=0&&my<=H);
-  };
-  window.addEventListener('pointermove',track,{passive:true});
-  // touch: pointerdown registers the first contact so a drag scrubs the strand
-  // immediately, and lifting releases it instead of leaving the band stuck lit
-  window.addEventListener('pointerdown',track,{passive:true});
-  window.addEventListener('pointerup',()=>{mIn=false;},{passive:true});
-  window.addEventListener('pointercancel',()=>{mIn=false;},{passive:true});
-  let rt=0;
-  window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{resize();build();},160);});
-}
-
-const FOCUS=-0.15;                       // z that is tack sharp
-// The plane the copy occupies. The strand's near end bottoms out around
-// zc 1.85, so this has to sit just in front of that — push it back and the
-// whole near half falls into the dimmed foreground layer and the strand
-// washes out. Only a thin nearest slice should cross over the type.
-const TEXTZ=1.90;
-let el=0,last=0;
-
-function render(t){
-  const ei=1-Math.pow(1-cl(t/2.4),3);    // outCubic intro reveal
-
-  ctxB.clearRect(0,0,W,H); ctxF.clearRect(0,0,W,H);
-
-  const tpx=mIn?(mx/W-0.5):0, tpy=mIn?(my/H-0.5):0;
-  parx+=(tpx-parx)*0.045; pary+=(tpy-pary)*0.045;
-  const yaw=Math.sin(t*0.11)*0.12+parx*0.26;
-  const pit=Math.cos(t*0.09)*0.05-pary*0.16;
-  const cyaw=Math.cos(yaw), syaw=Math.sin(yaw), cpit=Math.cos(pit), spit=Math.sin(pit);
-
-  const N=pts.length, B=BUF;
-  B.cnt.fill(0);
-
-  // 1st pass: transform, project, bin. Depth bands rather than a true sort —
-  // O(n), and at this density the order only has to be right within a band.
-  let bestD=1e9,bestS=-1,live=0;
-  for(let i=0;i<N;i++){
-    const p=pts[i]; B.vis[i]=0;
-    // Reveal blooms OUTWARD from the middle of the strand. Sweeping from s=0
-    // meant starting off-screen left, so the hero sat visibly empty for the
-    // first second and a half of every page load.
-    if(Math.abs(p.s-0.5)>ei*0.58)continue;
-    // Hover parts the strand: lit particles are pushed straight out along the
-    // radial direction baked in at build time, so the rope opens rather than
-    // just changing colour. Uses last frame's p.hi — a frame of lag here is
-    // invisible and avoids a second projection pass.
-    const push=p.hi*0.10*p.pv;
-    const wob=Math.sin(t*0.55+p.ph)*p.am;
-    const x=p.x+p.ux*push, y=p.y+wob+p.uy*push, z=p.z+Math.cos(t*0.4+p.ph)*p.am+p.uz*push;
-    const x1=x*cyaw+z*syaw; let z1=-x*syaw+z*cyaw;
-    const y1=y*cpit-z1*spit; z1=y*spit+z1*cpit;
-    const zc=z1+2.35;
-    if(zc<0.25)continue;
-    const f=FL/zc, sx=cx+x1*f, sy=cy+y1*f;
-    if(sx<-70||sx>W+70||sy<-70||sy>H+70)continue;
-    const bl=cl(Math.abs(zc-(2.35+FOCUS))/1.95);
-    // Heavily defocused particles overlap almost totally, so drawing every
-    // other one is free visually and halves the most expensive blits.
-    if(bl>0.62&&(i&1))continue;
-    B.sx[i]=sx;B.sy[i]=sy;B.f[i]=f;B.bl[i]=bl;B.vis[i]=1;live++;
-    B.lay[i]=zc<TEXTZ?1:0;               // nearer than the type → draw over it
-    const bi=Math.min(NB-1,Math.max(0,Math.round((1-cl((zc-1.0)/2.6))*(NB-1))));
-    B.bin[i]=bi; B.cnt[bi+1]++;
-    if(mIn&&(i&3)===0){
-      const dd=(sx-mx)*(sx-mx)+(sy-my)*(sy-my);
-      if(dd<bestD){bestD=dd;bestS=p.s;}
-    }
-  }
-  for(let b=0;b<NB;b++)B.cnt[b+1]+=B.cnt[b];
-  for(let i=0;i<N;i++) if(B.vis[i]) B.ord[B.cnt[B.bin[i]]++]=i;
-  for(let b=NB;b>0;b--)B.cnt[b]=B.cnt[b-1]; B.cnt[0]=0;
-
-  // hover: lock onto a position along the strand, then ease toward it
-  const inRange=mIn&&bestD<150*150;
-  if(inRange)sHov=bestS;
-  hovAmt+=((inRange?1:0)-hovAmt)*0.12;
-  if(sHovE<0)sHovE=sHov;
-  if(sHov>=0)sHovE+=(sHov-sHovE)*0.16;
-
-  // 2nd pass: far → near
-  const hot=sHovE>=0&&hovAmt>0.01;
-  for(let k=0;k<live;k++){
-    const i=B.ord[k], p=pts[i];
-    const lay=B.lay[i], ctx=CT[lay];
-    // Particles crossing in front of the copy are held back so the headline
-    // stays readable — they read as foreground haze, not clutter.
-    // 0.42 was too harsh on a light ground — pale blue at that alpha over a
-    // near-white page is invisible, and it was swallowing most of the strand.
-    const lm=lay?0.62:1;
-    const blur=B.bl[i], li=Math.min(LV-1,Math.round(blur*(LV-1)));
-    const hi=hot?smooth(cl(1-Math.abs(p.s-sHovE)/0.105))*hovAmt:0;
-    // Asymmetric: quick to disturb, slow to recover. A symmetric ease snaps
-    // back the instant the cursor leaves and reads as a hover state; the slow
-    // return makes the strand feel like it settles back into its shape.
-    p.hi+=(hi-p.hi)*(hi>p.hi?0.17:0.042);
-    const h=p.hi;
-    const sp=SPRC[li][Math.min(RN-1,(p.s*(RN-1))|0)];
-    const size=p.sz*B.f[i]*0.0062*(1+h*0.55);
-    // Ends dissolve rather than stopping — no hard terminus, ever.
-    const ef=smooth(cl(p.s/0.12))*smooth(cl((1-p.s)/0.12));
-    const a=PAL.amb*(0.34+(1-blur)*0.56)*cl(ei*1.4)*lm*ef;
-    if(a<=0.012||size<0.16)continue;
-    const R=sp.r*(size/CORE);
-    ctx.globalAlpha=a<1?a:1;
-    ctx.drawImage(sp.c,B.sx[i]-R,B.sy[i]-R,R*2,R*2);
-    if(h>0.02){
-      const sa=SPRA[li], Ra=sa.r*(size*0.88/CORE), aa=h*0.55*PAL.amb*lm;
-      ctx.globalAlpha=aa<1?aa:1;
-      ctx.drawImage(sa.c,B.sx[i]-Ra,B.sy[i]-Ra,Ra*2,Ra*2);
-    }
-  }
-
-  // floating debris — scale cues
-  for(let i=0;i<debris.length;i++){
-    const d=debris[i], y=d.y+Math.sin(t*d.sp+d.ph)*0.09;
-    const x1=d.x*cyaw+d.z*syaw; let z1=-d.x*syaw+d.z*cyaw;
-    const y1=y*cpit-z1*spit; z1=y*spit+z1*cpit;
-    const zc=z1+2.35; if(zc<0.3)continue;
-    const f=FL/zc, sx=cx+x1*f, sy=cy+y1*f;
-    const blur=cl(Math.abs(zc-(2.35+FOCUS))/1.95);
-    const li=Math.min(LV-1,Math.round(blur*(LV-1)));
-    const sp=SPRD[li], dl=zc<TEXTZ?1:0, dc=CT[dl];
-    const R=sp.r*(d.sz*f*0.0045/CORE);
-    dc.globalAlpha=(0.26+(1-blur)*0.30)*cl(ei*1.2)*(dl?0.42:1);
-    dc.drawImage(sp.c,sx-R,sy-R,R*2,R*2);
-  }
-  ctxB.globalAlpha=1; ctxF.globalAlpha=1;
-
-  // "flo — intelligence in motion" must stay readable wherever the strand
-  // happens to be. It can't simply be raised above the foreground canvas —
-  // .hero-l has its own z-index and therefore its own stacking context, so a
-  // child can't escape it. Punch the kicker's box out of the foreground layer
-  // instead, feathered so it never reads as a rectangular hole.
-  // Cleared from BOTH layers: particles behind it don't cover the text, but
-  // pale blue behind mid-grey caps still kills the contrast and it reads as
-  // broken up. The box hugs the text (width:fit-content), so this is a small
-  // hole in the strand rather than a gap across the whole column.
-  if(kick){
-    const r=kick.getBoundingClientRect(), b=cvF.getBoundingClientRect();
-    const x=r.left-b.left-12, y=r.top-b.top-9, w=r.width+24, h=r.height+18;
-    for(const c of [ctxB,ctxF]){
-      c.save();
-      c.globalCompositeOperation='destination-out';
-      c.filter='blur(7px)';
-      c.fillStyle='#000';
-      c.fillRect(x,y,w,h);
-      c.restore();
-    }
-  }
-}
-
-// ── loop ────────────────────────────────────────────────────────────────────
-// Elapsed time accumulates only while visible, so tabbing away mid-intro
-// resumes rather than skipping. Stops entirely once the hero scrolls off.
-let raf=0,running=false;
-function frame(now){
-  el+=Math.min((now-last)/1000,0.05); last=now;
-  render(el);
-  raf=requestAnimationFrame(frame);
-}
-function start(){if(running||reduce)return;running=true;last=performance.now();raf=requestAnimationFrame(frame);}
-function stop(){running=false;cancelAnimationFrame(raf);}
-
-buildLUT(); resize(); build();
-if(reduce){ render(9); }
-else{
-  document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();});
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(es=>{es[0].isIntersecting?start():stop();},{threshold:0.01}).observe(cvB);
-  } else start();
-}
-
-// Art-direction hook — render(t) is pure, so any moment can be held still.
-window.__strandSeek=v=>{stop();render(v);};
-})();
+// HERO — the flow-field waves hero is an ES module, loaded at the foot of the
+// page: assets/hero-flowfield.js. It is skipped entirely under reduced-motion,
+// so that visitor never pays for three.js at all.
 
 
 // EMAIL — direct Beehiiv API subscription
@@ -1837,6 +1573,19 @@ Cal.config.forwardQueryParams = true;
     wrap.classList.remove('playing'); v.controls = false; v.currentTime = 0;
   });
 })();
+</script>
+<script type="module">
+  /* The flow-field hero. Imported only when motion is welcome and WebGL is
+     actually available — otherwise the static wave frame in the markup is
+     the hero, and nothing further is fetched. */
+  (function(){
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try {
+      var c = document.createElement('canvas');
+      if (!(c.getContext('webgl2') || c.getContext('webgl'))) return;
+    } catch (e) { return; }
+    import('./assets/hero-flowfield.js').catch(function(){ /* static frame stays */ });
+  })();
 </script>
 </body>
 </html>
