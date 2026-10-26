@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Websites That Book Calls for Small Business | flo</title>
+<meta name="description" content="Fast, mobile-first custom websites built to turn traffic into booked work, with booking and lead capture wired in from the start. Launch packages from $350.">
+<link rel="canonical" href="https://flointelligence.netlify.app/services/websites">
+<meta name="theme-color" content="#000d3a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="flo Intelligence in Motion">
+<meta property="og:title" content="Websites That Book Calls for Small Business | flo">
+<meta property="og:description" content="Fast, mobile-first custom websites built to turn traffic into booked work, with booking and lead capture wired in from the start. Launch packages from $350.">
+<meta property="og:url" content="https://flointelligence.netlify.app/services/websites">
+<meta property="og:image" content="https://flointelligence.netlify.app/media/flo-explainer-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@floIntelligence">
+<link rel="icon" href="../assets/flo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared.css">
+<style>
+/* Pillar page. Deliberately plain: one job, one intent, one route out.
+   The wave language opens the page so every service page lands in the same
+   navy-and-electric-blue world as the homepage hero, without paying for
+   WebGL on a page nobody came here to look at. */
+#s-hero{position:relative;overflow:hidden;
+  padding:calc(118px + env(safe-area-inset-top,0px)) max(clamp(24px,5vw,80px),env(safe-area-inset-left,0px)) clamp(44px,6vw,72px);
+  background:
+    radial-gradient(110% 80% at 82% 70%,rgba(4,106,212,.26),transparent 62%),
+    radial-gradient(80% 65% at 98% 46%,rgba(0,207,255,.11),transparent 66%),
+    linear-gradient(145deg,#000a2c 0%,#000d3a 52%,#04143f 100%);}
+#s-hero .s-waves{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.85;}
+#s-hero .wrap{position:relative;z-index:2;}
+.s-crumb{font-size:12px;color:var(--slate);margin-bottom:18px;}
+.s-crumb a{color:var(--slate);text-decoration:none;}
+.s-crumb a:hover{color:var(--cyan);}
+#s-hero h1{font-size:clamp(32px,4.6vw,60px);font-weight:300;line-height:1.05;
+  letter-spacing:-2px;color:var(--white);margin:8px 0 20px;}
+.s-sub{font-size:clamp(14px,1.4vw,17px);font-weight:300;color:var(--silver);
+  line-height:1.72;max-width:620px;}
+/* A rule, not a capsule with a glowing dot on it. Same information, without
+   announcing that a template produced it. */
+.s-price{margin-top:28px;display:block;width:fit-content;max-width:100%;
+  font-size:13px;color:var(--silver);line-height:1.6;
+  border-left:2px solid var(--accent);padding:3px 0 3px 14px;}
+.s-price a{color:var(--cyan);text-decoration:none;white-space:nowrap;}
+.s-price a:hover{text-decoration:underline;}
+#s-problem{background:var(--navy);}
+.s-prose p{font-size:clamp(14px,1.4vw,16.5px);font-weight:300;color:var(--slate);
+  line-height:1.8;max-width:680px;margin-bottom:16px;}
+.s-prose b{font-weight:600;color:var(--silver);}
+#s-build{background:linear-gradient(180deg,var(--navy) 0%,var(--dark) 100%);}
+.s-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px;}
+.s-item{background:rgba(255,255,255,0.035);border:1px solid var(--b);
+  border-radius:14px;padding:26px 24px;}
+.s-item h3{font-size:16px;font-weight:600;color:var(--white);letter-spacing:-.2px;margin-bottom:9px;}
+.s-item p{font-size:13.5px;font-weight:300;color:var(--slate);line-height:1.7;}
+#s-proof{background:var(--dark);}
+.s-proof-box{margin-top:36px;border:1px solid var(--b);border-radius:16px;
+  padding:clamp(24px,3.5vw,38px);background:rgba(255,255,255,0.03);max-width:820px;}
+.s-proof-box p{font-size:14.5px;font-weight:300;color:var(--slate);line-height:1.75;}
+.s-proof-box b{font-weight:600;color:var(--white);}
+.s-proof-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;}
+.s-proof-links a{font-size:13px;font-weight:600;color:var(--cyan);text-decoration:none;}
+.s-proof-links a:hover{text-decoration:underline;}
+#s-faq{background:var(--navy);}
+.s-faq{margin-top:40px;max-width:820px;}
+.s-q{border-bottom:1px solid var(--b);}
+.s-q summary{list-style:none;cursor:pointer;padding:22px 42px 22px 0;position:relative;
+  font-size:16px;font-weight:500;color:var(--white);}
+.s-q summary::-webkit-details-marker{display:none}
+.s-q summary::after{content:'+';position:absolute;right:8px;top:19px;
+  font-size:22px;font-weight:300;color:var(--cyan);transition:transform .2s;}
+.s-q[open] summary::after{content:'\2013';}
+.s-q p{font-size:14px;font-weight:300;color:var(--slate);line-height:1.8;padding:0 0 24px;max-width:700px;}
+#s-cta{background:var(--dark);}
+.s-cta-box{display:flex;align-items:center;justify-content:space-between;gap:28px;
+  flex-wrap:wrap;border:1px solid rgba(0,207,255,0.18);border-radius:20px;
+  padding:clamp(26px,4vw,46px);
+  background:radial-gradient(120% 140% at 100% 0%,rgba(0,207,255,.09),transparent 55%),
+             linear-gradient(135deg,rgba(20,79,202,.15),rgba(4,8,26,.2));}
+.s-cta-box h2{margin-bottom:12px;}
+.s-cta-box p{font-size:14px;font-weight:300;color:var(--slate);line-height:1.7;max-width:560px;}
+.s-intake{display:flex;align-items:flex-start;gap:10px;margin-top:18px;max-width:560px;}
+.s-intake svg{width:16px;height:16px;color:var(--cyan);flex-shrink:0;margin-top:2px;}
+.s-intake span{font-size:12.5px;color:var(--silver);line-height:1.6;}
+@media(max-width:820px){
+  .s-list{grid-template-columns:1fr;}
+  .s-cta-box{flex-direction:column;align-items:flex-start;}
+}
+/* dual-screen: keep the column on one pane rather than across the hinge */
+@media (horizontal-viewport-segments: 2),(spanning: single-fold-vertical){
+  #s-hero .wrap,.s-prose,.s-proof-box,.s-faq{
+    max-width:calc(env(viewport-segment-width 0 0,50vw) - clamp(48px,10vw,160px));}
+}
+</style>
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://flointelligence.netlify.app/services/websites#service",
+    "name": "Websites that book calls",
+    "serviceType": "Websites that book calls",
+    "url": "https://flointelligence.netlify.app/services/websites",
+    "description": "Fast, mobile-first custom websites built to turn traffic into booked work, with booking and lead capture wired in from the start. Launch packages from $350.",
+    "provider": {
+      "@type": "ProfessionalService",
+      "@id": "https://flointelligence.netlify.app/#business",
+      "name": "flo Intelligence in Motion",
+      "url": "https://flointelligence.netlify.app/"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "audience": {
+      "@type": "BusinessAudience",
+      "audienceType": "Solo operators and small teams"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "What you actually get.",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom, mobile-first design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Booking and lead capture built in"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Written to convert"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Technical SEO from day one"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Yours to keep"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://flointelligence.netlify.app/services/websites#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does a website cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Launch packages start at $350 and the full ladder is published on the pricing page, so there's no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long until it's live?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A launch package is usually days rather than months. Larger builds depend on how much content and integration is involved, and you get the timeline in writing before work starts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to write all the copy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Bring what you have and flo writes the rest from the discovery call. You approve every word before it ships."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you build in more than one language?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Claudio Vivas site ships in Spanish and English from the same build, with the language toggle in the header and both versions indexed."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://flointelligence.netlify.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://flointelligence.netlify.app/#work"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Websites that book calls",
+        "item": "https://flointelligence.netlify.app/services/websites"
+      }
+    ]
+  }
+]
+</script>
+</head>
+<body>
+
+<nav id="nav" class="glass-dark">
+  <a href="../index.html" class="logo"><img src="../assets/flo-mark.png" alt="flo" style="height:32px;width:auto;object-fit:contain;display:block;"></a>
+  <div class="nav-links">
+    <a href="lead-automation.html">Automations</a>
+    <a href="ai-admin.html">AI admin</a>
+    <a href="websites.html" aria-current="page">Websites</a>
+    <a href="dashboards.html">Dashboards</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../index.html#clients">Clients</a>
+  </div>
+  <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="lead-automation.html">Automations</a>
+  <a href="ai-admin.html">AI admin</a>
+  <a href="websites.html" aria-current="page">Websites</a>
+  <a href="dashboards.html">Dashboards</a>
+  <a href="../pricing.html">Pricing</a>
+  <a href="../index.html#clients">Clients</a>
+  <a href="../index.html">Home</a>
+  <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="mob-cta" target="_blank" rel="noopener">Book a discovery call</a>
+</div>
+
+<section id="s-hero">
+  <svg class="s-waves" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+    <g stroke-linecap="round">
+      <path d="M-120 410 C 240 398 460 280 740 242 S 1180 132 1600 -90" stroke="#0a2f7a" stroke-width="0.9" opacity="0.09"/>
+      <path d="M-120 450 C 240 438 460 320 740 282 S 1180 172 1600 -50" stroke="#154387" stroke-width="1.1" opacity="0.15"/>
+      <path d="M-120 490 C 240 478 460 360 740 322 S 1180 212 1600 -10" stroke="#205795" stroke-width="1.4" opacity="0.21"/>
+      <path d="M-120 530 C 240 518 460 400 740 362 S 1180 252 1600 30" stroke="#2b6ba3" stroke-width="1.6" opacity="0.28"/>
+      <path d="M-120 570 C 240 558 460 440 740 402 S 1180 292 1600 70" stroke="#377fb1" stroke-width="1.9" opacity="0.34"/>
+      <path d="M-120 610 C 240 598 460 480 740 442 S 1180 332 1600 110" stroke="#4293be" stroke-width="2.1" opacity="0.40"/>
+      <path d="M-120 650 C 240 638 460 520 740 482 S 1180 372 1600 150" stroke="#4da7cc" stroke-width="2.4" opacity="0.46"/>
+      <path d="M-120 690 C 240 678 460 560 740 522 S 1180 412 1600 190" stroke="#58bbda" stroke-width="2.6" opacity="0.53"/>
+      <path d="M-120 730 C 240 718 460 600 740 562 S 1180 452 1600 230" stroke="#64cfe8" stroke-width="2.9" opacity="0.59"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <nav class="s-crumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a> &nbsp;&rsaquo;&nbsp;
+      <a href="../index.html#work">Services</a> &nbsp;&rsaquo;&nbsp;
+      <span>Websites that book calls</span>
+    </nav>
+    <p class="ey">Service &middot; Web</p>
+    <h1>Websites that book calls.</h1>
+    <p class="s-sub">A site is not a brochure. It is the thing standing between somebody who is ready to hire you and the moment they actually do. flo builds the short path between the two.</p>
+    <span class="s-price">Website launch packages start at $350. <a href="../pricing.html">See the full ladder &rarr;</a></span>
+  </div>
+</section>
+
+<section id="s-problem" class="sec">
+  <div class="wrap">
+    <p class="ey rv">The dead end</p>
+    <h2 class="rv">Most small-business sites stop at hello.</h2>
+    <div class="s-prose rv">
+      <p>They look fine. They load slowly on a phone, which is where nearly everyone sees them. They say what the business does and then stop, with no booking, no form, and nothing to do next but find an email address and hope.</p>
+      <p>Then there's the other failure: a template so generic that it makes a genuinely good operator look interchangeable with every other result on the page.</p>
+      <p>A site earns its keep when somebody lands on it and books. Everything else is decoration.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s-build" class="sec">
+  <div class="wrap">
+    <p class="ey rv">The build</p>
+    <h2 class="rv">What you actually get.</h2>
+    <div class="s-list">
+      <div class="s-item rv"><h3>Custom, mobile-first design</h3><p>Designed at phone width first, because that's where the traffic is. Fast on a real connection, not just on a fibre line in a demo.</p></div>
+      <div class="s-item rv"><h3>Booking and lead capture built in</h3><p>Your calendar on the page. Intake questions asked up front, so the first conversation starts with context.</p></div>
+      <div class="s-item rv"><h3>Written to convert</h3><p>Copy that says what you do, who it's for and what happens next, in your voice rather than in agency filler.</p></div>
+      <div class="s-item rv"><h3>Technical SEO from day one</h3><p>Unique titles and descriptions, schema markup, a clean sitemap and real page speed. Built in rather than sold back to you later.</p></div>
+      <div class="s-item rv"><h3>Yours to keep</h3><p>You own the site and the source. Hand-over includes how to update it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="s-proof" class="sec">
+  <div class="wrap">
+    <p class="ey rv">Go and look</p>
+    <h2 class="rv">Three sites, all live.</h2>
+    <div class="s-proof-box rv">
+      <p><b>Icon Barbershop</b>, <b>Cameron Johnson</b> and <b>Claudio Alejandro Vivas</b> are all public. Visit them, open them on your phone, and judge the load time yourself, which is rather the point of publishing them instead of describing them. The Vivas site runs fully bilingual in Spanish and English for an audience of clubs and federations across two continents.</p>
+      <div class="s-proof-links">
+        <a href="https://iconbarbershop.netlify.app" target="_blank" rel="noopener">Icon Barbershop &rarr;</a>
+        <a href="https://camjohnson.netlify.app" target="_blank" rel="noopener">Cameron Johnson &rarr;</a>
+        <a href="https://claudiovivas.netlify.app" target="_blank" rel="noopener">Claudio Alejandro Vivas &rarr;</a>
+        <a href="../index.html#clients">See all client work &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s-faq" class="sec">
+  <div class="wrap">
+    <p class="ey rv">Before you ask</p>
+    <h2 class="rv">Cost, timing, ownership.</h2>
+    <div class="s-faq">
+      <details class="s-q rv"><summary>What does a website cost?</summary><p>Launch packages start at $350 and the full ladder is published on the pricing page, so there's no quote-to-find-out. Bigger builds with automation or AI wired in are scoped on the call and sent as one fixed number.</p></details>
+      <details class="s-q rv"><summary>How long until it's live?</summary><p>A launch package is usually days rather than months. Larger builds depend on how much content and integration is involved, and you get the timeline in writing before work starts.</p></details>
+      <details class="s-q rv"><summary>Do I need to write all the copy?</summary><p>No. Bring what you have and flo writes the rest from the discovery call. You approve every word before it ships.</p></details>
+      <details class="s-q rv"><summary>Can you build in more than one language?</summary><p>Yes. The Claudio Vivas site ships in Spanish and English from the same build, with the language toggle in the header and both versions indexed.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="s-cta" class="sec">
+  <div class="wrap">
+    <div class="s-cta-box rv">
+      <div>
+        <h2>Show me the site you've got.</h2>
+        <p>Thirty minutes on where your time and money actually go. You leave with a plan whether or not we work together. That part is free, and it is not a pitch.</p>
+        <div class="s-intake">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Booking asks a few intake questions first, so the call starts with context instead of a blank page.</span>
+        </div>
+      </div>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" class="btn-p" target="_blank" rel="noopener">Book a discovery call &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div>
+      <img src="../assets/flo-mark.png" alt="flo" style="height:32px;width:auto;object-fit:contain;display:block;margin-bottom:6px;">
+      <div class="ftagline">Intelligence in Motion</div>
+    </div>
+    <div class="flinks">
+      <a href="lead-automation.html">Lead &amp; calendar automation</a>
+      <a href="ai-admin.html">AI for admin work</a>
+      <a href="websites.html">Websites</a>
+      <a href="dashboards.html">Dashboards</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../index.html#clients">Clients</a>
+      <a href="../index.html#insights">Insights</a>
+      <a href="https://cal.com/flo-intelligence-6v0495/flointelligence30" target="_blank" rel="noopener">Book a call</a>
+      <a href="mailto:hello.flo.finance@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="fcopy">
+    <span>&copy; 2026 flo Intelligence in Motion. All rights reserved.</span>
+    <span>hello.flo.finance@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mob-menu').classList.toggle('open');}
+function closeMenu(){document.getElementById('mob-menu').classList.remove('open');}
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}
+});},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
